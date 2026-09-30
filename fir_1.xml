@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<instance entity-name="altera_fir_compiler_ii" version="17.1" >
+<generic name="filterType" value="single" />
+<generic name="interpFactor" value="1" />
+<generic name="decimFactor" value="1" />
+<generic name="symmetryMode" value="sym" />
+<generic name="L_bandsFilter" value="1" />
+<generic name="inputChannelNum" value="2" />
+<generic name="clockRate" value="50" />
+<generic name="clockSlack" value="0" />
+<generic name="inputRate" value="25" />
+<generic name="coeffReload" value="false" />
+<generic name="baseAddress" value="0" />
+<generic name="readWriteMode" value="read_write" />
+<generic name="backPressure" value="false" />
+<generic name="deviceFamily" value="Cyclone V" />
+<generic name="speedGrade" value="medium" />
+<generic name="delayRAMBlockThreshold" value="20" />
+<generic name="dualMemDistRAMThreshold" value="1280" />
+<generic name="mRAMThreshold" value="1000000" />
+<generic name="hardMultiplierThreshold" value="-1" />
+<generic name="reconfigurable" value="false" />
+<generic name="num_modes" value="2" />
+<generic name="reconfigurable_list" value="0" />
+<generic name="MODE_STRING" value="None Set" />
+<generic name="channelModes" value="0,1,2,3" />
+<generic name="inputType" value="int" />
+<generic name="inputBitWidth" value="16" />
+<generic name="inputFracBitWidth" value="0" />
+<generic name="coeffSetRealValue" value="-2.989147E-4,0.0020517883,0.0043141333,0.004146278,1.505466E-4,-0.0062933804,-0.0108908385,-0.0088244344,0.0013751817,0.0151559809,0.0230902155,0.0163018941,-0.0064905659,-0.0349410533,-0.0497467431,-0.0319733532,0.0254672003,0.1109095193,0.1965016913,0.249994854,0.249994854,0.1965016913,0.1109095193,0.0254672003,-0.0319733532,-0.0497467431,-0.0349410533,-0.0064905659,0.0163018941,0.0230902155,0.0151559809,0.0013751817,-0.0088244344,-0.0108908385,-0.0062933804,1.505466E-4,0.004146278,0.0043141333,0.0020517883,-2.989147E-4" />
+<generic name="coeffSetRealValueImag" value="0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0530093, -0.04498, 0.0, 0.0749693, 0.159034, 0.224907, 0.249809, 0.224907, 0.159034, 0.0749693, 0.0, -0.04498, -0.0530093, -0.0321283, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0" />
+<generic name="coeffScaling" value="auto" />
+<generic name="coeffType" value="int" />
+<generic name="coeffBitWidth" value="19" />
+<generic name="coeffFracBitWidth" value="0" />
+<generic name="coeffComplex" value="false" />
+<generic name="karatsuba" value="false" />
+<generic name="outType" value="int" />
+<generic name="outMSBRound" value="trunc" />
+<generic name="outMsbBitRem" value="5" />
+<generic name="outLSBRound" value="trunc" />
+<generic name="outLsbBitRem" value="20" />
+<generic name="bankCount" value="1" />
+<generic name="bankDisplay" value="0" />
+</instance>

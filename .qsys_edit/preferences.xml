@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <debug showDebugMenu="0" />
+ <systemtable filter="All Interfaces">
+  <columns>
+   <connections preferredWidth="159" />
+   <irq preferredWidth="47" />
+   <name preferredWidth="330" />
+  </columns>
+ </systemtable>
+ <library expandedCategories="Project/binwan,Library,Project" />
+ <window width="1936" height="1056" x="1" y="-1088" />
+ <hdlexample language="VERILOG" />
+</preferences>

@@ -1,0 +1,68 @@
+
+// 模块: MBL600_encoder_read_DTC
+// Type    : synthesizable
+// Standard: SystemVerilog 2005 (IEEE1800-2005)
+// 功能    : MBL600 Incremental Rotary Encoder read DTC
+
+module MBL600_encoder #(
+	parameter   DTC_MIN	= 7'd20,
+	parameter   DTC_MAX	= 7'd127
+) (
+	input  wire 								clk,
+	input  wire 								a,
+//	input  wire 								a_inv,
+	input  wire 								b,
+//	input  wire 								b_inv,
+	output wire  		[6:0] 			 	DTC_wire
+);
+
+localparam	DTC_DEFAULT	= 7'd0;
+localparam N = 25; // e.g. 50 MHz, 25 taps, 500ns filter time
+
+assign DTC_wire = dtc[9:3];
+
+reg [9:0] 	dtc = {DTC_DEFAULT, 3'b0};
+reg [N-1:0] shift_reg_a = '0;
+reg [N-1:0] shift_reg_b = '0;
+wire 			a_filtered;
+wire 			b_filtered;
+wire			a_differential;
+wire			b_differential;
+
+//always @(posedge clk) a_differential <= (a ^ a_inv) & a;
+//always @(posedge clk) b_differential <= (b ^ b_inv) & b;
+
+always @(posedge clk) begin
+  // shift register for inputs.
+  shift_reg_a <= {shift_reg_a[N-2:0], a};
+  shift_reg_b <= {shift_reg_b[N-2:0], b};
+  // set/reset flip-flop
+  if      (&shift_reg_a)  a_filtered <= 1'b1;  // all one's condition on shift_reg, & is reduction AND
+  else if (~|shift_reg_a) a_filtered <= 1'b0;  // all zero's condition on shift_reg, ~| is a reduction NOR
+  if      (&shift_reg_b)  b_filtered <= 1'b1;  // all one's condition on shift_reg, & is reduction AND
+  else if (~|shift_reg_b) b_filtered <= 1'b0;  // all zero's condition on shift_reg, ~| is a reduction NOR
+end
+
+
+reg a_delayed 			  = '0;
+reg b_delayed 			  = '0;
+
+always @(posedge clk) a_delayed <= a_filtered;
+always @(posedge clk) b_delayed <= b_filtered;
+
+wire count_enable = a_filtered ^ a_delayed ^ b_filtered ^ b_delayed;
+wire count_direction = a_filtered ^ b_delayed;
+
+
+always @ (posedge clk)
+begin
+	if (count_enable) begin
+		if (count_direction) begin
+			if (dtc < {DTC_MAX, 3'b0}) dtc <= dtc + 1'b1;
+		end else begin
+			if (dtc > {DTC_MIN, 3'b0}) dtc <= dtc - 1'b1;
+		end
+	end
+end
+
+endmodule

@@ -1,0 +1,101 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\project\motor_main\soc_system.qsys --block-symbol-file --output-directory=C:\project\motor_main\soc_system --family="Cyclone V" --part=5CSEBA2U19I7
+Progress: Loading motor_main/soc_system.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 17.1]
+Progress: Parameterizing module clk_0
+Progress: Adding dma_sdram_0 [dma_sdram 1.0]
+Progress: Parameterizing module dma_sdram_0
+Progress: Adding hps_0 [altera_hps 17.1]
+Progress: Parameterizing module hps_0
+Progress: Adding register_file [new_component 1.0]
+Progress: Parameterizing module register_file
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: soc_system.hps_0: HLGPI is not available for Device 5CSEBA2U19I7 (484 pins)
+Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 47
+Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\project\motor_main\soc_system.qsys --synthesis=VERILOG --output-directory=C:\project\motor_main\soc_system\synthesis --family="Cyclone V" --part=5CSEBA2U19I7
+Progress: Loading motor_main/soc_system.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 17.1]
+Progress: Parameterizing module clk_0
+Progress: Adding dma_sdram_0 [dma_sdram 1.0]
+Progress: Parameterizing module dma_sdram_0
+Progress: Adding hps_0 [altera_hps 17.1]
+Progress: Parameterizing module hps_0
+Progress: Adding register_file [new_component 1.0]
+Progress: Parameterizing module register_file
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: soc_system.hps_0: HLGPI is not available for Device 5CSEBA2U19I7 (484 pins)
+Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 47
+Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Info: soc_system: Generating soc_system "soc_system" for QUARTUS_SYNTH
+Info: Interconnect is inserted between master dma_sdram_0.data_port and slave hps_0.f2h_axi_slave because the master is of type avalon and the slave is of type axi.
+Warning: hps_0.f2h_irq0: Cannot connect clock for irq_mapper.sender
+Warning: hps_0.f2h_irq0: Cannot connect reset for irq_mapper.sender
+Warning: hps_0.f2h_irq1: Cannot connect clock for irq_mapper_001.sender
+Warning: hps_0.f2h_irq1: Cannot connect reset for irq_mapper_001.sender
+Info: dma_sdram_0: "soc_system" instantiated dma_sdram "dma_sdram_0"
+Info: hps_0: "Running  for module: hps_0"
+Info: hps_0: HLGPI is not available for Device 5CSEBA2U19I7 (484 pins)
+Info: hps_0: HPS Main PLL counter settings: n = 0  m = 47
+Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
+Info: register_file: "soc_system" instantiated new_component "register_file"
+Info: mm_interconnect_0: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_1: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_1"
+Info: irq_mapper: "soc_system" instantiated altera_irq_mapper "irq_mapper"
+Info: rst_controller: "soc_system" instantiated altera_reset_controller "rst_controller"
+Info: fpga_interfaces: "hps_0" instantiated altera_interface_generator "fpga_interfaces"
+Info: hps_io: "hps_0" instantiated altera_hps_io "hps_io"
+Info: dma_sdram_0_data_port_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "dma_sdram_0_data_port_translator"
+Info: dma_sdram_0_data_port_agent: "mm_interconnect_0" instantiated altera_merlin_master_agent "dma_sdram_0_data_port_agent"
+Info: hps_0_f2h_axi_slave_agent: "mm_interconnect_0" instantiated altera_merlin_axi_slave_ni "hps_0_f2h_axi_slave_agent"
+Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_001"
+Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/project/motor_main/soc_system/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: hps_0_f2h_axi_slave_wr_cmd_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "hps_0_f2h_axi_slave_wr_cmd_width_adapter"
+Info: Reusing file C:/project/motor_main/soc_system/synthesis/submodules/altera_merlin_address_alignment.sv
+Info: Reusing file C:/project/motor_main/soc_system/synthesis/submodules/altera_merlin_burst_uncompressor.sv
+Info: register_file_as_translator: "mm_interconnect_1" instantiated altera_merlin_slave_translator "register_file_as_translator"
+Info: hps_0_h2f_lw_axi_master_agent: "mm_interconnect_1" instantiated altera_merlin_axi_master_ni "hps_0_h2f_lw_axi_master_agent"
+Info: Reusing file C:/project/motor_main/soc_system/synthesis/submodules/altera_merlin_address_alignment.sv
+Info: register_file_as_agent: "mm_interconnect_1" instantiated altera_merlin_slave_agent "register_file_as_agent"
+Info: Reusing file C:/project/motor_main/soc_system/synthesis/submodules/altera_merlin_burst_uncompressor.sv
+Info: register_file_as_agent_rsp_fifo: "mm_interconnect_1" instantiated altera_avalon_sc_fifo "register_file_as_agent_rsp_fifo"
+Info: Reusing file C:/project/motor_main/soc_system/synthesis/submodules/altera_avalon_sc_fifo.v
+Info: router: "mm_interconnect_1" instantiated altera_merlin_router "router"
+Info: router_002: "mm_interconnect_1" instantiated altera_merlin_router "router_002"
+Info: hps_0_h2f_lw_axi_master_wr_limiter: "mm_interconnect_1" instantiated altera_merlin_traffic_limiter "hps_0_h2f_lw_axi_master_wr_limiter"
+Info: Reusing file C:/project/motor_main/soc_system/synthesis/submodules/altera_avalon_sc_fifo.v
+Info: register_file_as_burst_adapter: "mm_interconnect_1" instantiated altera_merlin_burst_adapter "register_file_as_burst_adapter"
+Info: Reusing file C:/project/motor_main/soc_system/synthesis/submodules/altera_merlin_address_alignment.sv
+Info: Reusing file C:/project/motor_main/soc_system/synthesis/submodules/altera_avalon_st_pipeline_base.v
+Info: cmd_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: Reusing file C:/project/motor_main/soc_system/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/project/motor_main/soc_system/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: avalon_st_adapter: "mm_interconnect_1" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: border: "hps_io" instantiated altera_interface_generator "border"
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: soc_system: Done "soc_system" with 35 modules, 96 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis

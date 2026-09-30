@@ -1,0 +1,28 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\project\motor_axi_me\axi_dma.qsys --block-symbol-file --output-directory=C:\project\motor_axi_me\axi_dma --family="Cyclone V" --part=5CSEBA2U19I7
+Progress: Loading motor_axi_me/axi_dma.qsys
+Progress: Reading input file
+Progress: Adding master_template_0 [master_template 1.0]
+Progress: Parameterizing module master_template_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\project\motor_axi_me\axi_dma.qsys --synthesis=VERILOG --output-directory=C:\project\motor_axi_me\axi_dma\synthesis --family="Cyclone V" --part=5CSEBA2U19I7
+Progress: Loading motor_axi_me/axi_dma.qsys
+Progress: Reading input file
+Progress: Adding master_template_0 [master_template 1.0]
+Progress: Parameterizing module master_template_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: axi_dma: Generating axi_dma "axi_dma" for QUARTUS_SYNTH
+Info: master_template_0: "axi_dma" instantiated master_template "master_template_0"
+Info: axi_dma: Done "axi_dma" with 2 modules, 6 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis

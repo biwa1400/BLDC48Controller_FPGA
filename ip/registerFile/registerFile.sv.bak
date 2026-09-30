@@ -1,0 +1,105 @@
+/*
+=========================================================================
+SDRAM DMA Control Interface - Register Map
+=========================================================================
+Address  | Name                  | Type   | Width | Description
+---------|----------------------|--------|-------|------------------------------------------
+0x0      | SEGMENT_MAX_OFFSET    | RW     | 32    | Maximum number of segments to transfer.
+         |                      |        |       | Writing sets the max transfer count.
+---------|----------------------|--------|-------|------------------------------------------
+0x1      | SEGMENT_BASE_ADDRESS | RW     | 32    | Base address in SDRAM for DMA write.
+         |                      |        |       | Writing also triggers the 'init' signal.
+---------|----------------------|--------|-------|------------------------------------------
+0x2      | SEGMENT_OFFSET       | RO     | 32    | Current segment offset, updated by DMA.
+---------|----------------------|--------|-------|------------------------------------------
+0x3      | Reserved             | RO     | 32    | Reserved for future use.
+=========================================================================
+Notes:
+- RW: Read/Write, RO: Read-Only
+- Writing to 0x1 will assert 'init' signal to start the DMA process.
+- The 'segment_offset' can be read back to monitor DMA progress.
+=========================================================================
+*/
+
+
+
+module sdram_dma_control_if (
+    // Clock & Reset
+    input  logic        clk,
+    input  logic        rst_n,
+
+    // AXI Slave Interface
+    input  logic        chipselect,
+    input  logic [1:0]  as_address,
+    input  logic        as_write,
+    input  logic [31:0] as_writedata,
+    input  logic        as_read,
+    output reg [31:0]   as_readdata,
+
+    // Control & Input
+    output reg [31:0]   segment_base_address,
+    output reg [31:0]   segment_max_offset,
+    input  logic [31:0] segment_offset,
+    output logic        init,
+	 output logic        continuous_buffer_mode_en,
+	 input  logic        continuous_buffer_done
+);
+
+    // ===================================
+    // segment_max_offset register
+    // ===================================
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            segment_max_offset <= 32'd0;
+        else if (chipselect && as_write && as_address == 2'd0)
+            segment_max_offset <= as_writedata;
+    end
+
+    // ===================================
+    // segment_base_address & init
+    // ===================================
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            segment_base_address <= 32'd0;
+            init                 <= 1'b0;
+        end else if (chipselect && as_write && as_address == 2'd1) begin
+            segment_base_address <= as_writedata;
+            init                 <= 1'b1;  // stays high until next write
+        end
+    end
+	 
+	 
+	 // ===================================
+    // continuous_buffer_mode_en
+    // ===================================
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            continuous_buffer_mode_en <= 1'b0;
+        else if (chipselect && as_write && as_address == 2'd3)
+            continuous_buffer_mode_en <= as_writedata[0];
+		  else
+				continuous_buffer_mode_en <= 1'b0;
+    end
+	 
+
+	 
+	 
+
+    // ===================================
+    // Readback logic
+    // ===================================
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            as_readdata <= 32'd0;
+        else if (chipselect && as_read) begin
+            case (as_address)
+                2'd0: as_readdata <= segment_max_offset;
+                2'd1: as_readdata <= segment_base_address;
+                2'd2: as_readdata <= segment_offset;
+					 2'd3: as_readdata <= {31'b0, continuous_buffer_done};
+                default: as_readdata <= 32'd0;
+            endcase
+        end
+    end
+
+endmodule

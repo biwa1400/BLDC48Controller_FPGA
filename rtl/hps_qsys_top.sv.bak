@@ -1,0 +1,120 @@
+// ============================================================
+// Module: hps_qsys_top
+// Purpose: Encapsulates Qsys (Platform Designer) system with HPS
+// ============================================================
+
+module hps_qsys_top (
+    input  logic        clk_50M,
+    output logic        hps_0_h2f_reset_n,
+
+    // SDIO interface
+    inout  wire         hps_sdio_CMD,
+    inout  wire         hps_sdio_D0,
+    inout  wire         hps_sdio_D1,
+    output logic        hps_sdio_CLK,
+    inout  wire         hps_sdio_D2,
+    inout  wire         hps_sdio_D3,
+
+    // USB1 ULPI interface
+    inout  wire         hps_usb1_D0,
+    inout  wire         hps_usb1_D1,
+    inout  wire         hps_usb1_D2,
+    inout  wire         hps_usb1_D3,
+    inout  wire         hps_usb1_D4,
+    inout  wire         hps_usb1_D5,
+    inout  wire         hps_usb1_D6,
+    inout  wire         hps_usb1_D7,
+    input  wire         hps_usb1_CLK,
+    output logic        hps_usb1_STP,
+    input  wire         hps_usb1_DIR,
+    input  wire         hps_usb1_NXT,
+
+    // UART0 interface
+    input  wire         hps_uart0_RX,
+    output logic        hps_uart0_TX,
+
+    // DDR3 interface
+    output logic [14:0] memory_mem_a,
+    output logic [2:0]  memory_mem_ba,
+    output logic        memory_mem_ck,
+    output logic        memory_mem_ck_n,
+    output logic        memory_mem_cke,
+    output logic        memory_mem_cs_n,
+    output logic        memory_mem_ras_n,
+    output logic        memory_mem_cas_n,
+    output logic        memory_mem_we_n,
+    output logic        memory_mem_reset_n,
+    inout  wire  [31:0] memory_mem_dq,
+    inout  wire  [3:0]  memory_mem_dqs,
+    inout  wire  [3:0]  memory_mem_dqs_n,
+    output logic        memory_mem_odt,
+    output logic [3:0]  memory_mem_dm,
+    input  wire         memory_oct_rzqin,
+
+    // Loan IOs
+    inout  wire         usb3300_clk_24MHz,
+    output logic [66:0] hps_0_h2f_loan_io_out,
+    output logic [66:0] hps_0_h2f_loan_io_oe,
+    input  wire  [66:0] hps_0_h2f_loan_io_in,
+
+    // DMA data bus
+    output logic [8*52-1:0] dma_sdram_0_registers_bytes
+);
+
+    // instantiate Qsys system
+    soc_system u0 (
+        .clk_clk                           (clk_50M),
+        .reset_reset_n                     (1'b1),
+        .hps_0_h2f_reset_reset_n           (hps_0_h2f_reset_n),
+
+        // HPS interfaces
+        .hps_0_hps_io_hps_io_sdio_inst_CMD (hps_sdio_CMD),
+        .hps_0_hps_io_hps_io_sdio_inst_D0  (hps_sdio_D0),
+        .hps_0_hps_io_hps_io_sdio_inst_D1  (hps_sdio_D1),
+        .hps_0_hps_io_hps_io_sdio_inst_CLK (hps_sdio_CLK),
+        .hps_0_hps_io_hps_io_sdio_inst_D2  (hps_sdio_D2),
+        .hps_0_hps_io_hps_io_sdio_inst_D3  (hps_sdio_D3),
+
+        .hps_0_hps_io_hps_io_usb1_inst_D0  (hps_usb1_D0),
+        .hps_0_hps_io_hps_io_usb1_inst_D1  (hps_usb1_D1),
+        .hps_0_hps_io_hps_io_usb1_inst_D2  (hps_usb1_D2),
+        .hps_0_hps_io_hps_io_usb1_inst_D3  (hps_usb1_D3),
+        .hps_0_hps_io_hps_io_usb1_inst_D4  (hps_usb1_D4),
+        .hps_0_hps_io_hps_io_usb1_inst_D5  (hps_usb1_D5),
+        .hps_0_hps_io_hps_io_usb1_inst_D6  (hps_usb1_D6),
+        .hps_0_hps_io_hps_io_usb1_inst_D7  (hps_usb1_D7),
+        .hps_0_hps_io_hps_io_usb1_inst_CLK (hps_usb1_CLK),
+        .hps_0_hps_io_hps_io_usb1_inst_STP (hps_usb1_STP),
+        .hps_0_hps_io_hps_io_usb1_inst_DIR (hps_usb1_DIR),
+        .hps_0_hps_io_hps_io_usb1_inst_NXT (hps_usb1_NXT),
+
+        .hps_0_hps_io_hps_io_uart0_inst_RX (hps_uart0_RX),
+        .hps_0_hps_io_hps_io_uart0_inst_TX (hps_uart0_TX),
+
+        .hps_0_h2f_loan_io_in              (hps_0_h2f_loan_io_in),
+        .hps_0_h2f_loan_io_out             (hps_0_h2f_loan_io_out),
+        .hps_0_h2f_loan_io_oe              (hps_0_h2f_loan_io_oe),
+        .hps_0_hps_io_hps_io_gpio_inst_LOANIO25(usb3300_clk_24MHz),
+
+        // DDR3 interface
+        .memory_mem_a      (memory_mem_a),
+        .memory_mem_ba     (memory_mem_ba),
+        .memory_mem_ck     (memory_mem_ck),
+        .memory_mem_ck_n   (memory_mem_ck_n),
+        .memory_mem_cke    (memory_mem_cke),
+        .memory_mem_cs_n   (memory_mem_cs_n),
+        .memory_mem_ras_n  (memory_mem_ras_n),
+        .memory_mem_cas_n  (memory_mem_cas_n),
+        .memory_mem_we_n   (memory_mem_we_n),
+        .memory_mem_reset_n(memory_mem_reset_n),
+        .memory_mem_dq     (memory_mem_dq),
+        .memory_mem_dqs    (memory_mem_dqs),
+        .memory_mem_dqs_n  (memory_mem_dqs_n),
+        .memory_mem_odt    (memory_mem_odt),
+        .memory_mem_dm     (memory_mem_dm),
+        .memory_oct_rzqin  (memory_oct_rzqin),
+
+        .dma_sdram_0_registers_bytes       (dma_sdram_0_registers_bytes)
+    );
+
+endmodule

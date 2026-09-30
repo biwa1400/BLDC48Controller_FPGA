@@ -1,0 +1,17 @@
+module gnrl_dff #(
+    parameter int unsigned DW = 1
+)(
+    input  logic           clk,
+    input  logic           rst_n,
+    input  logic [DW-1:0]  d,
+    output logic [DW-1:0]  q
+);
+
+    always_ff @(posedge clk) begin
+        if (!rst_n)
+            q <= '0;
+        else
+            q <= d;
+    end
+
+endmodule

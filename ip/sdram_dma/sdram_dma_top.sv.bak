@@ -1,0 +1,106 @@
+module sdram_dma_top (
+    // Clock & Reset
+    input  logic        clk,
+    input  logic        rst_n,
+
+    // AXI Master Interface
+    output logic [31:0] master_address,
+    output logic        master_write,
+    output logic [3:0]  master_byteenable,
+    output logic [31:0] master_writedata,
+    output logic [4:0]  master_burstcount,
+    input  logic        master_waitrequest,
+
+    // AXI Register Interface (CPU accessible)
+    input  logic        chipselect,
+    input  logic [1:0]  as_address,
+    input  logic        as_write,
+    input  logic [31:0] as_writedata,
+    input  logic        as_read,
+    output logic [31:0] as_readdata,
+
+    // Data input
+    input  logic [7:0]  input_array [0:51]
+);
+
+    // =========================
+    // Internal signals
+    // =========================
+    logic [31:0] segment_base_address;
+    logic [31:0] segment_max_offset;
+    logic [31:0] segment_offset;
+    logic        init;
+    logic        pulse;            // Pulse from clock divider
+    logic        sample_enable;
+    logic        sample_req;       // Latch for pulse request
+    logic        busy;
+
+    // =========================
+    // Instance of control interface
+    // =========================
+    sdram_dma_control_if u_control_if (
+        .clk                 (clk),
+        .rst_n               (rst_n),
+        .chipselect          (chipselect),
+        .as_address          (as_address),
+        .as_write            (as_write),
+        .as_writedata        (as_writedata),
+        .as_read             (as_read),
+        .as_readdata         (as_readdata),
+        .segment_base_address(segment_base_address),
+        .segment_max_offset  (segment_max_offset),
+        .segment_offset      (segment_offset),
+        .init                (init)
+    );
+
+    // =========================
+    // Clock divider pulse generator
+    // =========================
+    clk_div_pulse #(
+        .DIV_FACTOR(8)   // Example: divide by 8
+    ) u_clk_div_pulse (
+        .clk   (clk),
+        .rst_n (rst_n),
+        .pulse (pulse)
+    );
+
+    // =========================
+    // Pulse latch to handle busy
+    // Generate sample_enable when DMA is ready
+    // =========================
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            sample_req <= 1'b0;
+        else begin
+            if (pulse)
+                sample_req <= 1'b1;         // Latch pulse
+            else if (~busy)
+                sample_req <= 1'b0;         // Clear latch when DMA is idle
+        end
+    end
+
+    // Generate sample_enable from pulse latch and busy
+    assign sample_enable = sample_req & ~busy;
+
+    // =========================
+    // Instance of SDRAM AXI DMA
+    // =========================
+    sdram_axi_dma u_sdram_axi_dma (
+        .clk                 (clk),
+        .rst_n               (rst_n),
+        .master_address      (master_address),
+        .master_write        (master_write),
+        .master_byteenable   (master_byteenable),
+        .master_writedata    (master_writedata),
+        .master_burstcount   (master_burstcount),
+        .master_waitrequest  (master_waitrequest),
+        .input_array         (input_array),
+        .sample_enable       (sample_enable),
+        .segment_base_address(segment_base_address),
+        .segment_max_offset  (segment_max_offset),
+        .segment_offset      (segment_offset),
+        .busy                (busy),
+        .init                (init)
+    );
+
+endmodule

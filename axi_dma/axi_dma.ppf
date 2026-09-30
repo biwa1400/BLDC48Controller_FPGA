@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pinplan
+ variation_name="master_template_0"
+ megafunction_name="MASTER_TEMPLATE"
+ intended_family="Cyclone V"
+ specifies="all_ports">
+ <global>
+  <pin name="clk" direction="input" scope="external" />
+  <pin name="reset" direction="input" scope="external" />
+  <pin name="master_address[31..0]" direction="output" scope="external" />
+  <pin name="master_write" direction="output" scope="external" />
+  <pin name="master_byteenable[3..0]" direction="output" scope="external" />
+  <pin name="master_writedata[31..0]" direction="output" scope="external" />
+  <pin name="master_burstcount[5..0]" direction="output" scope="external" />
+  <pin name="master_waitrequest" direction="input" scope="external" />
+  <pin name="control_fixed_location" direction="input" scope="external" />
+  <pin name="control_write_base[31..0]" direction="input" scope="external" />
+  <pin name="control_write_length[31..0]" direction="input" scope="external" />
+  <pin name="control_go" direction="input" scope="external" />
+  <pin name="control_done" direction="output" scope="external" />
+  <pin name="user_write_buffer" direction="input" scope="external" />
+  <pin
+     name="user_buffer_input_data[31..0]"
+     direction="input"
+     scope="external" />
+  <pin name="user_buffer_full" direction="output" scope="external" />
+ </global>
+</pinplan>

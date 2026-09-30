@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="$${FILENAME}">
+ <component
+   name="$${FILENAME}"
+   displayName="$${FILENAME}"
+   version="1.0"
+   description=""
+   tags="INTERNAL_COMPONENT=true"
+   categories="" />
+ <parameter name="bonusData"><![CDATA[bonusData 
+{
+   element master_template_0
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+}
+]]></parameter>
+ <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
+ <parameter name="device" value="5CSEBA2U19I7" />
+ <parameter name="deviceFamily" value="Cyclone V" />
+ <parameter name="deviceSpeedGrade" value="7" />
+ <parameter name="fabricMode" value="QSYS" />
+ <parameter name="generateLegacySim" value="false" />
+ <parameter name="generationId" value="0" />
+ <parameter name="globalResetBus" value="false" />
+ <parameter name="hdlLanguage" value="VERILOG" />
+ <parameter name="hideFromIPCatalog" value="true" />
+ <parameter name="lockedInterfaceDefinition" value="" />
+ <parameter name="maxAdditionalLatency" value="1" />
+ <parameter name="projectName" value="" />
+ <parameter name="sopcBorderPoints" value="false" />
+ <parameter name="systemHash" value="0" />
+ <parameter name="testBenchDutName" value="" />
+ <parameter name="timeStamp" value="0" />
+ <parameter name="useTestBenchNamingPattern" value="false" />
+ <instanceScript></instanceScript>
+ <interface
+   name="avalon_master"
+   internal="master_template_0.avalon_master"
+   type="avalon"
+   dir="start">
+  <port name="master_address" internal="master_address" />
+  <port name="master_write" internal="master_write" />
+  <port name="master_byteenable" internal="master_byteenable" />
+  <port name="master_writedata" internal="master_writedata" />
+  <port name="master_burstcount" internal="master_burstcount" />
+  <port name="master_waitrequest" internal="master_waitrequest" />
+ </interface>
+ <interface
+   name="clock_reset"
+   internal="master_template_0.clock_reset"
+   type="clock"
+   dir="end">
+  <port name="clk" internal="clk" />
+ </interface>
+ <interface
+   name="clock_reset_reset"
+   internal="master_template_0.clock_reset_reset"
+   type="reset"
+   dir="end">
+  <port name="reset" internal="reset" />
+ </interface>
+ <interface
+   name="control"
+   internal="master_template_0.control"
+   type="conduit"
+   dir="end">
+  <port name="control_fixed_location" internal="control_fixed_location" />
+  <port name="control_write_base" internal="control_write_base" />
+  <port name="control_write_length" internal="control_write_length" />
+  <port name="control_go" internal="control_go" />
+  <port name="control_done" internal="control_done" />
+ </interface>
+ <interface
+   name="user"
+   internal="master_template_0.user"
+   type="conduit"
+   dir="end">
+  <port name="user_write_buffer" internal="user_write_buffer" />
+  <port name="user_buffer_input_data" internal="user_buffer_input_data" />
+  <port name="user_buffer_full" internal="user_buffer_full" />
+ </interface>
+ <module
+   name="master_template_0"
+   kind="master_template"
+   version="1.0"
+   enabled="1"
+   autoexport="1">
+  <parameter name="ADDRESS_WIDTH" value="32" />
+  <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="0" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+  <parameter name="BURST_CAPABLE" value="1" />
+  <parameter name="BURST_COUNT_WIDTH" value="6" />
+  <parameter name="DATA_WIDTH" value="32" />
+  <parameter name="FIFO_DEPTH" value="256" />
+  <parameter name="FIFO_DEPTH_LOG2" value="8" />
+  <parameter name="MASTER_DIRECTION" value="1" />
+  <parameter name="MAXIMUM_BURST_COUNT" value="32" />
+  <parameter name="MEMORY_BASED_FIFO" value="1" />
+ </module>
+ <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
+ <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
+ <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
+ <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
+</system>

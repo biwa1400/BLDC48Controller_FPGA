@@ -1,0 +1,153 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "lvds_clk_out[0]",
+					"strict" : false
+				},
+				{
+					"name" : "lvds_clk_out[1]",
+					"strict" : false
+				},
+				{
+					"name" : "lvds_clk_out[2]",
+					"strict" : false
+				},
+				{
+					"name" : "lvds_clk_out[3]",
+					"strict" : false
+				},
+				{
+					"name" : "lvds_clk_out[4]",
+					"strict" : false
+				},
+				{
+					"name" : "lvds_clk_out[5]",
+					"strict" : false
+				},
+				{
+					"name" : "adc_cnv_out",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_lo_0_to_2[0]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_lo_0_to_2[1]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_lo_0_to_2[2]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_hi_0_to_2[0]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_hi_0_to_2[1]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_hi_0_to_2[2]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_lo_15_to_21[15]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_lo_15_to_21[16]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_lo_15_to_21[17]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_lo_15_to_21[18]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_lo_15_to_21[19]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_lo_15_to_21[20]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_lo_15_to_21[21]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_hi_15_to_21[15]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_hi_15_to_21[16]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_hi_15_to_21[17]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_hi_15_to_21[18]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_hi_15_to_21[19]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_hi_15_to_21[20]",
+					"strict" : false
+				},
+				{
+					"name" : "pwm_hi_15_to_21[21]",
+					"strict" : false
+				},
+				{
+					"name" : "LM10_encoder_a",
+					"strict" : false
+				},
+				{
+					"name" : "LM10_encoder_b",
+					"strict" : false
+				},
+				{
+					"name" : "LM10_encoder_z",
+					"strict" : false
+				},
+				{
+					"name" : "lvds_data_in[2]",
+					"strict" : false
+				},
+				{
+					"name" : "lvds_data_in[3]",
+					"strict" : false
+				},
+				{
+					"name" : "lvds_data_in[5]",
+					"strict" : false
+				},
+				{
+					"name" : "lvds_data_in[4]",
+					"strict" : false
+				},
+				{
+					"name" : "lvds_data_in[0]",
+					"strict" : false
+				},
+				{
+					"name" : "lvds_data_in[1]",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

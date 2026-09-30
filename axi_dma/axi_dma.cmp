@@ -1,0 +1,21 @@
+	component axi_dma is
+		port (
+			master_address         : out std_logic_vector(31 downto 0);                    -- address
+			master_write           : out std_logic;                                        -- write
+			master_byteenable      : out std_logic_vector(3 downto 0);                     -- byteenable
+			master_writedata       : out std_logic_vector(31 downto 0);                    -- writedata
+			master_burstcount      : out std_logic_vector(5 downto 0);                     -- burstcount
+			master_waitrequest     : in  std_logic                     := 'X';             -- waitrequest
+			clk                    : in  std_logic                     := 'X';             -- clk
+			reset                  : in  std_logic                     := 'X';             -- reset
+			control_fixed_location : in  std_logic                     := 'X';             -- fixed_location
+			control_write_base     : in  std_logic_vector(31 downto 0) := (others => 'X'); -- write_base
+			control_write_length   : in  std_logic_vector(31 downto 0) := (others => 'X'); -- write_length
+			control_go             : in  std_logic                     := 'X';             -- go
+			control_done           : out std_logic;                                        -- done
+			user_write_buffer      : in  std_logic                     := 'X';             -- write_buffer
+			user_buffer_input_data : in  std_logic_vector(31 downto 0) := (others => 'X'); -- buffer_input_data
+			user_buffer_full       : out std_logic                                         -- buffer_full
+		);
+	end component axi_dma;
+
