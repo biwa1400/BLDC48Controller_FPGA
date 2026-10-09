@@ -555,6 +555,22 @@ module FIR_22_drive
     logic signed [40:0] mac_product_ext;
 
 
+    // ============================================================
+    // Registered multiplier-result pipeline
+    //
+    // The RAM-read metadata/data pair is converted into a product
+    // first, then the product and its channel/tap metadata are
+    // registered together.  This breaks the long RAM -> multiplier
+    // -> accumulator/result path without changing FIR arithmetic.
+    // ============================================================
+
+    logic               product_pipe_valid;
+    logic               product_pipe_stage2;
+    logic [4:0]         product_pipe_channel;
+    logic [5:0]         product_pipe_tap;
+    logic signed [40:0] product_pipe_value;
+
+
     always_comb begin
 
         mac_sample = 17'sd0;
@@ -635,6 +651,12 @@ module FIR_22_drive
             mac_pipe_tap <= 6'd0;
             mac_pipe_coeff <= 19'sd0;
 
+            product_pipe_valid <= 1'b0;
+            product_pipe_stage2 <= 1'b0;
+            product_pipe_channel <= 5'd0;
+            product_pipe_tap <= 6'd0;
+            product_pipe_value <= 41'sd0;
+
             for (ch = 0; ch < CHANNELS; ch = ch + 1) begin
                 input_latch[ch] <= 16'sd0;
                 s1_result[ch] <= 16'sd0;
@@ -655,6 +677,7 @@ module FIR_22_drive
 
                 sample_counter <= '0;
                 mac_pipe_valid <= 1'b0;
+                product_pipe_valid <= 1'b0;
                 s1_write_active <= 1'b0;
 
                 if (init_addr == INIT_WORDS - 1) begin
@@ -668,6 +691,20 @@ module FIR_22_drive
             end
 
             else begin
+
+                // =================================================
+                // Registered multiplier-result pipeline
+                // =================================================
+
+                product_pipe_valid <= mac_pipe_valid;
+
+                if (mac_pipe_valid) begin
+                    product_pipe_stage2 <= mac_pipe_stage2;
+                    product_pipe_channel <= mac_pipe_channel;
+                    product_pipe_tap <= mac_pipe_tap;
+                    product_pipe_value <= mac_product_ext;
+                end
+
 
                 // =================================================
                 // 500 kSPS timing
@@ -775,21 +812,21 @@ module FIR_22_drive
                     STATE_S1_RUN: begin
 
                         // Consume the RAM result issued one clock ago.
-                        if (mac_pipe_valid && !mac_pipe_stage2) begin
+                        if (product_pipe_valid && !product_pipe_stage2) begin
 
-                            if (mac_pipe_tap == STAGE1_PAIRS) begin
-                                s1_result[mac_pipe_channel] <=
+                            if (product_pipe_tap == STAGE1_PAIRS) begin
+                                s1_result[product_pipe_channel] <=
                                     q20_to_s16(
-                                        channel_acc[mac_pipe_channel] +
-                                        mac_product_ext
+                                        channel_acc[product_pipe_channel] +
+                                        product_pipe_value
                                     );
 
-                                channel_acc[mac_pipe_channel] <= 41'sd0;
+                                channel_acc[product_pipe_channel] <= 41'sd0;
                             end
                             else begin
-                                channel_acc[mac_pipe_channel] <=
-                                    channel_acc[mac_pipe_channel] +
-                                    mac_product_ext;
+                                channel_acc[product_pipe_channel] <=
+                                    channel_acc[product_pipe_channel] +
+                                    product_pipe_value;
                             end
 
                         end
@@ -828,31 +865,41 @@ module FIR_22_drive
 
                     STATE_S1_DRAIN: begin
 
-                        if (mac_pipe_valid && !mac_pipe_stage2) begin
+                        if (product_pipe_valid && !product_pipe_stage2) begin
 
-                            if (mac_pipe_tap == STAGE1_PAIRS) begin
-                                s1_result[mac_pipe_channel] <=
+                            if (product_pipe_tap == STAGE1_PAIRS) begin
+                                s1_result[product_pipe_channel] <=
                                     q20_to_s16(
-                                        channel_acc[mac_pipe_channel] +
-                                        mac_product_ext
+                                        channel_acc[product_pipe_channel] +
+                                        product_pipe_value
                                     );
-                                channel_acc[mac_pipe_channel] <= 41'sd0;
+                                channel_acc[product_pipe_channel] <= 41'sd0;
                             end
                             else begin
-                                channel_acc[mac_pipe_channel] <=
-                                    channel_acc[mac_pipe_channel] +
-                                    mac_product_ext;
+                                channel_acc[product_pipe_channel] <=
+                                    channel_acc[product_pipe_channel] +
+                                    product_pipe_value;
                             end
 
                         end
 
                         mac_pipe_valid <= 1'b0;
 
-                        s2_write_target_ptr <= s2_next_write_ptr;
-                        s2_next_write_ptr <= s2_inc_ptr(s2_next_write_ptr);
-                        s2_write_channel <= 5'd0;
+                        // One extra drain clock is required because the
+                        // multiplier result is now registered.  Leave the
+                        // drain state only after the final Stage-1 product
+                        // (last channel, center tap) has been consumed.
+                        if (product_pipe_valid &&
+                            !product_pipe_stage2 &&
+                            (product_pipe_tap == STAGE1_PAIRS) &&
+                            (product_pipe_channel == CHANNELS - 1)) begin
 
-                        state <= STATE_S2_WRITE;
+                            s2_write_target_ptr <= s2_next_write_ptr;
+                            s2_next_write_ptr <= s2_inc_ptr(s2_next_write_ptr);
+                            s2_write_channel <= 5'd0;
+
+                            state <= STATE_S2_WRITE;
+                        end
 
                     end
 
@@ -895,21 +942,21 @@ module FIR_22_drive
                     STATE_S2_RUN: begin
 
                         // Consume the RAM result issued one clock ago.
-                        if (mac_pipe_valid && mac_pipe_stage2) begin
+                        if (product_pipe_valid && product_pipe_stage2) begin
 
-                            if (mac_pipe_tap == STAGE2_PAIRS) begin
-                                s2_result[mac_pipe_channel] <=
+                            if (product_pipe_tap == STAGE2_PAIRS) begin
+                                s2_result[product_pipe_channel] <=
                                     q20_to_s16(
-                                        channel_acc[mac_pipe_channel] +
-                                        mac_product_ext
+                                        channel_acc[product_pipe_channel] +
+                                        product_pipe_value
                                     );
 
-                                channel_acc[mac_pipe_channel] <= 41'sd0;
+                                channel_acc[product_pipe_channel] <= 41'sd0;
                             end
                             else begin
-                                channel_acc[mac_pipe_channel] <=
-                                    channel_acc[mac_pipe_channel] +
-                                    mac_product_ext;
+                                channel_acc[product_pipe_channel] <=
+                                    channel_acc[product_pipe_channel] +
+                                    product_pipe_value;
                             end
 
                         end
@@ -948,26 +995,34 @@ module FIR_22_drive
 
                     STATE_S2_DRAIN: begin
 
-                        if (mac_pipe_valid && mac_pipe_stage2) begin
+                        if (product_pipe_valid && product_pipe_stage2) begin
 
-                            if (mac_pipe_tap == STAGE2_PAIRS) begin
-                                s2_result[mac_pipe_channel] <=
+                            if (product_pipe_tap == STAGE2_PAIRS) begin
+                                s2_result[product_pipe_channel] <=
                                     q20_to_s16(
-                                        channel_acc[mac_pipe_channel] +
-                                        mac_product_ext
+                                        channel_acc[product_pipe_channel] +
+                                        product_pipe_value
                                     );
-                                channel_acc[mac_pipe_channel] <= 41'sd0;
+                                channel_acc[product_pipe_channel] <= 41'sd0;
                             end
                             else begin
-                                channel_acc[mac_pipe_channel] <=
-                                    channel_acc[mac_pipe_channel] +
-                                    mac_product_ext;
+                                channel_acc[product_pipe_channel] <=
+                                    channel_acc[product_pipe_channel] +
+                                    product_pipe_value;
                             end
 
                         end
 
                         mac_pipe_valid <= 1'b0;
-                        state <= STATE_COMMIT;
+
+                        // Leave the drain state only after the final
+                        // registered Stage-2 product has been consumed.
+                        if (product_pipe_valid &&
+                            product_pipe_stage2 &&
+                            (product_pipe_tap == STAGE2_PAIRS) &&
+                            (product_pipe_channel == CHANNELS - 1)) begin
+                            state <= STATE_COMMIT;
+                        end
 
                     end
 

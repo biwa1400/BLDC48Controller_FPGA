@@ -1,5 +1,5 @@
 Assembler report for AC501_SoC_GHRD
-Wed Sep 30 19:33:34 2026
+Thu Oct 08 22:37:41 2026
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -10,8 +10,8 @@ Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
   2. Assembler Summary
   3. Assembler Settings
   4. Assembler Generated Files
-  5. Assembler Device Options: C:/project/motor_main/motor_main/output_files/AC501_SoC_GHRD.sof
-  6. Assembler Device Options: C:/project/motor_main/motor_main/output_files/AC501_SoC_GHRD.rbf
+  5. Assembler Device Options: C:/project/motor_main/output_files/AC501_SoC_GHRD.sof
+  6. Assembler Device Options: C:/project/motor_main/output_files/AC501_SoC_GHRD.rbf
   7. Assembler Messages
 
 
@@ -38,7 +38,7 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Wed Sep 30 19:33:34 2026 ;
+; Assembler Status      ; Successful - Thu Oct 08 22:37:41 2026 ;
 ; Revision Name         ; AC501_SoC_GHRD                        ;
 ; Top-level Entity Name ; AC501_SoC_GHRD                        ;
 ; Family                ; Cyclone V                             ;
@@ -53,34 +53,34 @@ refer to the applicable agreement for further details.
 +--------+---------+---------------+
 
 
-+------------------------------------------------------------------+
-; Assembler Generated Files                                        ;
-+------------------------------------------------------------------+
-; File Name                                                        ;
-+------------------------------------------------------------------+
-; C:/project/motor_main/motor_main/output_files/AC501_SoC_GHRD.sof ;
-; C:/project/motor_main/motor_main/output_files/AC501_SoC_GHRD.rbf ;
-+------------------------------------------------------------------+
++-------------------------------------------------------+
+; Assembler Generated Files                             ;
++-------------------------------------------------------+
+; File Name                                             ;
++-------------------------------------------------------+
+; C:/project/motor_main/output_files/AC501_SoC_GHRD.sof ;
+; C:/project/motor_main/output_files/AC501_SoC_GHRD.rbf ;
++-------------------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/project/motor_main/motor_main/output_files/AC501_SoC_GHRD.sof ;
-+----------------+---------------------------------------------------------------------------+
-; Option         ; Setting                                                                   ;
-+----------------+---------------------------------------------------------------------------+
-; JTAG usercode  ; 0x01166648                                                                ;
-; Checksum       ; 0x01166648                                                                ;
-+----------------+---------------------------------------------------------------------------+
++---------------------------------------------------------------------------------+
+; Assembler Device Options: C:/project/motor_main/output_files/AC501_SoC_GHRD.sof ;
++----------------+----------------------------------------------------------------+
+; Option         ; Setting                                                        ;
++----------------+----------------------------------------------------------------+
+; JTAG usercode  ; 0x014D3598                                                     ;
+; Checksum       ; 0x014D3598                                                     ;
++----------------+----------------------------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/project/motor_main/motor_main/output_files/AC501_SoC_GHRD.rbf ;
-+---------------------+----------------------------------------------------------------------+
-; Option              ; Setting                                                              ;
-+---------------------+----------------------------------------------------------------------+
-; Raw Binary File     ;                                                                      ;
-;  Compression Ratio  ; 3                                                                    ;
-+---------------------+----------------------------------------------------------------------+
++---------------------------------------------------------------------------------+
+; Assembler Device Options: C:/project/motor_main/output_files/AC501_SoC_GHRD.rbf ;
++---------------------+-----------------------------------------------------------+
+; Option              ; Setting                                                   ;
++---------------------+-----------------------------------------------------------+
+; Raw Binary File     ;                                                           ;
+;  Compression Ratio  ; 3                                                         ;
++---------------------+-----------------------------------------------------------+
 
 
 +--------------------+
@@ -89,7 +89,7 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Assembler
     Info: Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
-    Info: Processing started: Wed Sep 30 19:33:20 2026
+    Info: Processing started: Thu Oct 08 22:37:29 2026
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off AC501_SoC_GHRD -c AC501_SoC_GHRD
 Warning (125092): Tcl Script File vga_pll.qip not found
     Info (125063): set_global_assignment -name QIP_FILE vga_pll.qip
@@ -98,9 +98,9 @@ Warning (125092): Tcl Script File vga_pll.sip not found
 Info (115030): Assembler is generating device programming files
 Info (11878): Hard Processor Subsystem configuration has not changed and a Preloader software update is not required
 Info: Quartus Prime Assembler was successful. 0 errors, 2 warnings
-    Info: Peak virtual memory: 4922 megabytes
-    Info: Processing ended: Wed Sep 30 19:33:34 2026
-    Info: Elapsed time: 00:00:14
-    Info: Total CPU time (on all processors): 00:00:13
+    Info: Peak virtual memory: 4933 megabytes
+    Info: Processing ended: Thu Oct 08 22:37:41 2026
+    Info: Elapsed time: 00:00:12
+    Info: Total CPU time (on all processors): 00:00:11
 
 

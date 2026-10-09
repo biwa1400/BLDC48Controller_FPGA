@@ -1,132 +1,103 @@
-
-// 模块: LM10_encoder_read
-// Type    : synthesizable
-// Standard: SystemVerilog 2005 (IEEE1800-2005)
-// 功能    : LM10 Incremental Magnetic Encoder
-
+// LM10 A/B/Z incremental encoder. 50 MHz clock assumed for RPM scaling.
+// Position: modulo LM10_COUNTS, homed on first qualified Z reference.
+// Subsequent Z events correct position only near the expected index.
 module LM10_encoder_read #(
-	parameter   LM10_WIDTH      = 13,
-	parameter   LM10_COUNTS     = 6400
+    parameter integer LM10_WIDTH = 13,
+    parameter integer LM10_COUNTS = 6400,
+    parameter integer Z_WINDOW_COUNTS = 16,
+    parameter integer AB_FILTER_CYCLES = 10,
+    parameter integer Z_FILTER_CYCLES = 25,
+    parameter integer RPM_SAMPLE_CYCLES = 468750
 ) (
-	input  wire 								clk,
-	input  wire 								a,
-	input  wire 								b,
-	input  wire 								z,
-	output wire 								ref_ready,
-	output wire 		 [LM10_WIDTH-1:0] regout,
-	output reg  signed [15:0] 			 	rpm
+    input wire clk,
+    input wire a,
+    input wire b,
+    input wire z,
+    output wire ref_ready,
+    output wire [LM10_WIDTH-1:0] regout,
+    output reg signed [15:0] rpm
 );
+    reg [1:0] a_sync = 2'b00;
+    reg [1:0] b_sync = 2'b00;
+    reg [1:0] z_sync = 2'b00;
+    always @(posedge clk) begin
+        a_sync <= {a_sync[0], a};
+        b_sync <= {b_sync[0], b};
+        z_sync <= {z_sync[0], z};
+    end
 
-localparam CNT_CYCLE = 19'd468750; // (50MHz / 468750) * 60 / LM10_COUNTS = 1
-localparam N = 10; // e.g. 50 MHz, 10 taps, 200ns filter time
-localparam N_Z = 25; // e.g. 50 MHz, 25 taps, 500ns filter time
+    reg [AB_FILTER_CYCLES-1:0] a_hist = {AB_FILTER_CYCLES{1'b0}};
+    reg [AB_FILTER_CYCLES-1:0] b_hist = {AB_FILTER_CYCLES{1'b0}};
+    reg [Z_FILTER_CYCLES-1:0] z_hist = {Z_FILTER_CYCLES{1'b0}};
+    reg a_f = 1'b0;
+    reg b_f = 1'b0;
+    reg z_f = 1'b0;
+    always @(posedge clk) begin
+        a_hist <= {a_hist[AB_FILTER_CYCLES-2:0], a_sync[1]};
+        b_hist <= {b_hist[AB_FILTER_CYCLES-2:0], b_sync[1]};
+        z_hist <= {z_hist[Z_FILTER_CYCLES-2:0], z_sync[1]};
+        if (&a_hist) a_f <= 1'b1;
+        else if (~|a_hist) a_f <= 1'b0;
+        if (&b_hist) b_f <= 1'b1;
+        else if (~|b_hist) b_f <= 1'b0;
+        if (&z_hist) z_f <= 1'b1;
+        else if (~|z_hist) z_f <= 1'b0;
+    end
 
-reg [N-1:0] shift_reg_a = '0;
-reg [N-1:0] shift_reg_b = '0;
-reg [N_Z-1:0] shift_reg_z = '0;
-wire 			a_filtered;
-wire 			b_filtered;
-wire 			z_filtered;
+    reg [1:0] ab_prev = 2'b00;
+    reg ab_initialized = 1'b0;
+    wire [1:0] ab_now = {a_f, b_f};
+    wire ab_step = (ab_now != ab_prev) && ((ab_now ^ ab_prev) == 2'b01 || (ab_now ^ ab_prev) == 2'b10);
+    // Matches original direction convention for a single legal A/B edge.
+    wire step_up = a_f ^ ab_prev[0];
+    wire signed [1:0] step_delta = step_up ? 2'sd1 : -2'sd1;
+    reg [LM10_WIDTH-1:0] position = {LM10_WIDTH{1'b0}};
+    reg homed = 1'b0;
+    assign ref_ready = homed;
+    assign regout = position;
 
-always @(posedge clk) begin
-  // shift register for inputs.
-  shift_reg_a <= {shift_reg_a[N-2:0], a};
-  shift_reg_b <= {shift_reg_b[N-2:0], b};
-  shift_reg_z <= {shift_reg_z[N_Z-2:0], z};
-  // set/reset flip-flop
-  if      (&shift_reg_a)  a_filtered <= 1'b1;  // all one's condition on shift_reg, & is reduction AND
-  else if (~|shift_reg_a) a_filtered <= 1'b0;  // all zero's condition on shift_reg, ~| is a reduction NOR
-  if      (&shift_reg_b)  b_filtered <= 1'b1;  // all one's condition on shift_reg, & is reduction AND
-  else if (~|shift_reg_b) b_filtered <= 1'b0;  // all zero's condition on shift_reg, ~| is a reduction NOR
-  if      (&shift_reg_z)  z_filtered <= 1'b1;  // all one's condition on shift_reg, & is reduction AND
-  else if (~|shift_reg_z) z_filtered <= 1'b0;  // all zero's condition on shift_reg, ~| is a reduction NOR
-end
+    reg z_qualified_prev = 1'b0;
+    reg z_armed = 1'b1;
+    wire z_qualified = a_f && b_f && z_f;
+    wire z_event = z_armed && z_qualified && !z_qualified_prev;
+    wire near_index = (position <= Z_WINDOW_COUNTS) ||
+                      (position >= LM10_COUNTS - Z_WINDOW_COUNTS);
+    wire index_accept = z_event && (!homed || near_index);
 
+    reg [31:0] sample_counter = 32'd0;
+    reg signed [15:0] rpm_accum = 16'sd0;
+    wire sample_end = (sample_counter == RPM_SAMPLE_CYCLES - 1);
+    initial rpm = 16'sd0;
 
-lpm_counter	encoder_counter (
-	.clock (clk),
-	.cnt_en (count_enable_zref),
-	.sclr (counter_reset),
-	.updown (count_direction),
-	.q (regout),
-	.aclr (1'b0),
-	.aload (1'b0),
-	.aset (1'b0),
-	.cin (1'b1),
-	.clk_en (1'b1),
-	.cout (),
-	.data ({LM10_WIDTH{1'b0}}),
-	.eq (),
-	.sload (1'b0),
-	.sset (1'b0));
-defparam
-	encoder_counter.lpm_direction = "UNUSED",
-	encoder_counter.lpm_modulus = LM10_COUNTS - 1,
-	encoder_counter.lpm_port_updown = "PORT_USED",
-	encoder_counter.lpm_type = "LPM_COUNTER",
-	encoder_counter.lpm_width = LM10_WIDTH;
+    always @(posedge clk) begin
+        if (!ab_initialized) begin
+            ab_prev <= ab_now;
+            ab_initialized <= 1'b1;
+        end else if (ab_now != ab_prev) begin
+            ab_prev <= ab_now;
+        end
 
-reg angle_ref_done_reg = '0;
-reg a_delayed 			  = '0;
-reg b_delayed 			  = '0;
-reg z_delayed 			  = '0;
-reg z_high_delayed 	  = '0;
+        z_qualified_prev <= z_qualified;
+        if (!z_f) z_armed <= 1'b1;
+        else if (z_event) z_armed <= 1'b0;
 
-assign ref_ready = angle_ref_done_reg;
+        if (index_accept) begin
+            position <= {LM10_WIDTH{1'b0}};
+            homed <= 1'b1;
+        end else if (homed && ab_initialized && ab_step) begin
+            if (step_up)
+                position <= (position == LM10_COUNTS - 1) ? {LM10_WIDTH{1'b0}} : position + 1'b1;
+            else
+                position <= (position == 0) ? LM10_COUNTS - 1 : position - 1'b1;
+        end
 
-always @(posedge clk) a_delayed <= a_filtered;
-always @(posedge clk) b_delayed <= b_filtered;
-always @(posedge clk) z_delayed <= z_filtered;
-always @(posedge clk) z_high_delayed <= z_high;
-
-wire count_enable = a_filtered ^ a_delayed ^ b_filtered ^ b_delayed;
-wire count_enable_zref = count_enable & angle_ref_done_reg;
-wire count_direction = a_filtered ^ b_delayed;
-wire z_high = a_delayed & b_delayed & z_delayed;  // this is needed to make sure B rising edge has passed and A is high
-wire counter_reset = z_high & ~z_high_delayed;
-
-always @(posedge clk)
-begin
-	if(z_high) begin
-		angle_ref_done_reg <= 1'b1;
-	end
-end
-
-
-wire signed [15:0] rpm_cnt_q;
-wire					 rpm_counter_reset = (cnt == CNT_CYCLE - 19'd1);
-
-lpm_counter	rpm_counter (
-	.clock (clk),
-	.cnt_en (count_enable),
-	.sclr (rpm_counter_reset),
-	.updown (count_direction),
-	.q (rpm_cnt_q),
-	.aclr (1'b0),
-	.aload (1'b0),
-	.aset (1'b0),
-	.cin (1'b1),
-	.clk_en (1'b1),
-	.cout (),
-	.data (16'b0),
-	.eq (),
-	.sload (1'b0),
-	.sset (1'b0));
-defparam
-	rpm_counter.lpm_direction = "UNUSED",
-	rpm_counter.lpm_port_updown = "PORT_USED",
-	rpm_counter.lpm_type = "LPM_COUNTER",
-	rpm_counter.lpm_width = 16;
-
-reg [18:0] cnt = '0;
-
-always @ (posedge clk)
-begin
-	cnt <= cnt + 19'd1;
-	if (rpm_counter_reset) begin
-		rpm <= rpm_cnt_q;
-		cnt <= 19'b0;
-	end
-end
-
+        if (sample_end) begin
+            sample_counter <= 32'd0;
+            rpm <= rpm_accum;
+            rpm_accum <= (ab_initialized && ab_step) ? {{14{step_delta[1]}}, step_delta} : 16'sd0;
+        end else begin
+            sample_counter <= sample_counter + 1'b1;
+            if (ab_initialized && ab_step) rpm_accum <= rpm_accum + {{14{step_delta[1]}}, step_delta};
+        end
+    end
 endmodule

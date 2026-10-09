@@ -1,9 +1,12 @@
 
 module soc_system (
 	clk_clk,
-	dma_sdram_0_registers_bytes,
-	register_file_run_name,
-	reset_reset_n,
+	frame_sdram_dma_0_frame_input_input_array_flat,
+	hps_0_f2h_cold_reset_req_reset_n,
+	hps_0_h2f_loan_io_in,
+	hps_0_h2f_loan_io_out,
+	hps_0_h2f_loan_io_oe,
+	hps_0_h2f_reset_reset_n,
 	hps_0_hps_io_hps_io_sdio_inst_CMD,
 	hps_0_hps_io_hps_io_sdio_inst_D0,
 	hps_0_hps_io_hps_io_sdio_inst_D1,
@@ -75,16 +78,29 @@ module soc_system (
 	memory_mem_odt,
 	memory_mem_dm,
 	memory_oct_rzqin,
-	hps_0_f2h_cold_reset_req_reset_n,
-	hps_0_h2f_loan_io_in,
-	hps_0_h2f_loan_io_out,
-	hps_0_h2f_loan_io_oe,
-	hps_0_h2f_reset_reset_n);	
+	motor_lut_avalon_slave_0_lut_active_bank,
+	motor_lut_avalon_slave_0_lut_commit_ack,
+	motor_lut_avalon_slave_0_lut_commit_req,
+	motor_lut_avalon_slave_0_lut_wr_addr,
+	motor_lut_avalon_slave_0_lut_wr_bank,
+	motor_lut_avalon_slave_0_lut_wr_data,
+	motor_lut_avalon_slave_0_lut_wr_en,
+	motor_lut_avalon_slave_0_lut_verify_addr,
+	motor_lut_avalon_slave_0_lut_verify_bank,
+	motor_lut_avalon_slave_0_lut_verify_data,
+	motor_lut_avalon_slave_0_lut_verify_en,
+	motor_lut_avalon_slave_0_lut_verify_lock,
+	motor_lut_avalon_slave_0_lut_verify_valid,
+	register_file_run_name,
+	reset_reset_n);	
 
 	input		clk_clk;
-	input	[415:0]	dma_sdram_0_registers_bytes;
-	output		register_file_run_name;
-	input		reset_reset_n;
+	input	[863:0]	frame_sdram_dma_0_frame_input_input_array_flat;
+	input		hps_0_f2h_cold_reset_req_reset_n;
+	output	[66:0]	hps_0_h2f_loan_io_in;
+	input	[66:0]	hps_0_h2f_loan_io_out;
+	input	[66:0]	hps_0_h2f_loan_io_oe;
+	output		hps_0_h2f_reset_reset_n;
 	inout		hps_0_hps_io_hps_io_sdio_inst_CMD;
 	inout		hps_0_hps_io_hps_io_sdio_inst_D0;
 	inout		hps_0_hps_io_hps_io_sdio_inst_D1;
@@ -156,9 +172,19 @@ module soc_system (
 	output		memory_mem_odt;
 	output	[3:0]	memory_mem_dm;
 	input		memory_oct_rzqin;
-	input		hps_0_f2h_cold_reset_req_reset_n;
-	output	[66:0]	hps_0_h2f_loan_io_in;
-	input	[66:0]	hps_0_h2f_loan_io_out;
-	input	[66:0]	hps_0_h2f_loan_io_oe;
-	output		hps_0_h2f_reset_reset_n;
+	input		motor_lut_avalon_slave_0_lut_active_bank;
+	input		motor_lut_avalon_slave_0_lut_commit_ack;
+	output		motor_lut_avalon_slave_0_lut_commit_req;
+	output	[11:0]	motor_lut_avalon_slave_0_lut_wr_addr;
+	output		motor_lut_avalon_slave_0_lut_wr_bank;
+	output	[12:0]	motor_lut_avalon_slave_0_lut_wr_data;
+	output		motor_lut_avalon_slave_0_lut_wr_en;
+	output	[11:0]	motor_lut_avalon_slave_0_lut_verify_addr;
+	output		motor_lut_avalon_slave_0_lut_verify_bank;
+	input	[12:0]	motor_lut_avalon_slave_0_lut_verify_data;
+	output		motor_lut_avalon_slave_0_lut_verify_en;
+	output		motor_lut_avalon_slave_0_lut_verify_lock;
+	input		motor_lut_avalon_slave_0_lut_verify_valid;
+	output		register_file_run_name;
+	input		reset_reset_n;
 endmodule

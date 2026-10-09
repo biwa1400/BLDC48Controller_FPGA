@@ -705,6 +705,21 @@ set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to mbl600_DTC_b
 
 
 
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/frame_dsram_dma/frame_sdram_dma_top.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/frame_dsram_dma/frame_sdram_dma_pulse.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/frame_dsram_dma/frame_sdram_dma_core.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/frame_dsram_dma/frame_sdram_dma_control.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/control/motor_control/motor_control_adapter.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/control/motor_control/pwm/pwm_compare_bank.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/control/motor_control/pwm/pwm_carrier.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/control/motor_control/pwm/deadtime_channel.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/control/motor_control/pwm/deadtime_bank.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/control/motor_control/lut/waveform_lut_dp.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/control/motor_control/lut/lut_bank_control.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/control/motor_control/command/phase_command_calc.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/control/motor_control/command/command_commit.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/control/motor_control/motor_drive_core.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/control/motor_control/motor_control_pkg.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/general/gnrl_dffs.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/FIR/FIR_22_drive.sv
 set_global_assignment -name QIP_FILE ip/FIR_1/fir_1.qip

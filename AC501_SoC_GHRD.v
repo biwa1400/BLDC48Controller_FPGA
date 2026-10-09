@@ -3,7 +3,7 @@
 // Description:
 //   - Integrates HPS, DDR3, USB, SDIO, ADC, and LM10 encoder.
 //   - Provides PWM outputs for MOSFETs (high-side and low-side).
-//   - Packs ADC and encoder data into 52-byte DMA buffer for HPS.
+//   - Packs ADC and encoder data into 108-byte DMA buffer for HPS.
 //   - Provides 24 MHz clock output for USB3300.
 //--------------------------------------------------------------
 module AC501_SoC_GHRD (
@@ -71,7 +71,7 @@ module AC501_SoC_GHRD (
     output logic [2:0]pwm_hi_0_to_2,           // pwm1_hi ~ pwm3_hi
     inout  wire  [14:3]pwm_lo_3_to_14,          // pwm4_lo ~ pwm15_lo
     inout  wire  [14:3]pwm_hi_3_to_14,          // pwm4_hi ~ pwm15_hi
-	 output logic [21:15]pwm_lo_15_to_21,           // pwm1_lo ~ pwm3_lo
+    output logic [21:15]pwm_lo_15_to_21,           // pwm1_lo ~ pwm3_lo
     output logic [21:15]pwm_hi_15_to_21,
 
     // -------------------- MOS Power Enable ------------------
@@ -90,8 +90,8 @@ module AC501_SoC_GHRD (
     inout  wire mbl600_DTC_b,
 	 
 	 
-	 // -------------------- hall power ----------------------------
-	 inout  wire hall_en
+    // -------------------- hall power ----------------------------
+    inout  wire hall_en
 );
 
     //----------------------------------------------------------
@@ -108,18 +108,18 @@ module AC501_SoC_GHRD (
     // Internal Signals
     //----------------------------------------------------------
     logic hps_0_h2f_reset_n;
-	 logic hps_cold_reset_n;
+    logic hps_cold_reset_n;
     logic clk_24M, clk_50M, clk_100M, clk_200M;
 
-    // DMA payload buffer (52 bytes total)
-    logic [8*56-1:0] dma_sdram_0_registers_bytes;
+    // DMA payload buffer (108 bytes total)
+    logic [8*108-1:0] frame_sdram_dma_input_array_flat;
 
     // ADC
     logic signed [ADC_BITS:0] adc_value [0:21]; // raw-bit signed ADC
     logic signed [ADC_BITS:0] adc_peak_value [0:21]; // raw-bit signed ADC	 
     logic [15:0] adc_value_16bits [0:21];                   // Extended to 16-bit
-	 logic [15:0] adc_peak_value_16bits [0:21];                   // Extended to 16-bit
-	 logic [15:0] adc_value_filter_16bits [0:21];                   // Extended to 16-bit
+    logic [15:0] adc_peak_value_16bits [0:21];                   // Extended to 16-bit
+    logic [15:0] adc_value_filter_16bits [0:21];                   // Extended to 16-bit
 
     // LM10 encoder internal signals
     logic [LM10_WIDTH-1:0] LM10_encoder_regout;
@@ -127,10 +127,31 @@ module AC501_SoC_GHRD (
     logic                  LM10_encoder_ref_ready;
 
     // PWM
-    logic [12:0] drive_pwm_duty [0:21];  // Duty cycles for PWM channels
     logic [21:0] pwm_lo_internal; // Internal low-side PWM signals
     logic [21:0] pwm_hi_internal; // Internal high-side PWM signals
     logic        mos_power_en_internal;  // Internal MOS power enable
+
+    // Frozen motor-control interface
+    logic [12:0] motor_encoder;
+    logic [12:0] motor_amplitude;
+    logic [15:0] motor_phase_advance;
+    logic        motor_drive_enable;
+
+    // Motor-control LUT update interface
+    logic        motor_lut_wr_en;
+    logic        motor_lut_wr_bank;
+    logic [11:0] motor_lut_wr_addr;
+    logic [12:0] motor_lut_wr_data;
+    logic        motor_lut_commit_req;
+    logic        motor_lut_active_bank;
+    logic        motor_lut_commit_ack;
+    // HPS-controlled verification of the inactive LUT bank
+    logic        motor_lut_verify_en;
+    logic        motor_lut_verify_bank;
+    logic [11:0] motor_lut_verify_addr;
+    logic        motor_lut_verify_lock;
+    logic [12:0] motor_lut_verify_data;
+    logic        motor_lut_verify_valid;
 
     // Console
     logic [6:0]  DTC_value;
@@ -150,10 +171,9 @@ module AC501_SoC_GHRD (
     logic mbl600_DTC_power_internal;
     logic mbl600_phase_advance_power_internal;
 	 
-	 logic hall_en_internal;
+    logic hall_en_internal;
 	 
-	 logic init_start;
-	 logic run; 
+    logic run; 
 
     //----------------------------------------------------------
     // PLL Clock Generation
@@ -177,7 +197,7 @@ module AC501_SoC_GHRD (
 
         // HPS Reset
         .hps_0_h2f_reset_n      (hps_0_h2f_reset_n),
-		  .hps_cold_reset_n       (hps_cold_reset_n),
+        .hps_cold_reset_n       (hps_cold_reset_n),
 
         // SDIO
         .hps_sdio_CMD           (hps_sdio_CMD),
@@ -248,14 +268,14 @@ module AC501_SoC_GHRD (
         .mbl600_DTC_power_external          (mbl600_DTC_power),
         .mbl600_phase_advance_power_external(mbl600_phase_advance_power),
 		  
-		  // register contron signal  
-		  .control_run(run),
+        // register contron signal  
+        .control_run(run),
 		  
 		  
-		  //hall power
+        //hall power
 		  
-		  .hall_en_internal(hall_en_internal),
-		  .hall_en_external(hall_en),
+        .hall_en_internal(hall_en_internal),
+        .hall_en_external(hall_en),
 
         // Internal PWM Signals
         .pwm_lo_internal       (pwm_lo_internal),
@@ -271,7 +291,22 @@ module AC501_SoC_GHRD (
         .usb3300_clk_24MHz      (usb3300_clk_24MHz),
 
         // DMA buffer
-        .dma_sdram_0_registers_bytes (dma_sdram_0_registers_bytes)
+        .frame_sdram_dma_input_array_flat (frame_sdram_dma_input_array_flat),
+
+        // Motor-control LUT update interface
+        .motor_lut_wr_en        (motor_lut_wr_en),
+        .motor_lut_wr_bank      (motor_lut_wr_bank),
+        .motor_lut_wr_addr      (motor_lut_wr_addr),
+        .motor_lut_wr_data      (motor_lut_wr_data),
+        .motor_lut_commit_req   (motor_lut_commit_req),
+        .motor_lut_active_bank  (motor_lut_active_bank),
+        .motor_lut_commit_ack   (motor_lut_commit_ack),
+        .motor_lut_verify_en    (motor_lut_verify_en),
+        .motor_lut_verify_bank  (motor_lut_verify_bank),
+        .motor_lut_verify_addr  (motor_lut_verify_addr),
+        .motor_lut_verify_lock  (motor_lut_verify_lock),
+        .motor_lut_verify_data  (motor_lut_verify_data),
+        .motor_lut_verify_valid (motor_lut_verify_valid)
     );
 
     //----------------------------------------------------------
@@ -298,30 +333,49 @@ module AC501_SoC_GHRD (
     );
 	 
     //----------------------------------------------------------
-    // Control Top Module: FOC
-    //----------------------------------------------------------	 
-	 
-	control_top #(
-		 // -------- Configurable parameters --------
-		 .LM10_WIDTH(LM10_WIDTH),         // Encoder resolution bits
-		 .LM10_COUNTS(LM10_COUNTS),       // Encoder total counts
-		 .ADC_BITS(ADC_BITS)              // ADC resolution bits
-	) control_top_inst (
-		 // -------- Input signals --------
-		 .clk_50m(clk_50M),               // System clock
-		 .phi(LM10_encoder_regout),       // Rotor mechanical angle (0~4095)
-		 .rpm(LM10_rpm),                  // Rotor speed in RPM
+    // Motor Control Adapter
+    //----------------------------------------------------------
+    motor_control_adapter #(
+        .VS_RHO_MIN(constants_pkg::VS_RHO_MIN)
+    ) motor_control_adapter_inst (
+        .encoder_legacy        (LM10_encoder_regout),
+        .vs_rho_legacy         (vs_rho_value),
+        .phase_advance_legacy  (phase_advance_value),
+        .encoder_ref_ready     (LM10_encoder_ref_ready),
+        .run                   (run),
+        .encoder_core          (motor_encoder),
+        .amplitude_core        (motor_amplitude),
+        .phase_advance_core    (motor_phase_advance),
+        .drive_enable_core     (motor_drive_enable)
+    );
 
-		 // -------- Voltage & phase outputs --------
-		 .vs_rho(vs_rho_value),           // Voltage magnitude
-		 .phase_advance(phase_advance_value),  // Phase advance
-
-		 // -------- PWM output array --------
-		 .pwm_duty(drive_pwm_duty),       // Array of 22 PWM duties, each 13-bit wide
-		 .init_start(init_start),         // Initialization start flag
-		 .encoder_ok(LM10_encoder_ref_ready),  // Encoder Z-index found flag
-		 .run(run)                        // Run enable flag
-	);
+    //----------------------------------------------------------
+    // Frozen Motor Drive Core
+    //----------------------------------------------------------
+    motor_drive_core motor_drive_core_inst (
+        .clk_50MHz       (clk_50M),
+        .clk_200MHz      (clk_200M),
+        .rst_n           (hps_0_h2f_reset_n),
+        .drive_enable    (motor_drive_enable),
+        .encoder_phi     (motor_encoder),
+        .amplitude       (motor_amplitude),
+        .phase_advance   (motor_phase_advance),
+        .lut_wr_en       (motor_lut_wr_en),
+        .lut_wr_bank     (motor_lut_wr_bank),
+        .lut_wr_addr     (motor_lut_wr_addr),
+        .lut_wr_data     (motor_lut_wr_data),
+        .lut_commit_req  (motor_lut_commit_req),
+        .lut_active_bank (motor_lut_active_bank),
+        .lut_commit_ack  (motor_lut_commit_ack),
+        .lut_verify_en    (motor_lut_verify_en),
+        .lut_verify_bank  (motor_lut_verify_bank),
+        .lut_verify_addr  (motor_lut_verify_addr),
+        .lut_verify_lock  (motor_lut_verify_lock),
+        .lut_verify_data  (motor_lut_verify_data),
+        .lut_verify_valid (motor_lut_verify_valid),
+        .pwm_hi          (pwm_hi_internal),
+        .pwm_lo          (pwm_lo_internal)
+    );
 
     //----------------------------------------------------------
     // Console Encoder Top Module Instance
@@ -346,41 +400,28 @@ module AC501_SoC_GHRD (
     );
 
    
-	assign mbl600_vs_rho_power_internal       = 1'b1;
+    assign mbl600_vs_rho_power_internal       = 1'b1;
     assign mbl600_DTC_power_internal          = 1'b1;
     assign mbl600_phase_advance_power_internal= 1'b1;
 	 
-	 //----------------------------------------------------------
+    //----------------------------------------------------------
     // Hall power
     //----------------------------------------------------------
-	 assign hall_en_internal       = 1'b1;
+    assign hall_en_internal       = 1'b1;
  
     //----------------------------------------------------------
-    // Drive Top Module: PWM Generation
+    // MOS Power Enable
     //----------------------------------------------------------
-    drive_top #(
-        .DEADTIME_LH (DEADTIME_LH),
-        .DEADTIME_HL (DEADTIME_HL)
-    ) drive_top_inst (
-        .deadtime_control_rstn         (init_start),
-        .clk_200MHz   (clk_200M),
-        .dtc          (DTC_value),
-        .pwm_duty     (drive_pwm_duty),
-        .o_pwm_lo     (pwm_lo_internal),
-        .o_pwm_hi     (pwm_hi_internal),
-        .mos_power_en (mos_power_en_internal)
-    );
-	 
-
+    assign mos_power_en_internal = motor_drive_enable;
 
     //----------------------------------------------------------
     // PWM Top-level Mapping to External Ports
     //----------------------------------------------------------
 	 
-    assign pwm_lo_0_to_2[2:0]     =    pwm_lo_internal[2:0];
-    assign pwm_hi_0_to_2[2:0]     =    pwm_hi_internal[2:0];
-    assign pwm_lo_15_to_21[21:15]   =    pwm_lo_internal[21:15];
-    assign pwm_hi_15_to_21[21:15]   =    pwm_hi_internal[21:15];
+    assign pwm_lo_0_to_2[2:0]       = pwm_lo_internal[2:0];
+    assign pwm_hi_0_to_2[2:0]       = pwm_hi_internal[2:0];
+    assign pwm_lo_15_to_21[21:15]   = pwm_lo_internal[21:15];
+    assign pwm_hi_15_to_21[21:15]   = pwm_hi_internal[21:15];
 	 
 
     //----------------------------------------------------------
@@ -396,7 +437,7 @@ module AC501_SoC_GHRD (
         end
     endgenerate
 	 
-	  //----------------------------------------------------------
+    //----------------------------------------------------------
     // Extend ADC peak value to 16 Bits (Sign Extension)
     //----------------------------------------------------------
 	 /*
@@ -413,34 +454,103 @@ module AC501_SoC_GHRD (
 	 
 
     //----------------------------------------------------------
-    // DMA Data Packing (52+4 bytes)
+    // DMA Data Packing (108 bytes) - FIXED PATTERN DEBUG
+    // IMPORTANT: Restore the commented original assignment after test.
+    // Actual data fields = 102 bytes; leading 6 bytes = zero padding.
+    // Expected SDRAM byte offsets for low-address-first mapping:
+    // Filter 0..43; Peak 44..87; RPM 88..91;
+    // VS 92..93; Phase 94..95; DTC 96..97;
+    // Encoder 98..101; zero padding 102..107.
     //----------------------------------------------------------
-		assign dma_sdram_0_registers_bytes = {
-	     {{(32-LM10_WIDTH){1'b0}}, LM10_encoder_regout},
-		  //{{(32-LM10_WIDTH){1'b0}}, 13'd1234},
-		  {9'b000000000, DTC_value},
-		  {3'b000, phase_advance_value},
-		  {4'b0000, vs_rho_value},
-        LM10_rpm,
-        adc_value_16bits[21], adc_value_16bits[20], adc_value_16bits[19],
-        adc_value_16bits[18], adc_value_16bits[17], adc_value_16bits[16],
-        adc_value_16bits[15], adc_value_16bits[14], adc_value_16bits[13],
-        adc_value_16bits[12], adc_value_16bits[11], adc_value_16bits[10],
-        adc_value_16bits[9],  adc_value_16bits[8],  adc_value_16bits[7],
-        adc_value_16bits[6],  adc_value_16bits[5],  adc_value_16bits[4],
-        adc_value_16bits[3],  adc_peak_value_16bits[0],  adc_value_filter_16bits[0],
-        adc_value_16bits[0]
-    };
-		
-		
-	 FIR_22_drive #(
+     //ORIGINAL DMA PACKING (RESTORE AFTER DEBUG)
+    assign frame_sdram_dma_input_array_flat = {
+    48'd0,
+    {9'b000000000, DTC_value},
+    {3'b000, phase_advance_value},
+    {4'b0000, vs_rho_value},
+    {{(32-LM10_WIDTH){1'b0}}, LM10_encoder_regout},
+    {{16{LM10_rpm[15]}}, LM10_rpm},
+    adc_peak_value_16bits[21], adc_peak_value_16bits[20], adc_peak_value_16bits[19],
+    adc_peak_value_16bits[18], adc_peak_value_16bits[17], adc_peak_value_16bits[16],
+    adc_peak_value_16bits[15], adc_peak_value_16bits[14], adc_peak_value_16bits[13],
+    adc_peak_value_16bits[12], adc_peak_value_16bits[11], adc_peak_value_16bits[10],
+    adc_peak_value_16bits[9],  adc_peak_value_16bits[8],  adc_peak_value_16bits[7],
+    adc_peak_value_16bits[6],  adc_peak_value_16bits[5],  adc_peak_value_16bits[4],
+    adc_peak_value_16bits[3],  adc_peak_value_16bits[2],  adc_peak_value_16bits[1],
+    adc_peak_value_16bits[0],
+    adc_value_filter_16bits[21], adc_value_filter_16bits[20], adc_value_filter_16bits[19],
+    adc_value_filter_16bits[18], adc_value_filter_16bits[17], adc_value_filter_16bits[16],
+    adc_value_filter_16bits[15], adc_value_filter_16bits[14], adc_value_filter_16bits[13],
+    adc_value_filter_16bits[12], adc_value_filter_16bits[11], adc_value_filter_16bits[10],
+    adc_value_filter_16bits[9],  adc_value_filter_16bits[8],  adc_value_filter_16bits[7],
+    adc_value_filter_16bits[6],  adc_value_filter_16bits[5],  adc_value_filter_16bits[4],
+    adc_value_filter_16bits[3],  adc_value_filter_16bits[2],  adc_value_filter_16bits[1],
+    adc_value_filter_16bits[0]
+};
+	 
+ 
+  /*
+    assign frame_sdram_dma_input_array_flat = {
+        48'h000000000000, // 6-byte leading pad (MSB)
+        32'h12345678,     // Encoder
+        16'h0123,         // DTC
+        16'h0456,         // Phase Advance
+        16'h0789,         // VS Rho
+        32'h89ABCDEF,     // RPM: intentionally distinct bytes (not sign extension)
+        16'h2215, // Peak[21]
+        16'h2214, // Peak[20]
+        16'h2213, // Peak[19]
+        16'h2212, // Peak[18]
+        16'h2211, // Peak[17]
+        16'h2210, // Peak[16]
+        16'h220F, // Peak[15]
+        16'h220E, // Peak[14]
+        16'h220D, // Peak[13]
+        16'h220C, // Peak[12]
+        16'h220B, // Peak[11]
+        16'h220A, // Peak[10]
+        16'h2209, // Peak[9]
+        16'h2208, // Peak[8]
+        16'h2207, // Peak[7]
+        16'h2206, // Peak[6]
+        16'h2205, // Peak[5]
+        16'h2204, // Peak[4]
+        16'h2203, // Peak[3]
+        16'h2202, // Peak[2]
+        16'h2201, // Peak[1]
+        16'h2200, // Peak[0]
+        16'h1115, // Filter[21]
+        16'h1114, // Filter[20]
+        16'h1113, // Filter[19]
+        16'h1112, // Filter[18]
+        16'h1111, // Filter[17]
+        16'h1110, // Filter[16]
+        16'h110F, // Filter[15]
+        16'h110E, // Filter[14]
+        16'h110D, // Filter[13]
+        16'h110C, // Filter[12]
+        16'h110B, // Filter[11]
+        16'h110A, // Filter[10]
+        16'h1109, // Filter[9]
+        16'h1108, // Filter[8]
+        16'h1107, // Filter[7]
+        16'h1106, // Filter[6]
+        16'h1105, // Filter[5]
+        16'h1104, // Filter[4]
+        16'h1103, // Filter[3]
+        16'h1102, // Filter[2]
+        16'h1101, // Filter[1]
+        16'h1100  // Filter[0]
+    };   */
+
+    FIR_22_drive #(
         .TDM_FACTOR (100),
         .CHANNELS (22)
     ) FIR_22_drive_inst (
-     .clk_i(clk_50M),
-     .rst_ni(1'b1),
-	  .val_in(adc_value_16bits),
-	  .val_out(adc_value_filter_16bits)
+        .clk_i(clk_50M),
+        .rst_ni(1'b1),
+        .val_in(adc_value_16bits),
+        .val_out(adc_value_filter_16bits)
 
     );
 	 
@@ -449,18 +559,17 @@ module AC501_SoC_GHRD (
 	 
 	 
 	 
-	 peak_current_detector #(
-     .ADC_BITS(16),
-	  .NUM_CHANNELS(22)
-	 )peak_current_detector_inst (
-		 . clk(clk_50M),
-		 . i_adc_value (adc_value_filter_16bits),
-		 . o_adc_value (adc_peak_value_16bits)
-		);
+    peak_current_detector #(
+        .ADC_BITS(16),
+        .NUM_CHANNELS(22)
+    )peak_current_detector_inst (
+        . clk(clk_50M),
+        . i_adc_value (adc_value_filter_16bits),
+        . o_adc_value (adc_peak_value_16bits)
+    );
 		
-	 assign hps_cold_reset_n = 1'b1;
+    assign hps_cold_reset_n = 1'b1;
 	 
 	 
-
 
 endmodule

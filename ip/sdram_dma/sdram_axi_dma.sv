@@ -1,5 +1,6 @@
+
 module sdram_axi_dma #(
-    parameter INPUT_ARRAY_SIZE = 52   // Parameterized input array size
+    parameter INPUT_ARRAY_SIZE = 108   // Parameterized input array size
 )(
     // Clock & Reset
     input  logic        clk,
@@ -15,7 +16,7 @@ module sdram_axi_dma #(
 
     // Input array
     input  logic [7:0]  input_array [0:INPUT_ARRAY_SIZE-1], // Parameterized array
-	 
+     
     // Control ports
     input  logic        sample_enable,      // Trigger signal
     input  logic [31:0] segment_base_address,
@@ -23,7 +24,7 @@ module sdram_axi_dma #(
     output logic [31:0] segment_offset,
     input  logic        init,
     input  logic        reset_offset,
-	 
+     
     // Busy signal
     output logic        busy                // High when FSM is busy
 );
@@ -40,7 +41,7 @@ module sdram_axi_dma #(
 
     // Index width automatically calculated based on array size
     logic [$clog2(INPUT_ARRAY_SIZE)-1:0] data_idx;
-	 
+     
     logic [31:0] segment_offset_internal;
 
     // Instantiate AXI DMA
@@ -134,7 +135,7 @@ module sdram_axi_dma #(
             end
         end
     end
-	 
+     
     // Segment offset counter
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n)
@@ -148,7 +149,7 @@ module sdram_axi_dma #(
                 segment_offset_internal <= 'd0;
         end
     end
-	 
+     
     // Segment offset external
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n)

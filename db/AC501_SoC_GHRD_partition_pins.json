@@ -116,11 +116,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "LM10_encoder_b",
+					"name" : "LM10_encoder_z",
 					"strict" : false
 				},
 				{
-					"name" : "LM10_encoder_z",
+					"name" : "LM10_encoder_b",
 					"strict" : false
 				},
 				{
@@ -132,11 +132,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "lvds_data_in[5]",
+					"name" : "lvds_data_in[4]",
 					"strict" : false
 				},
 				{
-					"name" : "lvds_data_in[4]",
+					"name" : "lvds_data_in[5]",
 					"strict" : false
 				},
 				{

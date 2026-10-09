@@ -22,24 +22,19 @@
          type = "boolean";
       }
    }
-   element dma_sdram_0
+   element frame_sdram_dma_0
    {
       datum _sortIndex
       {
-         value = "2";
+         value = "4";
          type = "int";
       }
    }
-   element dma_sdram_0.control_port
+   element frame_sdram_dma_0.control_slave
    {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
       datum baseAddress
       {
-         value = "0";
+         value = "131072";
          type = "String";
       }
    }
@@ -59,11 +54,27 @@
          type = "String";
       }
    }
-   element register_file
+   element motor_lut_avalon_slave_0
    {
       datum _sortIndex
       {
          value = "3";
+         type = "int";
+      }
+   }
+   element motor_lut_avalon_slave_0.avalon_slave_0_1
+   {
+      datum baseAddress
+      {
+         value = "65536";
+         type = "String";
+      }
+   }
+   element register_file
+   {
+      datum _sortIndex
+      {
+         value = "2";
          type = "int";
       }
    }
@@ -77,6 +88,22 @@
       datum baseAddress
       {
          value = "16";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
          type = "String";
       }
    }
@@ -119,8 +146,8 @@
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
  <interface
-   name="dma_sdram_0_registers"
-   internal="dma_sdram_0.registers"
+   name="frame_sdram_dma_0_frame_input"
+   internal="frame_sdram_dma_0.frame_input"
    type="conduit"
    dir="end" />
  <interface
@@ -141,6 +168,11 @@
  <interface name="hps_0_hps_io" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
  <interface
+   name="motor_lut_avalon_slave_0_lut"
+   internal="motor_lut_avalon_slave_0.lut"
+   type="conduit"
+   dir="end" />
+ <interface
    name="register_file_run"
    internal="register_file.output"
    type="conduit"
@@ -152,7 +184,15 @@
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
- <module name="dma_sdram_0" kind="dma_sdram" version="1.0" enabled="1" />
+ <module
+   name="frame_sdram_dma_0"
+   kind="frame_sdram_dma"
+   version="1.0"
+   enabled="1">
+  <parameter name="BUFFER_BASE" value="268435456" />
+  <parameter name="DIV_FACTOR" value="100" />
+  <parameter name="MAX_HISTORY_FRAMES" value="2485512" />
+ </module>
  <module name="hps_0" kind="altera_hps" version="17.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
   <parameter name="ABS_RAM_MEM_INIT_FILENAME" value="meminit" />
@@ -683,11 +723,16 @@
   <parameter name="usb_mp_clk_div" value="0" />
   <parameter name="use_default_mpu_clk" value="false" />
  </module>
+ <module
+   name="motor_lut_avalon_slave_0"
+   kind="motor_lut_avalon_slave"
+   version="1.0"
+   enabled="1" />
  <module name="register_file" kind="new_component" version="1.0" enabled="1" />
  <connection
    kind="avalon"
    version="17.1"
-   start="dma_sdram_0.data_port"
+   start="frame_sdram_dma_0.dma_master"
    end="hps_0.f2h_axi_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -706,17 +751,35 @@
    kind="avalon"
    version="17.1"
    start="hps_0.h2f_lw_axi_master"
-   end="dma_sdram_0.control_port">
+   end="motor_lut_avalon_slave_0.avalon_slave_0_1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="baseAddress" value="0x00010000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection kind="clock" version="17.1" start="clk_0.clk" end="dma_sdram_0.clock" />
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="frame_sdram_dma_0.control_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00020000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
  <connection
    kind="clock"
    version="17.1"
    start="clk_0.clk"
    end="register_file.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="motor_lut_avalon_slave_0.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="frame_sdram_dma_0.clock" />
  <connection
    kind="clock"
    version="17.1"
@@ -736,7 +799,12 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
-   end="dma_sdram_0.reset" />
+   end="motor_lut_avalon_slave_0.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk_0.clk_reset"
+   end="frame_sdram_dma_0.reset" />
  <connection
    kind="reset"
    version="17.1"

@@ -1,0 +1,1192 @@
+Slow 1100mV 100C Model report for AC501_SoC_GHRD
+Wed Oct 07 19:59:23 2026
+Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Command Info
+  3. Summary of Paths
+  4. Path #1: Setup slack is -0.785 (VIOLATED)
+  5. Path #2: Setup slack is -0.785 (VIOLATED)
+  6. Path #3: Setup slack is -0.785 (VIOLATED)
+  7. Path #4: Setup slack is -0.785 (VIOLATED)
+  8. Path #5: Setup slack is -0.731 (VIOLATED)
+  9. Path #6: Setup slack is -0.731 (VIOLATED)
+ 10. Path #7: Setup slack is -0.731 (VIOLATED)
+ 11. Path #8: Setup slack is -0.731 (VIOLATED)
+ 12. Path #9: Setup slack is -0.594 (VIOLATED)
+ 13. Path #10: Setup slack is -0.594 (VIOLATED)
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2017  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
+----------------
+; Command Info ;
+----------------
+Report Timing: Found 10 setup paths (10 violated).  Worst case slack is -0.785 
+
+Tcl Command:
+    report_timing -setup -multi_corner -panel_name {Setup: PLL_200MHz} -from_clock [get_clocks { PLL_200MHz }] -to_clock [get_clocks { PLL_200MHz }] -npaths 10 -detail full_path
+
+Options:
+    -from_clock [get_clocks { PLL_200MHz }] 
+    -to_clock [get_clocks { PLL_200MHz }] 
+    -setup 
+    -npaths 10 
+    -detail full_path 
+    -panel_name {Setup: PLL_200MHz} 
+    -multi_corner 
+
+Delay Model:
+    Slow 1100mV 100C Model
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Summary of Paths                                                                                                                                                                                                                                                                                                            ;
++--------+---------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                                                                             ; To Node                                                                                                                                              ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+---------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
+; -0.785 ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE   ; PLL_200MHz   ; PLL_200MHz  ; 5.000        ; -0.153     ; 5.552      ;
+; -0.785 ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo             ; PLL_200MHz   ; PLL_200MHz  ; 5.000        ; -0.147     ; 5.558      ;
+; -0.785 ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE   ; PLL_200MHz   ; PLL_200MHz  ; 5.000        ; -0.151     ; 5.554      ;
+; -0.785 ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi             ; PLL_200MHz   ; PLL_200MHz  ; 5.000        ; -0.148     ; 5.557      ;
+; -0.731 ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE   ; PLL_200MHz   ; PLL_200MHz  ; 5.000        ; -0.159     ; 5.492      ;
+; -0.731 ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo             ; PLL_200MHz   ; PLL_200MHz  ; 5.000        ; -0.153     ; 5.498      ;
+; -0.731 ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE   ; PLL_200MHz   ; PLL_200MHz  ; 5.000        ; -0.157     ; 5.494      ;
+; -0.731 ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi             ; PLL_200MHz   ; PLL_200MHz  ; 5.000        ; -0.154     ; 5.497      ;
+; -0.594 ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[12]          ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[0] ; PLL_200MHz   ; PLL_200MHz  ; 5.000        ; -0.176     ; 5.338      ;
+; -0.594 ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[12]          ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[3] ; PLL_200MHz   ; PLL_200MHz  ; 5.000        ; -0.176     ; 5.338      ;
++--------+---------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+-------------+--------------+------------+------------+
+
+
+Path #1: Setup slack is -0.785 (VIOLATED)
+===============================================================================
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Path Summary                                                                                                                                                            ;
++--------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Property           ; Value                                                                                                                                              ;
++--------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; From Node          ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE                                                              ;
+; To Node            ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE ;
+; Launch Clock       ; PLL_200MHz                                                                                                                                         ;
+; Latch Clock        ; PLL_200MHz                                                                                                                                         ;
+; Data Arrival Time  ; 13.436                                                                                                                                             ;
+; Data Required Time ; 12.651                                                                                                                                             ;
+; Slack              ; -0.785 (VIOLATED)                                                                                                                                  ;
++--------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 5.000  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; -0.153 ;       ;             ;            ;        ;        ;
+; Data Delay             ; 5.552  ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.977       ; 50         ; 0.000  ; 2.170  ;
+;    Cell                ;        ; 6     ; 3.907       ; 50         ; 0.185  ; 1.745  ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 2.920       ; 53         ; 0.265  ; 1.292  ;
+;    Cell                ;        ; 6     ; 2.632       ; 47         ; 0.000  ; 0.700  ;
+;    uTco                ;        ; 1     ; 0.000       ; 0          ; 0.000  ; 0.000  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.407       ; 51         ; 0.000  ; 2.048  ;
+;    Cell                ;        ; 5     ; 3.315       ; 49         ; 0.292  ; 1.467  ;
+;    PLL Compensation    ;        ; 1     ; -0.151      ; 0          ; -0.151 ; -0.151 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                                                                                         ;
++----------+---------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr    ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                            ;
++----------+---------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; 0.000    ; 0.000   ;    ;      ;        ;                            ; launch edge time                                                                                                                                   ;
+; 7.884    ; 7.884   ;    ;      ;        ;                            ; clock path                                                                                                                                         ;
+;   0.000  ;   0.000 ;    ;      ;        ;                            ; source latency                                                                                                                                     ;
+;   0.000  ;   0.000 ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                                        ;
+;   0.000  ;   0.000 ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                                ;
+;   0.761  ;   0.761 ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                                ;
+;   1.802  ;   1.041 ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                             ;
+;   2.135  ;   0.333 ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                               ;
+;   2.135  ;   0.000 ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                                ;
+;   2.320  ;   0.185 ; RR ; CELL ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                                ;
+;   2.320  ;   0.000 ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                           ;
+;   4.065  ;   1.745 ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                              ;
+;   4.831  ;   0.766 ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                           ;
+;   5.149  ;   0.318 ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                          ;
+;   7.319  ;   2.170 ; RR ; IC   ; 1      ; FF_X18_Y35_N2              ; motor_drive_core_inst|u_pwm_carrier|carrier[0]~DUPLICATE|clk                                                                                       ;
+;   7.884  ;   0.565 ; RR ; CELL ; 1      ; FF_X18_Y35_N2              ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE                                                              ;
+; 13.436   ; 5.552   ;    ;      ;        ;                            ; data path                                                                                                                                          ;
+;   7.884  ;   0.000 ;    ; uTco ; 1      ; FF_X18_Y35_N2              ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE                                                              ;
+;   7.884  ;   0.000 ; FF ; CELL ; 18     ; FF_X18_Y35_N2              ; motor_drive_core_inst|u_pwm_carrier|carrier[0]~DUPLICATE|q                                                                                         ;
+;   9.176  ;   1.292 ; FF ; IC   ; 1      ; LABCELL_X18_Y41_N15        ; motor_drive_core_inst|u_pwm_compare_bank|always0~28|datac                                                                                          ;
+;   9.654  ;   0.478 ; FF ; CELL ; 1      ; LABCELL_X18_Y41_N15        ; motor_drive_core_inst|u_pwm_compare_bank|always0~28|combout                                                                                        ;
+;   9.919  ;   0.265 ; FF ; IC   ; 1      ; LABCELL_X18_Y41_N3         ; motor_drive_core_inst|u_pwm_compare_bank|always0~29|datac                                                                                          ;
+;   10.430 ;   0.511 ; FF ; CELL ; 2      ; LABCELL_X18_Y41_N3         ; motor_drive_core_inst|u_pwm_compare_bank|always0~29|combout                                                                                        ;
+;   10.803 ;   0.373 ; FF ; IC   ; 1      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|datac                                                                                          ;
+;   11.246 ;   0.443 ; FR ; CELL ; 8      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|combout                                                                                        ;
+;   11.526 ;   0.280 ; RR ; IC   ; 1      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|datad                                                   ;
+;   12.026 ;   0.500 ; RF ; CELL ; 9      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|combout                                                 ;
+;   12.736 ;   0.710 ; FF ; IC   ; 1      ; FF_X18_Y42_N58             ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE|ena                                             ;
+;   13.436 ;   0.700 ; FF ; CELL ; 1      ; FF_X18_Y42_N58             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE ;
++----------+---------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                                                                                         ;
++----------+----------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                            ;
++----------+----------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; 5.000    ; 5.000    ;    ;      ;        ;                            ; latch edge time                                                                                                                                    ;
+; 12.731   ; 7.731    ;    ;      ;        ;                            ; clock path                                                                                                                                         ;
+;   5.000  ;   0.000  ;    ;      ;        ;                            ; source latency                                                                                                                                     ;
+;   5.000  ;   0.000  ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                                        ;
+;   5.000  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                                ;
+;   5.761  ;   0.761  ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                                ;
+;   6.743  ;   0.982  ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                             ;
+;   7.051  ;   0.308  ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                               ;
+;   7.051  ;   0.000  ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                                ;
+;   6.900  ;   -0.151 ; RR ; COMP ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                                ;
+;   6.900  ;   0.000  ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                           ;
+;   8.367  ;   1.467  ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                              ;
+;   8.744  ;   0.377  ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                           ;
+;   9.036  ;   0.292  ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                          ;
+;   11.084 ;   2.048  ; RR ; IC   ; 1      ; FF_X18_Y42_N58             ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE|clk                                             ;
+;   11.571 ;   0.487  ; RR ; CELL ; 1      ; FF_X18_Y42_N58             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE ;
+;   12.731 ;   1.160  ;    ;      ;        ;                            ; clock pessimism removed                                                                                                                            ;
+; 12.651   ; -0.080   ;    ;      ;        ;                            ; clock uncertainty                                                                                                                                  ;
+; 12.651   ; 0.000    ;    ; uTsu ; 1      ; FF_X18_Y42_N58             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE ;
++----------+----------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+
+Path #2: Setup slack is -0.785 (VIOLATED)
+===============================================================================
++---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Path Summary                                                                                                                                                  ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; Property           ; Value                                                                                                                                    ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; From Node          ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE                                                    ;
+; To Node            ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo ;
+; Launch Clock       ; PLL_200MHz                                                                                                                               ;
+; Latch Clock        ; PLL_200MHz                                                                                                                               ;
+; Data Arrival Time  ; 13.442                                                                                                                                   ;
+; Data Required Time ; 12.657                                                                                                                                   ;
+; Slack              ; -0.785 (VIOLATED)                                                                                                                        ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 5.000  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; -0.147 ;       ;             ;            ;        ;        ;
+; Data Delay             ; 5.558  ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.977       ; 50         ; 0.000  ; 2.170  ;
+;    Cell                ;        ; 6     ; 3.907       ; 50         ; 0.185  ; 1.745  ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 2.920       ; 53         ; 0.265  ; 1.292  ;
+;    Cell                ;        ; 6     ; 2.638       ; 47         ; 0.000  ; 0.706  ;
+;    uTco                ;        ; 1     ; 0.000       ; 0          ; 0.000  ; 0.000  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.407       ; 51         ; 0.000  ; 2.048  ;
+;    Cell                ;        ; 5     ; 3.321       ; 49         ; 0.292  ; 1.467  ;
+;    PLL Compensation    ;        ; 1     ; -0.151      ; 0          ; -0.151 ; -0.151 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                                                                               ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr    ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                  ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; 0.000    ; 0.000   ;    ;      ;        ;                            ; launch edge time                                                                                                                         ;
+; 7.884    ; 7.884   ;    ;      ;        ;                            ; clock path                                                                                                                               ;
+;   0.000  ;   0.000 ;    ;      ;        ;                            ; source latency                                                                                                                           ;
+;   0.000  ;   0.000 ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                              ;
+;   0.000  ;   0.000 ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                      ;
+;   0.761  ;   0.761 ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                      ;
+;   1.802  ;   1.041 ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                   ;
+;   2.135  ;   0.333 ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                     ;
+;   2.135  ;   0.000 ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                      ;
+;   2.320  ;   0.185 ; RR ; CELL ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                      ;
+;   2.320  ;   0.000 ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                 ;
+;   4.065  ;   1.745 ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                    ;
+;   4.831  ;   0.766 ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                 ;
+;   5.149  ;   0.318 ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                ;
+;   7.319  ;   2.170 ; RR ; IC   ; 1      ; FF_X18_Y35_N2              ; motor_drive_core_inst|u_pwm_carrier|carrier[0]~DUPLICATE|clk                                                                             ;
+;   7.884  ;   0.565 ; RR ; CELL ; 1      ; FF_X18_Y35_N2              ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE                                                    ;
+; 13.442   ; 5.558   ;    ;      ;        ;                            ; data path                                                                                                                                ;
+;   7.884  ;   0.000 ;    ; uTco ; 1      ; FF_X18_Y35_N2              ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE                                                    ;
+;   7.884  ;   0.000 ; FF ; CELL ; 18     ; FF_X18_Y35_N2              ; motor_drive_core_inst|u_pwm_carrier|carrier[0]~DUPLICATE|q                                                                               ;
+;   9.176  ;   1.292 ; FF ; IC   ; 1      ; LABCELL_X18_Y41_N15        ; motor_drive_core_inst|u_pwm_compare_bank|always0~28|datac                                                                                ;
+;   9.654  ;   0.478 ; FF ; CELL ; 1      ; LABCELL_X18_Y41_N15        ; motor_drive_core_inst|u_pwm_compare_bank|always0~28|combout                                                                              ;
+;   9.919  ;   0.265 ; FF ; IC   ; 1      ; LABCELL_X18_Y41_N3         ; motor_drive_core_inst|u_pwm_compare_bank|always0~29|datac                                                                                ;
+;   10.430 ;   0.511 ; FF ; CELL ; 2      ; LABCELL_X18_Y41_N3         ; motor_drive_core_inst|u_pwm_compare_bank|always0~29|combout                                                                              ;
+;   10.803 ;   0.373 ; FF ; IC   ; 1      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|datac                                                                                ;
+;   11.246 ;   0.443 ; FR ; CELL ; 8      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|combout                                                                              ;
+;   11.526 ;   0.280 ; RR ; IC   ; 1      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|datad                                         ;
+;   12.026 ;   0.500 ; RF ; CELL ; 9      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|combout                                       ;
+;   12.736 ;   0.710 ; FF ; IC   ; 1      ; FF_X18_Y42_N59             ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo|ena                                             ;
+;   13.442 ;   0.706 ; FF ; CELL ; 1      ; FF_X18_Y42_N59             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                                                                               ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                  ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; 5.000    ; 5.000    ;    ;      ;        ;                            ; latch edge time                                                                                                                          ;
+; 12.737   ; 7.737    ;    ;      ;        ;                            ; clock path                                                                                                                               ;
+;   5.000  ;   0.000  ;    ;      ;        ;                            ; source latency                                                                                                                           ;
+;   5.000  ;   0.000  ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                              ;
+;   5.000  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                      ;
+;   5.761  ;   0.761  ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                      ;
+;   6.743  ;   0.982  ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                   ;
+;   7.051  ;   0.308  ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                     ;
+;   7.051  ;   0.000  ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                      ;
+;   6.900  ;   -0.151 ; RR ; COMP ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                      ;
+;   6.900  ;   0.000  ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                 ;
+;   8.367  ;   1.467  ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                    ;
+;   8.744  ;   0.377  ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                 ;
+;   9.036  ;   0.292  ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                ;
+;   11.084 ;   2.048  ; RR ; IC   ; 1      ; FF_X18_Y42_N59             ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo|clk                                             ;
+;   11.577 ;   0.493  ; RR ; CELL ; 1      ; FF_X18_Y42_N59             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo ;
+;   12.737 ;   1.160  ;    ;      ;        ;                            ; clock pessimism removed                                                                                                                  ;
+; 12.657   ; -0.080   ;    ;      ;        ;                            ; clock uncertainty                                                                                                                        ;
+; 12.657   ; 0.000    ;    ; uTsu ; 1      ; FF_X18_Y42_N59             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+
+Path #3: Setup slack is -0.785 (VIOLATED)
+===============================================================================
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Path Summary                                                                                                                                                            ;
++--------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Property           ; Value                                                                                                                                              ;
++--------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; From Node          ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE                                                              ;
+; To Node            ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE ;
+; Launch Clock       ; PLL_200MHz                                                                                                                                         ;
+; Latch Clock        ; PLL_200MHz                                                                                                                                         ;
+; Data Arrival Time  ; 13.438                                                                                                                                             ;
+; Data Required Time ; 12.653                                                                                                                                             ;
+; Slack              ; -0.785 (VIOLATED)                                                                                                                                  ;
++--------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 5.000  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; -0.151 ;       ;             ;            ;        ;        ;
+; Data Delay             ; 5.554  ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.977       ; 50         ; 0.000  ; 2.170  ;
+;    Cell                ;        ; 6     ; 3.907       ; 50         ; 0.185  ; 1.745  ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 2.920       ; 53         ; 0.265  ; 1.292  ;
+;    Cell                ;        ; 6     ; 2.634       ; 47         ; 0.000  ; 0.702  ;
+;    uTco                ;        ; 1     ; 0.000       ; 0          ; 0.000  ; 0.000  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.407       ; 51         ; 0.000  ; 2.048  ;
+;    Cell                ;        ; 5     ; 3.317       ; 49         ; 0.292  ; 1.467  ;
+;    PLL Compensation    ;        ; 1     ; -0.151      ; 0          ; -0.151 ; -0.151 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                                                                                         ;
++----------+---------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr    ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                            ;
++----------+---------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; 0.000    ; 0.000   ;    ;      ;        ;                            ; launch edge time                                                                                                                                   ;
+; 7.884    ; 7.884   ;    ;      ;        ;                            ; clock path                                                                                                                                         ;
+;   0.000  ;   0.000 ;    ;      ;        ;                            ; source latency                                                                                                                                     ;
+;   0.000  ;   0.000 ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                                        ;
+;   0.000  ;   0.000 ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                                ;
+;   0.761  ;   0.761 ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                                ;
+;   1.802  ;   1.041 ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                             ;
+;   2.135  ;   0.333 ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                               ;
+;   2.135  ;   0.000 ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                                ;
+;   2.320  ;   0.185 ; RR ; CELL ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                                ;
+;   2.320  ;   0.000 ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                           ;
+;   4.065  ;   1.745 ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                              ;
+;   4.831  ;   0.766 ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                           ;
+;   5.149  ;   0.318 ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                          ;
+;   7.319  ;   2.170 ; RR ; IC   ; 1      ; FF_X18_Y35_N2              ; motor_drive_core_inst|u_pwm_carrier|carrier[0]~DUPLICATE|clk                                                                                       ;
+;   7.884  ;   0.565 ; RR ; CELL ; 1      ; FF_X18_Y35_N2              ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE                                                              ;
+; 13.438   ; 5.554   ;    ;      ;        ;                            ; data path                                                                                                                                          ;
+;   7.884  ;   0.000 ;    ; uTco ; 1      ; FF_X18_Y35_N2              ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE                                                              ;
+;   7.884  ;   0.000 ; FF ; CELL ; 18     ; FF_X18_Y35_N2              ; motor_drive_core_inst|u_pwm_carrier|carrier[0]~DUPLICATE|q                                                                                         ;
+;   9.176  ;   1.292 ; FF ; IC   ; 1      ; LABCELL_X18_Y41_N15        ; motor_drive_core_inst|u_pwm_compare_bank|always0~28|datac                                                                                          ;
+;   9.654  ;   0.478 ; FF ; CELL ; 1      ; LABCELL_X18_Y41_N15        ; motor_drive_core_inst|u_pwm_compare_bank|always0~28|combout                                                                                        ;
+;   9.919  ;   0.265 ; FF ; IC   ; 1      ; LABCELL_X18_Y41_N3         ; motor_drive_core_inst|u_pwm_compare_bank|always0~29|datac                                                                                          ;
+;   10.430 ;   0.511 ; FF ; CELL ; 2      ; LABCELL_X18_Y41_N3         ; motor_drive_core_inst|u_pwm_compare_bank|always0~29|combout                                                                                        ;
+;   10.803 ;   0.373 ; FF ; IC   ; 1      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|datac                                                                                          ;
+;   11.246 ;   0.443 ; FR ; CELL ; 8      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|combout                                                                                        ;
+;   11.526 ;   0.280 ; RR ; IC   ; 1      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|datad                                                   ;
+;   12.026 ;   0.500 ; RF ; CELL ; 9      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|combout                                                 ;
+;   12.736 ;   0.710 ; FF ; IC   ; 1      ; FF_X18_Y42_N2              ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE|ena                                             ;
+;   13.438 ;   0.702 ; FF ; CELL ; 1      ; FF_X18_Y42_N2              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE ;
++----------+---------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                                                                                         ;
++----------+----------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                            ;
++----------+----------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; 5.000    ; 5.000    ;    ;      ;        ;                            ; latch edge time                                                                                                                                    ;
+; 12.733   ; 7.733    ;    ;      ;        ;                            ; clock path                                                                                                                                         ;
+;   5.000  ;   0.000  ;    ;      ;        ;                            ; source latency                                                                                                                                     ;
+;   5.000  ;   0.000  ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                                        ;
+;   5.000  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                                ;
+;   5.761  ;   0.761  ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                                ;
+;   6.743  ;   0.982  ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                             ;
+;   7.051  ;   0.308  ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                               ;
+;   7.051  ;   0.000  ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                                ;
+;   6.900  ;   -0.151 ; RR ; COMP ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                                ;
+;   6.900  ;   0.000  ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                           ;
+;   8.367  ;   1.467  ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                              ;
+;   8.744  ;   0.377  ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                           ;
+;   9.036  ;   0.292  ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                          ;
+;   11.084 ;   2.048  ; RR ; IC   ; 1      ; FF_X18_Y42_N2              ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE|clk                                             ;
+;   11.573 ;   0.489  ; RR ; CELL ; 1      ; FF_X18_Y42_N2              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE ;
+;   12.733 ;   1.160  ;    ;      ;        ;                            ; clock pessimism removed                                                                                                                            ;
+; 12.653   ; -0.080   ;    ;      ;        ;                            ; clock uncertainty                                                                                                                                  ;
+; 12.653   ; 0.000    ;    ; uTsu ; 1      ; FF_X18_Y42_N2              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE ;
++----------+----------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+
+Path #4: Setup slack is -0.785 (VIOLATED)
+===============================================================================
++---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Path Summary                                                                                                                                                  ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; Property           ; Value                                                                                                                                    ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; From Node          ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE                                                    ;
+; To Node            ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi ;
+; Launch Clock       ; PLL_200MHz                                                                                                                               ;
+; Latch Clock        ; PLL_200MHz                                                                                                                               ;
+; Data Arrival Time  ; 13.441                                                                                                                                   ;
+; Data Required Time ; 12.656                                                                                                                                   ;
+; Slack              ; -0.785 (VIOLATED)                                                                                                                        ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 5.000  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; -0.148 ;       ;             ;            ;        ;        ;
+; Data Delay             ; 5.557  ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.977       ; 50         ; 0.000  ; 2.170  ;
+;    Cell                ;        ; 6     ; 3.907       ; 50         ; 0.185  ; 1.745  ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 2.920       ; 53         ; 0.265  ; 1.292  ;
+;    Cell                ;        ; 6     ; 2.637       ; 47         ; 0.000  ; 0.705  ;
+;    uTco                ;        ; 1     ; 0.000       ; 0          ; 0.000  ; 0.000  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.407       ; 51         ; 0.000  ; 2.048  ;
+;    Cell                ;        ; 5     ; 3.320       ; 49         ; 0.292  ; 1.467  ;
+;    PLL Compensation    ;        ; 1     ; -0.151      ; 0          ; -0.151 ; -0.151 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                                                                               ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr    ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                  ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; 0.000    ; 0.000   ;    ;      ;        ;                            ; launch edge time                                                                                                                         ;
+; 7.884    ; 7.884   ;    ;      ;        ;                            ; clock path                                                                                                                               ;
+;   0.000  ;   0.000 ;    ;      ;        ;                            ; source latency                                                                                                                           ;
+;   0.000  ;   0.000 ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                              ;
+;   0.000  ;   0.000 ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                      ;
+;   0.761  ;   0.761 ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                      ;
+;   1.802  ;   1.041 ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                   ;
+;   2.135  ;   0.333 ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                     ;
+;   2.135  ;   0.000 ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                      ;
+;   2.320  ;   0.185 ; RR ; CELL ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                      ;
+;   2.320  ;   0.000 ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                 ;
+;   4.065  ;   1.745 ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                    ;
+;   4.831  ;   0.766 ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                 ;
+;   5.149  ;   0.318 ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                ;
+;   7.319  ;   2.170 ; RR ; IC   ; 1      ; FF_X18_Y35_N2              ; motor_drive_core_inst|u_pwm_carrier|carrier[0]~DUPLICATE|clk                                                                             ;
+;   7.884  ;   0.565 ; RR ; CELL ; 1      ; FF_X18_Y35_N2              ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE                                                    ;
+; 13.441   ; 5.557   ;    ;      ;        ;                            ; data path                                                                                                                                ;
+;   7.884  ;   0.000 ;    ; uTco ; 1      ; FF_X18_Y35_N2              ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[0]~DUPLICATE                                                    ;
+;   7.884  ;   0.000 ; FF ; CELL ; 18     ; FF_X18_Y35_N2              ; motor_drive_core_inst|u_pwm_carrier|carrier[0]~DUPLICATE|q                                                                               ;
+;   9.176  ;   1.292 ; FF ; IC   ; 1      ; LABCELL_X18_Y41_N15        ; motor_drive_core_inst|u_pwm_compare_bank|always0~28|datac                                                                                ;
+;   9.654  ;   0.478 ; FF ; CELL ; 1      ; LABCELL_X18_Y41_N15        ; motor_drive_core_inst|u_pwm_compare_bank|always0~28|combout                                                                              ;
+;   9.919  ;   0.265 ; FF ; IC   ; 1      ; LABCELL_X18_Y41_N3         ; motor_drive_core_inst|u_pwm_compare_bank|always0~29|datac                                                                                ;
+;   10.430 ;   0.511 ; FF ; CELL ; 2      ; LABCELL_X18_Y41_N3         ; motor_drive_core_inst|u_pwm_compare_bank|always0~29|combout                                                                              ;
+;   10.803 ;   0.373 ; FF ; IC   ; 1      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|datac                                                                                ;
+;   11.246 ;   0.443 ; FR ; CELL ; 8      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|combout                                                                              ;
+;   11.526 ;   0.280 ; RR ; IC   ; 1      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|datad                                         ;
+;   12.026 ;   0.500 ; RF ; CELL ; 9      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|combout                                       ;
+;   12.736 ;   0.710 ; FF ; IC   ; 1      ; FF_X18_Y42_N1              ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_hi|ena                                             ;
+;   13.441 ;   0.705 ; FF ; CELL ; 1      ; FF_X18_Y42_N1              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                                                                               ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                  ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; 5.000    ; 5.000    ;    ;      ;        ;                            ; latch edge time                                                                                                                          ;
+; 12.736   ; 7.736    ;    ;      ;        ;                            ; clock path                                                                                                                               ;
+;   5.000  ;   0.000  ;    ;      ;        ;                            ; source latency                                                                                                                           ;
+;   5.000  ;   0.000  ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                              ;
+;   5.000  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                      ;
+;   5.761  ;   0.761  ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                      ;
+;   6.743  ;   0.982  ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                   ;
+;   7.051  ;   0.308  ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                     ;
+;   7.051  ;   0.000  ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                      ;
+;   6.900  ;   -0.151 ; RR ; COMP ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                      ;
+;   6.900  ;   0.000  ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                 ;
+;   8.367  ;   1.467  ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                    ;
+;   8.744  ;   0.377  ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                 ;
+;   9.036  ;   0.292  ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                ;
+;   11.084 ;   2.048  ; RR ; IC   ; 1      ; FF_X18_Y42_N1              ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_hi|clk                                             ;
+;   11.576 ;   0.492  ; RR ; CELL ; 1      ; FF_X18_Y42_N1              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi ;
+;   12.736 ;   1.160  ;    ;      ;        ;                            ; clock pessimism removed                                                                                                                  ;
+; 12.656   ; -0.080   ;    ;      ;        ;                            ; clock uncertainty                                                                                                                        ;
+; 12.656   ; 0.000    ;    ; uTsu ; 1      ; FF_X18_Y42_N1              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+
+Path #5: Setup slack is -0.731 (VIOLATED)
+===============================================================================
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Path Summary                                                                                                                                                            ;
++--------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Property           ; Value                                                                                                                                              ;
++--------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; From Node          ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE                                                              ;
+; To Node            ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE ;
+; Launch Clock       ; PLL_200MHz                                                                                                                                         ;
+; Latch Clock        ; PLL_200MHz                                                                                                                                         ;
+; Data Arrival Time  ; 13.382                                                                                                                                             ;
+; Data Required Time ; 12.651                                                                                                                                             ;
+; Slack              ; -0.731 (VIOLATED)                                                                                                                                  ;
++--------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 5.000  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; -0.159 ;       ;             ;            ;        ;        ;
+; Data Delay             ; 5.492  ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.977       ; 50         ; 0.000  ; 2.170  ;
+;    Cell                ;        ; 6     ; 3.913       ; 50         ; 0.185  ; 1.745  ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 3.164       ; 58         ; 0.258  ; 1.555  ;
+;    Cell                ;        ; 6     ; 2.328       ; 42         ; 0.000  ; 0.700  ;
+;    uTco                ;        ; 1     ; 0.000       ; 0          ; 0.000  ; 0.000  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.407       ; 51         ; 0.000  ; 2.048  ;
+;    Cell                ;        ; 5     ; 3.315       ; 49         ; 0.292  ; 1.467  ;
+;    PLL Compensation    ;        ; 1     ; -0.151      ; 0          ; -0.151 ; -0.151 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                                                                                         ;
++----------+---------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr    ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                            ;
++----------+---------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; 0.000    ; 0.000   ;    ;      ;        ;                            ; launch edge time                                                                                                                                   ;
+; 7.890    ; 7.890   ;    ;      ;        ;                            ; clock path                                                                                                                                         ;
+;   0.000  ;   0.000 ;    ;      ;        ;                            ; source latency                                                                                                                                     ;
+;   0.000  ;   0.000 ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                                        ;
+;   0.000  ;   0.000 ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                                ;
+;   0.761  ;   0.761 ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                                ;
+;   1.802  ;   1.041 ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                             ;
+;   2.135  ;   0.333 ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                               ;
+;   2.135  ;   0.000 ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                                ;
+;   2.320  ;   0.185 ; RR ; CELL ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                                ;
+;   2.320  ;   0.000 ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                           ;
+;   4.065  ;   1.745 ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                              ;
+;   4.831  ;   0.766 ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                           ;
+;   5.149  ;   0.318 ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                          ;
+;   7.319  ;   2.170 ; RR ; IC   ; 1      ; FF_X18_Y35_N23             ; motor_drive_core_inst|u_pwm_carrier|carrier[7]~DUPLICATE|clk                                                                                       ;
+;   7.890  ;   0.571 ; RR ; CELL ; 1      ; FF_X18_Y35_N23             ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE                                                              ;
+; 13.382   ; 5.492   ;    ;      ;        ;                            ; data path                                                                                                                                          ;
+;   7.890  ;   0.000 ;    ; uTco ; 1      ; FF_X18_Y35_N23             ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE                                                              ;
+;   7.890  ;   0.000 ; FF ; CELL ; 14     ; FF_X18_Y35_N23             ; motor_drive_core_inst|u_pwm_carrier|carrier[7]~DUPLICATE|q                                                                                         ;
+;   9.445  ;   1.555 ; FF ; IC   ; 1      ; LABCELL_X18_Y41_N9         ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~4|datae                                                                                        ;
+;   9.784  ;   0.339 ; FR ; CELL ; 1      ; LABCELL_X18_Y41_N9         ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~4|combout                                                                                      ;
+;   10.048 ;   0.264 ; RR ; IC   ; 1      ; LABCELL_X18_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~5|datab                                                                                        ;
+;   10.598 ;   0.550 ; RF ; CELL ; 2      ; LABCELL_X18_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~5|combout                                                                                      ;
+;   10.975 ;   0.377 ; FF ; IC   ; 1      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|datae                                                                                          ;
+;   11.200 ;   0.225 ; FF ; CELL ; 8      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|combout                                                                                        ;
+;   11.458 ;   0.258 ; FF ; IC   ; 1      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|datad                                                   ;
+;   11.972 ;   0.514 ; FF ; CELL ; 9      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|combout                                                 ;
+;   12.682 ;   0.710 ; FF ; IC   ; 1      ; FF_X18_Y42_N58             ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE|ena                                             ;
+;   13.382 ;   0.700 ; FF ; CELL ; 1      ; FF_X18_Y42_N58             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE ;
++----------+---------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                                                                                         ;
++----------+----------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                            ;
++----------+----------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; 5.000    ; 5.000    ;    ;      ;        ;                            ; latch edge time                                                                                                                                    ;
+; 12.731   ; 7.731    ;    ;      ;        ;                            ; clock path                                                                                                                                         ;
+;   5.000  ;   0.000  ;    ;      ;        ;                            ; source latency                                                                                                                                     ;
+;   5.000  ;   0.000  ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                                        ;
+;   5.000  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                                ;
+;   5.761  ;   0.761  ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                                ;
+;   6.743  ;   0.982  ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                             ;
+;   7.051  ;   0.308  ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                               ;
+;   7.051  ;   0.000  ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                                ;
+;   6.900  ;   -0.151 ; RR ; COMP ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                                ;
+;   6.900  ;   0.000  ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                           ;
+;   8.367  ;   1.467  ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                              ;
+;   8.744  ;   0.377  ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                           ;
+;   9.036  ;   0.292  ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                          ;
+;   11.084 ;   2.048  ; RR ; IC   ; 1      ; FF_X18_Y42_N58             ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE|clk                                             ;
+;   11.571 ;   0.487  ; RR ; CELL ; 1      ; FF_X18_Y42_N58             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE ;
+;   12.731 ;   1.160  ;    ;      ;        ;                            ; clock pessimism removed                                                                                                                            ;
+; 12.651   ; -0.080   ;    ;      ;        ;                            ; clock uncertainty                                                                                                                                  ;
+; 12.651   ; 0.000    ;    ; uTsu ; 1      ; FF_X18_Y42_N58             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~DUPLICATE ;
++----------+----------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+
+Path #6: Setup slack is -0.731 (VIOLATED)
+===============================================================================
++---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Path Summary                                                                                                                                                  ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; Property           ; Value                                                                                                                                    ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; From Node          ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE                                                    ;
+; To Node            ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo ;
+; Launch Clock       ; PLL_200MHz                                                                                                                               ;
+; Latch Clock        ; PLL_200MHz                                                                                                                               ;
+; Data Arrival Time  ; 13.388                                                                                                                                   ;
+; Data Required Time ; 12.657                                                                                                                                   ;
+; Slack              ; -0.731 (VIOLATED)                                                                                                                        ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 5.000  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; -0.153 ;       ;             ;            ;        ;        ;
+; Data Delay             ; 5.498  ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.977       ; 50         ; 0.000  ; 2.170  ;
+;    Cell                ;        ; 6     ; 3.913       ; 50         ; 0.185  ; 1.745  ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 3.164       ; 58         ; 0.258  ; 1.555  ;
+;    Cell                ;        ; 6     ; 2.334       ; 42         ; 0.000  ; 0.706  ;
+;    uTco                ;        ; 1     ; 0.000       ; 0          ; 0.000  ; 0.000  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.407       ; 51         ; 0.000  ; 2.048  ;
+;    Cell                ;        ; 5     ; 3.321       ; 49         ; 0.292  ; 1.467  ;
+;    PLL Compensation    ;        ; 1     ; -0.151      ; 0          ; -0.151 ; -0.151 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                                                                               ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr    ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                  ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; 0.000    ; 0.000   ;    ;      ;        ;                            ; launch edge time                                                                                                                         ;
+; 7.890    ; 7.890   ;    ;      ;        ;                            ; clock path                                                                                                                               ;
+;   0.000  ;   0.000 ;    ;      ;        ;                            ; source latency                                                                                                                           ;
+;   0.000  ;   0.000 ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                              ;
+;   0.000  ;   0.000 ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                      ;
+;   0.761  ;   0.761 ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                      ;
+;   1.802  ;   1.041 ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                   ;
+;   2.135  ;   0.333 ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                     ;
+;   2.135  ;   0.000 ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                      ;
+;   2.320  ;   0.185 ; RR ; CELL ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                      ;
+;   2.320  ;   0.000 ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                 ;
+;   4.065  ;   1.745 ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                    ;
+;   4.831  ;   0.766 ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                 ;
+;   5.149  ;   0.318 ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                ;
+;   7.319  ;   2.170 ; RR ; IC   ; 1      ; FF_X18_Y35_N23             ; motor_drive_core_inst|u_pwm_carrier|carrier[7]~DUPLICATE|clk                                                                             ;
+;   7.890  ;   0.571 ; RR ; CELL ; 1      ; FF_X18_Y35_N23             ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE                                                    ;
+; 13.388   ; 5.498   ;    ;      ;        ;                            ; data path                                                                                                                                ;
+;   7.890  ;   0.000 ;    ; uTco ; 1      ; FF_X18_Y35_N23             ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE                                                    ;
+;   7.890  ;   0.000 ; FF ; CELL ; 14     ; FF_X18_Y35_N23             ; motor_drive_core_inst|u_pwm_carrier|carrier[7]~DUPLICATE|q                                                                               ;
+;   9.445  ;   1.555 ; FF ; IC   ; 1      ; LABCELL_X18_Y41_N9         ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~4|datae                                                                              ;
+;   9.784  ;   0.339 ; FR ; CELL ; 1      ; LABCELL_X18_Y41_N9         ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~4|combout                                                                            ;
+;   10.048 ;   0.264 ; RR ; IC   ; 1      ; LABCELL_X18_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~5|datab                                                                              ;
+;   10.598 ;   0.550 ; RF ; CELL ; 2      ; LABCELL_X18_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~5|combout                                                                            ;
+;   10.975 ;   0.377 ; FF ; IC   ; 1      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|datae                                                                                ;
+;   11.200 ;   0.225 ; FF ; CELL ; 8      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|combout                                                                              ;
+;   11.458 ;   0.258 ; FF ; IC   ; 1      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|datad                                         ;
+;   11.972 ;   0.514 ; FF ; CELL ; 9      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|combout                                       ;
+;   12.682 ;   0.710 ; FF ; IC   ; 1      ; FF_X18_Y42_N59             ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo|ena                                             ;
+;   13.388 ;   0.706 ; FF ; CELL ; 1      ; FF_X18_Y42_N59             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                                                                               ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                  ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; 5.000    ; 5.000    ;    ;      ;        ;                            ; latch edge time                                                                                                                          ;
+; 12.737   ; 7.737    ;    ;      ;        ;                            ; clock path                                                                                                                               ;
+;   5.000  ;   0.000  ;    ;      ;        ;                            ; source latency                                                                                                                           ;
+;   5.000  ;   0.000  ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                              ;
+;   5.000  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                      ;
+;   5.761  ;   0.761  ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                      ;
+;   6.743  ;   0.982  ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                   ;
+;   7.051  ;   0.308  ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                     ;
+;   7.051  ;   0.000  ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                      ;
+;   6.900  ;   -0.151 ; RR ; COMP ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                      ;
+;   6.900  ;   0.000  ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                 ;
+;   8.367  ;   1.467  ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                    ;
+;   8.744  ;   0.377  ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                 ;
+;   9.036  ;   0.292  ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                ;
+;   11.084 ;   2.048  ; RR ; IC   ; 1      ; FF_X18_Y42_N59             ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo|clk                                             ;
+;   11.577 ;   0.493  ; RR ; CELL ; 1      ; FF_X18_Y42_N59             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo ;
+;   12.737 ;   1.160  ;    ;      ;        ;                            ; clock pessimism removed                                                                                                                  ;
+; 12.657   ; -0.080   ;    ;      ;        ;                            ; clock uncertainty                                                                                                                        ;
+; 12.657   ; 0.000    ;    ; uTsu ; 1      ; FF_X18_Y42_N59             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_lo ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+
+Path #7: Setup slack is -0.731 (VIOLATED)
+===============================================================================
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Path Summary                                                                                                                                                            ;
++--------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Property           ; Value                                                                                                                                              ;
++--------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; From Node          ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE                                                              ;
+; To Node            ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE ;
+; Launch Clock       ; PLL_200MHz                                                                                                                                         ;
+; Latch Clock        ; PLL_200MHz                                                                                                                                         ;
+; Data Arrival Time  ; 13.384                                                                                                                                             ;
+; Data Required Time ; 12.653                                                                                                                                             ;
+; Slack              ; -0.731 (VIOLATED)                                                                                                                                  ;
++--------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 5.000  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; -0.157 ;       ;             ;            ;        ;        ;
+; Data Delay             ; 5.494  ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.977       ; 50         ; 0.000  ; 2.170  ;
+;    Cell                ;        ; 6     ; 3.913       ; 50         ; 0.185  ; 1.745  ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 3.164       ; 58         ; 0.258  ; 1.555  ;
+;    Cell                ;        ; 6     ; 2.330       ; 42         ; 0.000  ; 0.702  ;
+;    uTco                ;        ; 1     ; 0.000       ; 0          ; 0.000  ; 0.000  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.407       ; 51         ; 0.000  ; 2.048  ;
+;    Cell                ;        ; 5     ; 3.317       ; 49         ; 0.292  ; 1.467  ;
+;    PLL Compensation    ;        ; 1     ; -0.151      ; 0          ; -0.151 ; -0.151 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                                                                                         ;
++----------+---------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr    ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                            ;
++----------+---------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; 0.000    ; 0.000   ;    ;      ;        ;                            ; launch edge time                                                                                                                                   ;
+; 7.890    ; 7.890   ;    ;      ;        ;                            ; clock path                                                                                                                                         ;
+;   0.000  ;   0.000 ;    ;      ;        ;                            ; source latency                                                                                                                                     ;
+;   0.000  ;   0.000 ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                                        ;
+;   0.000  ;   0.000 ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                                ;
+;   0.761  ;   0.761 ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                                ;
+;   1.802  ;   1.041 ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                             ;
+;   2.135  ;   0.333 ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                               ;
+;   2.135  ;   0.000 ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                                ;
+;   2.320  ;   0.185 ; RR ; CELL ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                                ;
+;   2.320  ;   0.000 ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                           ;
+;   4.065  ;   1.745 ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                              ;
+;   4.831  ;   0.766 ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                           ;
+;   5.149  ;   0.318 ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                          ;
+;   7.319  ;   2.170 ; RR ; IC   ; 1      ; FF_X18_Y35_N23             ; motor_drive_core_inst|u_pwm_carrier|carrier[7]~DUPLICATE|clk                                                                                       ;
+;   7.890  ;   0.571 ; RR ; CELL ; 1      ; FF_X18_Y35_N23             ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE                                                              ;
+; 13.384   ; 5.494   ;    ;      ;        ;                            ; data path                                                                                                                                          ;
+;   7.890  ;   0.000 ;    ; uTco ; 1      ; FF_X18_Y35_N23             ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE                                                              ;
+;   7.890  ;   0.000 ; FF ; CELL ; 14     ; FF_X18_Y35_N23             ; motor_drive_core_inst|u_pwm_carrier|carrier[7]~DUPLICATE|q                                                                                         ;
+;   9.445  ;   1.555 ; FF ; IC   ; 1      ; LABCELL_X18_Y41_N9         ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~4|datae                                                                                        ;
+;   9.784  ;   0.339 ; FR ; CELL ; 1      ; LABCELL_X18_Y41_N9         ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~4|combout                                                                                      ;
+;   10.048 ;   0.264 ; RR ; IC   ; 1      ; LABCELL_X18_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~5|datab                                                                                        ;
+;   10.598 ;   0.550 ; RF ; CELL ; 2      ; LABCELL_X18_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~5|combout                                                                                      ;
+;   10.975 ;   0.377 ; FF ; IC   ; 1      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|datae                                                                                          ;
+;   11.200 ;   0.225 ; FF ; CELL ; 8      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|combout                                                                                        ;
+;   11.458 ;   0.258 ; FF ; IC   ; 1      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|datad                                                   ;
+;   11.972 ;   0.514 ; FF ; CELL ; 9      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|combout                                                 ;
+;   12.682 ;   0.710 ; FF ; IC   ; 1      ; FF_X18_Y42_N2              ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE|ena                                             ;
+;   13.384 ;   0.702 ; FF ; CELL ; 1      ; FF_X18_Y42_N2              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE ;
++----------+---------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                                                                                         ;
++----------+----------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                            ;
++----------+----------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+; 5.000    ; 5.000    ;    ;      ;        ;                            ; latch edge time                                                                                                                                    ;
+; 12.733   ; 7.733    ;    ;      ;        ;                            ; clock path                                                                                                                                         ;
+;   5.000  ;   0.000  ;    ;      ;        ;                            ; source latency                                                                                                                                     ;
+;   5.000  ;   0.000  ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                                        ;
+;   5.000  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                                ;
+;   5.761  ;   0.761  ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                                ;
+;   6.743  ;   0.982  ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                             ;
+;   7.051  ;   0.308  ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                               ;
+;   7.051  ;   0.000  ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                                ;
+;   6.900  ;   -0.151 ; RR ; COMP ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                                ;
+;   6.900  ;   0.000  ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                           ;
+;   8.367  ;   1.467  ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                              ;
+;   8.744  ;   0.377  ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                           ;
+;   9.036  ;   0.292  ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                          ;
+;   11.084 ;   2.048  ; RR ; IC   ; 1      ; FF_X18_Y42_N2              ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE|clk                                             ;
+;   11.573 ;   0.489  ; RR ; CELL ; 1      ; FF_X18_Y42_N2              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE ;
+;   12.733 ;   1.160  ;    ;      ;        ;                            ; clock pessimism removed                                                                                                                            ;
+; 12.653   ; -0.080   ;    ;      ;        ;                            ; clock uncertainty                                                                                                                                  ;
+; 12.653   ; 0.000    ;    ; uTsu ; 1      ; FF_X18_Y42_N2              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi~DUPLICATE ;
++----------+----------+----+------+--------+----------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+
+Path #8: Setup slack is -0.731 (VIOLATED)
+===============================================================================
++---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Path Summary                                                                                                                                                  ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; Property           ; Value                                                                                                                                    ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; From Node          ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE                                                    ;
+; To Node            ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi ;
+; Launch Clock       ; PLL_200MHz                                                                                                                               ;
+; Latch Clock        ; PLL_200MHz                                                                                                                               ;
+; Data Arrival Time  ; 13.387                                                                                                                                   ;
+; Data Required Time ; 12.656                                                                                                                                   ;
+; Slack              ; -0.731 (VIOLATED)                                                                                                                        ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 5.000  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; -0.154 ;       ;             ;            ;        ;        ;
+; Data Delay             ; 5.497  ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.977       ; 50         ; 0.000  ; 2.170  ;
+;    Cell                ;        ; 6     ; 3.913       ; 50         ; 0.185  ; 1.745  ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 3.164       ; 58         ; 0.258  ; 1.555  ;
+;    Cell                ;        ; 6     ; 2.333       ; 42         ; 0.000  ; 0.705  ;
+;    uTco                ;        ; 1     ; 0.000       ; 0          ; 0.000  ; 0.000  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.407       ; 51         ; 0.000  ; 2.048  ;
+;    Cell                ;        ; 5     ; 3.320       ; 49         ; 0.292  ; 1.467  ;
+;    PLL Compensation    ;        ; 1     ; -0.151      ; 0          ; -0.151 ; -0.151 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                                                                               ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr    ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                  ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; 0.000    ; 0.000   ;    ;      ;        ;                            ; launch edge time                                                                                                                         ;
+; 7.890    ; 7.890   ;    ;      ;        ;                            ; clock path                                                                                                                               ;
+;   0.000  ;   0.000 ;    ;      ;        ;                            ; source latency                                                                                                                           ;
+;   0.000  ;   0.000 ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                              ;
+;   0.000  ;   0.000 ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                      ;
+;   0.761  ;   0.761 ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                      ;
+;   1.802  ;   1.041 ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                   ;
+;   2.135  ;   0.333 ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                     ;
+;   2.135  ;   0.000 ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                      ;
+;   2.320  ;   0.185 ; RR ; CELL ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                      ;
+;   2.320  ;   0.000 ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                 ;
+;   4.065  ;   1.745 ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                    ;
+;   4.831  ;   0.766 ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                 ;
+;   5.149  ;   0.318 ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                ;
+;   7.319  ;   2.170 ; RR ; IC   ; 1      ; FF_X18_Y35_N23             ; motor_drive_core_inst|u_pwm_carrier|carrier[7]~DUPLICATE|clk                                                                             ;
+;   7.890  ;   0.571 ; RR ; CELL ; 1      ; FF_X18_Y35_N23             ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE                                                    ;
+; 13.387   ; 5.497   ;    ;      ;        ;                            ; data path                                                                                                                                ;
+;   7.890  ;   0.000 ;    ; uTco ; 1      ; FF_X18_Y35_N23             ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[7]~DUPLICATE                                                    ;
+;   7.890  ;   0.000 ; FF ; CELL ; 14     ; FF_X18_Y35_N23             ; motor_drive_core_inst|u_pwm_carrier|carrier[7]~DUPLICATE|q                                                                               ;
+;   9.445  ;   1.555 ; FF ; IC   ; 1      ; LABCELL_X18_Y41_N9         ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~4|datae                                                                              ;
+;   9.784  ;   0.339 ; FR ; CELL ; 1      ; LABCELL_X18_Y41_N9         ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~4|combout                                                                            ;
+;   10.048 ;   0.264 ; RR ; IC   ; 1      ; LABCELL_X18_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~5|datab                                                                              ;
+;   10.598 ;   0.550 ; RF ; CELL ; 2      ; LABCELL_X18_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|LessThan35~5|combout                                                                            ;
+;   10.975 ;   0.377 ; FF ; IC   ; 1      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|datae                                                                                ;
+;   11.200 ;   0.225 ; FF ; CELL ; 8      ; LABCELL_X17_Y41_N42        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~17|combout                                                                              ;
+;   11.458 ;   0.258 ; FF ; IC   ; 1      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|datad                                         ;
+;   11.972 ;   0.514 ; FF ; CELL ; 9      ; LABCELL_X17_Y41_N0         ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_lo~1|combout                                       ;
+;   12.682 ;   0.710 ; FF ; IC   ; 1      ; FF_X18_Y42_N1              ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_hi|ena                                             ;
+;   13.387 ;   0.705 ; FF ; CELL ; 1      ; FF_X18_Y42_N1              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                                                                               ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                  ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+; 5.000    ; 5.000    ;    ;      ;        ;                            ; latch edge time                                                                                                                          ;
+; 12.736   ; 7.736    ;    ;      ;        ;                            ; clock path                                                                                                                               ;
+;   5.000  ;   0.000  ;    ;      ;        ;                            ; source latency                                                                                                                           ;
+;   5.000  ;   0.000  ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                              ;
+;   5.000  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                      ;
+;   5.761  ;   0.761  ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                      ;
+;   6.743  ;   0.982  ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                   ;
+;   7.051  ;   0.308  ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                     ;
+;   7.051  ;   0.000  ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                      ;
+;   6.900  ;   -0.151 ; RR ; COMP ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                      ;
+;   6.900  ;   0.000  ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                 ;
+;   8.367  ;   1.467  ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                    ;
+;   8.744  ;   0.377  ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                 ;
+;   9.036  ;   0.292  ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                ;
+;   11.084 ;   2.048  ; RR ; IC   ; 1      ; FF_X18_Y42_N1              ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[17].u_deadtime_channel|pwm_hi|clk                                             ;
+;   11.576 ;   0.492  ; RR ; CELL ; 1      ; FF_X18_Y42_N1              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi ;
+;   12.736 ;   1.160  ;    ;      ;        ;                            ; clock pessimism removed                                                                                                                  ;
+; 12.656   ; -0.080   ;    ;      ;        ;                            ; clock uncertainty                                                                                                                        ;
+; 12.656   ; 0.000    ;    ; uTsu ; 1      ; FF_X18_Y42_N1              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[17].u_deadtime_channel|pwm_hi ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+
+Path #9: Setup slack is -0.594 (VIOLATED)
+===============================================================================
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Path Summary                                                                                                                                                              ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Property           ; Value                                                                                                                                                ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+; From Node          ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[12]                                                                         ;
+; To Node            ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[0] ;
+; Launch Clock       ; PLL_200MHz                                                                                                                                           ;
+; Latch Clock        ; PLL_200MHz                                                                                                                                           ;
+; Data Arrival Time  ; 13.227                                                                                                                                               ;
+; Data Required Time ; 12.633                                                                                                                                               ;
+; Slack              ; -0.594 (VIOLATED)                                                                                                                                    ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 5.000  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; -0.176 ;       ;             ;            ;        ;        ;
+; Data Delay             ; 5.338  ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.977       ; 50         ; 0.000  ; 2.170  ;
+;    Cell                ;        ; 6     ; 3.912       ; 50         ; 0.185  ; 1.745  ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 2.975       ; 56         ; 0.260  ; 1.671  ;
+;    Cell                ;        ; 6     ; 2.363       ; 44         ; 0.000  ; 0.665  ;
+;    uTco                ;        ; 1     ; 0.000       ; 0          ; 0.000  ; 0.000  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.387       ; 51         ; 0.000  ; 2.028  ;
+;    Cell                ;        ; 5     ; 3.317       ; 49         ; 0.292  ; 1.467  ;
+;    PLL Compensation    ;        ; 1     ; -0.151      ; 0          ; -0.151 ; -0.151 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                                                                                           ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr    ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                              ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+; 0.000    ; 0.000   ;    ;      ;        ;                            ; launch edge time                                                                                                                                     ;
+; 7.889    ; 7.889   ;    ;      ;        ;                            ; clock path                                                                                                                                           ;
+;   0.000  ;   0.000 ;    ;      ;        ;                            ; source latency                                                                                                                                       ;
+;   0.000  ;   0.000 ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                                          ;
+;   0.000  ;   0.000 ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                                  ;
+;   0.761  ;   0.761 ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                                  ;
+;   1.802  ;   1.041 ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                               ;
+;   2.135  ;   0.333 ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                                 ;
+;   2.135  ;   0.000 ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                                  ;
+;   2.320  ;   0.185 ; RR ; CELL ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                                  ;
+;   2.320  ;   0.000 ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                             ;
+;   4.065  ;   1.745 ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                                ;
+;   4.831  ;   0.766 ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                             ;
+;   5.149  ;   0.318 ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                            ;
+;   7.319  ;   2.170 ; RR ; IC   ; 1      ; FF_X18_Y35_N37             ; motor_drive_core_inst|u_pwm_carrier|carrier[12]|clk                                                                                                  ;
+;   7.889  ;   0.570 ; RR ; CELL ; 1      ; FF_X18_Y35_N37             ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[12]                                                                         ;
+; 13.227   ; 5.338   ;    ;      ;        ;                            ; data path                                                                                                                                            ;
+;   7.889  ;   0.000 ;    ; uTco ; 1      ; FF_X18_Y35_N37             ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[12]                                                                         ;
+;   7.889  ;   0.000 ; FF ; CELL ; 33     ; FF_X18_Y35_N37             ; motor_drive_core_inst|u_pwm_carrier|carrier[12]|q                                                                                                    ;
+;   9.560  ;   1.671 ; FF ; IC   ; 1      ; LABCELL_X11_Y37_N36        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~39|datac                                                                                            ;
+;   10.000 ;   0.440 ; FR ; CELL ; 1      ; LABCELL_X11_Y37_N36        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~39|combout                                                                                          ;
+;   10.303 ;   0.303 ; RR ; IC   ; 1      ; LABCELL_X11_Y37_N12        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~40|datae                                                                                            ;
+;   10.608 ;   0.305 ; RF ; CELL ; 2      ; LABCELL_X11_Y37_N12        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~40|combout                                                                                          ;
+;   10.868 ;   0.260 ; FF ; IC   ; 1      ; LABCELL_X11_Y37_N24        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~41|datad                                                                                            ;
+;   11.382 ;   0.514 ; FF ; CELL ; 8      ; LABCELL_X11_Y37_N24        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~41|combout                                                                                          ;
+;   11.644 ;   0.262 ; FF ; IC   ; 1      ; LABCELL_X11_Y37_N42        ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[3].u_deadtime_channel|pwm_hi~2|datac                                                      ;
+;   12.083 ;   0.439 ; FR ; CELL ; 9      ; LABCELL_X11_Y37_N42        ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[3].u_deadtime_channel|pwm_hi~2|combout                                                    ;
+;   12.562 ;   0.479 ; RR ; IC   ; 1      ; FF_X10_Y37_N14             ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[0]|ena                                             ;
+;   13.227 ;   0.665 ; RR ; CELL ; 1      ; FF_X10_Y37_N14             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[0] ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                                                                                           ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                              ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+; 5.000    ; 5.000    ;    ;      ;        ;                            ; latch edge time                                                                                                                                      ;
+; 12.713   ; 7.713    ;    ;      ;        ;                            ; clock path                                                                                                                                           ;
+;   5.000  ;   0.000  ;    ;      ;        ;                            ; source latency                                                                                                                                       ;
+;   5.000  ;   0.000  ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                                          ;
+;   5.000  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                                  ;
+;   5.761  ;   0.761  ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                                  ;
+;   6.743  ;   0.982  ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                               ;
+;   7.051  ;   0.308  ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                                 ;
+;   7.051  ;   0.000  ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                                  ;
+;   6.900  ;   -0.151 ; RR ; COMP ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                                  ;
+;   6.900  ;   0.000  ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                             ;
+;   8.367  ;   1.467  ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                                ;
+;   8.744  ;   0.377  ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                             ;
+;   9.036  ;   0.292  ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                            ;
+;   11.064 ;   2.028  ; RR ; IC   ; 1      ; FF_X10_Y37_N14             ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[0]|clk                                             ;
+;   11.553 ;   0.489  ; RR ; CELL ; 1      ; FF_X10_Y37_N14             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[0] ;
+;   12.713 ;   1.160  ;    ;      ;        ;                            ; clock pessimism removed                                                                                                                              ;
+; 12.633   ; -0.080   ;    ;      ;        ;                            ; clock uncertainty                                                                                                                                    ;
+; 12.633   ; 0.000    ;    ; uTsu ; 1      ; FF_X10_Y37_N14             ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[0] ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+
+Path #10: Setup slack is -0.594 (VIOLATED)
+===============================================================================
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Path Summary                                                                                                                                                              ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Property           ; Value                                                                                                                                                ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+; From Node          ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[12]                                                                         ;
+; To Node            ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[3] ;
+; Launch Clock       ; PLL_200MHz                                                                                                                                           ;
+; Latch Clock        ; PLL_200MHz                                                                                                                                           ;
+; Data Arrival Time  ; 13.227                                                                                                                                               ;
+; Data Required Time ; 12.633                                                                                                                                               ;
+; Slack              ; -0.594 (VIOLATED)                                                                                                                                    ;
++--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------------------+
+; Statistics                                                                           ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Property               ; Value  ; Count ; Total Delay ; % of Total ; Min    ; Max    ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+; Setup Relationship     ; 5.000  ;       ;             ;            ;        ;        ;
+; Clock Skew             ; -0.176 ;       ;             ;            ;        ;        ;
+; Data Delay             ; 5.338  ;       ;             ;            ;        ;        ;
+; Number of Logic Levels ;        ; 4     ;             ;            ;        ;        ;
+; Physical Delays        ;        ;       ;             ;            ;        ;        ;
+;  Arrival Path          ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.977       ; 50         ; 0.000  ; 2.170  ;
+;    Cell                ;        ; 6     ; 3.912       ; 50         ; 0.185  ; 1.745  ;
+;   Data                 ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 5     ; 2.975       ; 56         ; 0.260  ; 1.671  ;
+;    Cell                ;        ; 6     ; 2.363       ; 44         ; 0.000  ; 0.665  ;
+;    uTco                ;        ; 1     ; 0.000       ; 0          ; 0.000  ; 0.000  ;
+;  Required Path         ;        ;       ;             ;            ;        ;        ;
+;   Clock                ;        ;       ;             ;            ;        ;        ;
+;    IC                  ;        ; 6     ; 3.387       ; 51         ; 0.000  ; 2.028  ;
+;    Cell                ;        ; 5     ; 3.317       ; 49         ; 0.292  ; 1.467  ;
+;    PLL Compensation    ;        ; 1     ; -0.151      ; 0          ; -0.151 ; -0.151 ;
++------------------------+--------+-------+-------------+------------+--------+--------+
+Note: Negative delays are omitted from totals when calculating percentages
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Arrival Path                                                                                                                                                                                                           ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr    ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                              ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+; 0.000    ; 0.000   ;    ;      ;        ;                            ; launch edge time                                                                                                                                     ;
+; 7.889    ; 7.889   ;    ;      ;        ;                            ; clock path                                                                                                                                           ;
+;   0.000  ;   0.000 ;    ;      ;        ;                            ; source latency                                                                                                                                       ;
+;   0.000  ;   0.000 ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                                          ;
+;   0.000  ;   0.000 ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                                  ;
+;   0.761  ;   0.761 ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                                  ;
+;   1.802  ;   1.041 ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                               ;
+;   2.135  ;   0.333 ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                                 ;
+;   2.135  ;   0.000 ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                                  ;
+;   2.320  ;   0.185 ; RR ; CELL ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                                  ;
+;   2.320  ;   0.000 ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                             ;
+;   4.065  ;   1.745 ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                                ;
+;   4.831  ;   0.766 ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                             ;
+;   5.149  ;   0.318 ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                            ;
+;   7.319  ;   2.170 ; RR ; IC   ; 1      ; FF_X18_Y35_N37             ; motor_drive_core_inst|u_pwm_carrier|carrier[12]|clk                                                                                                  ;
+;   7.889  ;   0.570 ; RR ; CELL ; 1      ; FF_X18_Y35_N37             ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[12]                                                                         ;
+; 13.227   ; 5.338   ;    ;      ;        ;                            ; data path                                                                                                                                            ;
+;   7.889  ;   0.000 ;    ; uTco ; 1      ; FF_X18_Y35_N37             ; motor_drive_core:motor_drive_core_inst|pwm_carrier:u_pwm_carrier|carrier[12]                                                                         ;
+;   7.889  ;   0.000 ; FF ; CELL ; 33     ; FF_X18_Y35_N37             ; motor_drive_core_inst|u_pwm_carrier|carrier[12]|q                                                                                                    ;
+;   9.560  ;   1.671 ; FF ; IC   ; 1      ; LABCELL_X11_Y37_N36        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~39|datac                                                                                            ;
+;   10.000 ;   0.440 ; FR ; CELL ; 1      ; LABCELL_X11_Y37_N36        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~39|combout                                                                                          ;
+;   10.303 ;   0.303 ; RR ; IC   ; 1      ; LABCELL_X11_Y37_N12        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~40|datae                                                                                            ;
+;   10.608 ;   0.305 ; RF ; CELL ; 2      ; LABCELL_X11_Y37_N12        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~40|combout                                                                                          ;
+;   10.868 ;   0.260 ; FF ; IC   ; 1      ; LABCELL_X11_Y37_N24        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~41|datad                                                                                            ;
+;   11.382 ;   0.514 ; FF ; CELL ; 8      ; LABCELL_X11_Y37_N24        ; motor_drive_core_inst|u_pwm_compare_bank|raw_pwm~41|combout                                                                                          ;
+;   11.644 ;   0.262 ; FF ; IC   ; 1      ; LABCELL_X11_Y37_N42        ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[3].u_deadtime_channel|pwm_hi~2|datac                                                      ;
+;   12.083 ;   0.439 ; FR ; CELL ; 9      ; LABCELL_X11_Y37_N42        ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[3].u_deadtime_channel|pwm_hi~2|combout                                                    ;
+;   12.562 ;   0.479 ; RR ; IC   ; 1      ; FF_X10_Y37_N2              ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[3]|ena                                             ;
+;   13.227 ;   0.665 ; RR ; CELL ; 1      ; FF_X10_Y37_N2              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[3] ;
++----------+---------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Data Required Path                                                                                                                                                                                                           ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Total    ; Incr     ; RF ; Type ; Fanout ; Location                   ; Element                                                                                                                                              ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+; 5.000    ; 5.000    ;    ;      ;        ;                            ; latch edge time                                                                                                                                      ;
+; 12.713   ; 7.713    ;    ;      ;        ;                            ; clock path                                                                                                                                           ;
+;   5.000  ;   0.000  ;    ;      ;        ;                            ; source latency                                                                                                                                       ;
+;   5.000  ;   0.000  ;    ;      ; 1      ; PIN_F5                     ; clk_ext_50m                                                                                                                                          ;
+;   5.000  ;   0.000  ; RR ; IC   ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|i                                                                                                                                  ;
+;   5.761  ;   0.761  ; RR ; CELL ; 1      ; IOIBUF_X21_Y61_N1          ; clk_ext_50m~input|o                                                                                                                                  ;
+;   6.743  ;   0.982  ; RR ; IC   ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkin[1]                                                                               ;
+;   7.051  ;   0.308  ; RR ; CELL ; 1      ; PLLREFCLKSELECT_X0_Y20_N0  ; clock|pll_inst|altera_pll_i|general[0].gpll~PLL_REFCLK_SELECT|clkout                                                                                 ;
+;   7.051  ;   0.000  ; RR ; IC   ; 10     ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|refclkin                                                                                  ;
+;   6.900  ;   -0.151 ; RR ; COMP ; 4      ; FRACTIONALPLL_X0_Y14_N0    ; clock|pll_inst|altera_pll_i|general[0].gpll~FRACTIONAL_PLL|vcoph[0]                                                                                  ;
+;   6.900  ;   0.000  ; RR ; IC   ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|vco0ph[0]                                                                             ;
+;   8.367  ;   1.467  ; RR ; CELL ; 1      ; PLLOUTPUTCOUNTER_X0_Y21_N1 ; clock|pll_inst|altera_pll_i|general[3].gpll~PLL_OUTPUT_COUNTER|divclk                                                                                ;
+;   8.744  ;   0.377  ; RR ; IC   ; 1      ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|inclk                                                                                             ;
+;   9.036  ;   0.292  ; RR ; CELL ; 943    ; CLKCTRL_G0                 ; clock|pll_inst|altera_pll_i|outclk_wire[3]~CLKENA0|outclk                                                                                            ;
+;   11.064 ;   2.028  ; RR ; IC   ; 1      ; FF_X10_Y37_N2              ; motor_drive_core_inst|u_deadtime_bank|gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[3]|clk                                             ;
+;   11.553 ;   0.489  ; RR ; CELL ; 1      ; FF_X10_Y37_N2              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[3] ;
+;   12.713 ;   1.160  ;    ;      ;        ;                            ; clock pessimism removed                                                                                                                              ;
+; 12.633   ; -0.080   ;    ;      ;        ;                            ; clock uncertainty                                                                                                                                    ;
+; 12.633   ; 0.000    ;    ; uTsu ; 1      ; FF_X10_Y37_N2              ; motor_drive_core:motor_drive_core_inst|deadtime_bank:u_deadtime_bank|deadtime_channel:gen_deadtime_channel[3].u_deadtime_channel|deadtime_counter[3] ;
++----------+----------+----+------+--------+----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+----------------------------
+; Extra Fitter Information ;
+----------------------------
+HTML report is unavailable in plain text report export.
+
+
+

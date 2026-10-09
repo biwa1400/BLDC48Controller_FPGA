@@ -6,9 +6,10 @@
    <connections preferredWidth="159" />
    <irq preferredWidth="47" />
    <name preferredWidth="330" />
+   <export preferredWidth="501" />
   </columns>
  </systemtable>
- <library expandedCategories="Project/binwan,Library,Project" />
- <window width="1936" height="1056" x="1" y="-1088" />
+ <library expandedCategories="Project/BLDC48Controller,Project,Library" />
+ <window width="2418" height="1318" x="2" y="-1359" />
  <hdlexample language="VERILOG" />
 </preferences>

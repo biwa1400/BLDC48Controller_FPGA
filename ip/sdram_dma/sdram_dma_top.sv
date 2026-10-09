@@ -1,5 +1,6 @@
+
 module sdram_dma_top #(
-    parameter INPUT_ARRAY_SIZE = 52
+    parameter INPUT_ARRAY_SIZE = 108
 )(
     input  logic        clk,
     input  logic        rst_n,
