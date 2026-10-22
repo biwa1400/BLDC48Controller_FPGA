@@ -1,6 +1,0 @@
-// constants_pkg.sv
-package constants_pkg;
-    parameter int LM10_WIDTH   = 12;
-    parameter int LM10_COUNTS  = 4096;
-    parameter int ADC_BITS     = 12;
-endpackage

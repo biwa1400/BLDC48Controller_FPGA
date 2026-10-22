@@ -140,6 +140,10 @@ module AC501_SoC_GHRD (
     logic [12:0] motor_amplitude;
     logic [15:0] motor_phase_advance;
     logic        motor_drive_enable;
+    logic [21:0] bootstrap_precharge_lo;
+    logic [21:0] bootstrap_precharge_hi;
+    logic        bootstrap_normal_enable;
+    logic        bootstrap_precharge_active;
 
     // Motor-control LUT update interface
     logic        motor_lut_wr_en;
@@ -358,6 +362,25 @@ module AC501_SoC_GHRD (
     );
 
     //----------------------------------------------------------
+    // Bootstrap capacitor precharge (50 MHz control clock).
+    // Precharge is active from startup permission until normal PWM is ready.
+    // A loss of permission immediately masks all automatic outputs.
+    //----------------------------------------------------------
+    bootstrap_precharge #(
+        .CLK_HZ(50_000_000),
+        .CHANNELS(22)
+    ) bootstrap_precharge_inst (
+        .clk           (clk_50M),
+        .rst_n         (hps_0_h2f_reset_n),
+        .start_request (motor_drive_enable),
+        .precharge_lo  (bootstrap_precharge_lo),
+        .precharge_hi  (bootstrap_precharge_hi),
+        .normal_enable (bootstrap_normal_enable)
+    );
+
+    assign bootstrap_precharge_active = motor_drive_enable && !bootstrap_normal_enable;
+
+    //----------------------------------------------------------
     // Frozen Motor Drive Core
     //----------------------------------------------------------
     motor_drive_core motor_drive_core_inst (
@@ -393,6 +416,9 @@ module AC501_SoC_GHRD (
         .normal_pwm_lo   (motor_pwm_lo),
         .override_enable (override_enable),
         .override_outputs(override_outputs),
+        .precharge_active(bootstrap_precharge_active),
+        .precharge_lo   (bootstrap_precharge_lo),
+        .normal_enable (bootstrap_normal_enable && motor_drive_enable),
         .pwm_hi          (pwm_hi_internal),
         .pwm_lo          (pwm_lo_internal)
     );
