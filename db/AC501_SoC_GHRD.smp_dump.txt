@@ -17,6 +17,12 @@ rd_state.RD_ISSUE 0 0 1 1
 rd_state.RD_WAIT 0 1 0 1 
 rd_state.RD_RESP 1 0 0 1 
 
+State Machine - |AC501_SoC_GHRD|hps_qsys_top:hps_qsys_top_inst|soc_system:u0|frame_sdram_dma_top:frame_sdram_dma_0|frame_sdram_dma_core:u_core|state
+Name state.ST_IDLE state.ST_HISTORY_WRITE state.ST_LIVE_WRITE 
+state.ST_IDLE 0 0 0 
+state.ST_LIVE_WRITE 1 0 1 
+state.ST_HISTORY_WRITE 1 1 0 
+
 State Machine - |AC501_SoC_GHRD|hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:frame_sdram_dma_0_control_slave_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|state
 Name state.ST_IDLE state.ST_UNCOMP_WR_SUBBURST state.ST_UNCOMP_TRANS state.ST_COMP_TRANS 
 state.ST_IDLE 0 0 0 0 
@@ -31,18 +37,19 @@ state.ST_COMP_TRANS 1 0 0 1
 state.ST_UNCOMP_TRANS 1 0 1 0 
 state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
 
-State Machine - |AC501_SoC_GHRD|hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:register_file_as_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|state
+State Machine - |AC501_SoC_GHRD|hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:mosfet_override_avalon_slave_0_avalon_slave_0_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|state
 Name state.ST_IDLE state.ST_UNCOMP_WR_SUBBURST state.ST_UNCOMP_TRANS state.ST_COMP_TRANS 
 state.ST_IDLE 0 0 0 0 
 state.ST_COMP_TRANS 1 0 0 1 
 state.ST_UNCOMP_TRANS 1 0 1 0 
 state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
 
-State Machine - |AC501_SoC_GHRD|hps_qsys_top:hps_qsys_top_inst|soc_system:u0|frame_sdram_dma_top:frame_sdram_dma_0|frame_sdram_dma_core:u_core|state
-Name state.ST_IDLE state.ST_HISTORY_WRITE state.ST_LIVE_WRITE 
-state.ST_IDLE 0 0 0 
-state.ST_LIVE_WRITE 1 0 1 
-state.ST_HISTORY_WRITE 1 1 0 
+State Machine - |AC501_SoC_GHRD|hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_mm_interconnect_1:mm_interconnect_1|altera_merlin_burst_adapter:register_file_as_burst_adapter|altera_merlin_burst_adapter_13_1:altera_merlin_burst_adapter_13_1.burst_adapter|state
+Name state.ST_IDLE state.ST_UNCOMP_WR_SUBBURST state.ST_UNCOMP_TRANS state.ST_COMP_TRANS 
+state.ST_IDLE 0 0 0 0 
+state.ST_COMP_TRANS 1 0 0 1 
+state.ST_UNCOMP_TRANS 1 0 1 0 
+state.ST_UNCOMP_WR_SUBBURST 1 1 0 0 
 
 State Machine - |AC501_SoC_GHRD|motor_drive_core:motor_drive_core_inst|phase_command_calc:u_phase_command_calc|state
 Name state.STATE_STORE state.STATE_COMPARE state.STATE_ROUND state.STATE_PWM_SCALE state.STATE_MULTIPLY state.STATE_LUT_CAPTURE state.STATE_LUT_WAIT state.STATE_LUT_READ state.STATE_PHASE_ANGLE state.STATE_IDLE 

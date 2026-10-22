@@ -601,6 +601,21 @@ module motor_drive_core (
     //
     // ========================================================================
 
+    // Legacy physical phase ordering, selectable at compile time.
+    // 1: legacy phase mapping; 0: original identity mapping.
+    localparam bit LEGACY_PHASE_MAPPING = 1'b1;
+    logic [21:0] pwm_hi_remapped;
+    logic [21:0] pwm_lo_remapped;
+
+    pwm_phase_remapper #(
+        .LEGACY_PHASE_MAPPING (LEGACY_PHASE_MAPPING)
+    ) u_pwm_phase_remapper (
+        .pwm_hi_in  (pwm_hi_internal),
+        .pwm_lo_in  (pwm_lo_internal),
+        .pwm_hi_out (pwm_hi_remapped),
+        .pwm_lo_out (pwm_lo_remapped)
+    );
+
     always_comb begin
 
         if ((!rst_n) || (!drive_enable)) begin
@@ -615,10 +630,10 @@ module motor_drive_core (
         else begin
 
             pwm_hi =
-                pwm_hi_internal;
+                pwm_hi_remapped;
 
             pwm_lo =
-                pwm_lo_internal;
+                pwm_lo_remapped;
 
         end
 

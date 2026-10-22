@@ -3,7 +3,7 @@ TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1100mV 100C Model Setup 'PLL_200MHz'
-Slack : 0.796
+Slack : 0.806
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Setup 'PLL_100MHz'
@@ -15,7 +15,7 @@ Slack : 2.407
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Setup 'PLL_50MHz'
-Slack : 3.885
+Slack : 2.749
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Hold 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'
@@ -23,19 +23,19 @@ Slack : 0.164
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Hold 'PLL_50MHz'
-Slack : 0.269
+Slack : 0.277
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Hold 'PLL_100MHz'
-Slack : 0.339
+Slack : 0.353
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Hold 'PLL_200MHz'
-Slack : 0.362
+Slack : 0.354
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Recovery 'PLL_200MHz'
-Slack : 0.791
+Slack : 0.854
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Recovery 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'
@@ -43,7 +43,7 @@ Slack : 4.812
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Recovery 'PLL_50MHz'
-Slack : 12.730
+Slack : 13.211
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Removal 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'
@@ -51,11 +51,11 @@ Slack : 0.340
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Removal 'PLL_50MHz'
-Slack : 0.741
+Slack : 0.734
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Removal 'PLL_200MHz'
-Slack : 0.922
+Slack : 0.835
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Minimum Pulse Width 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|pll_write_clk_dq_write_clk'
@@ -75,7 +75,7 @@ Slack : 4.066
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Minimum Pulse Width 'PLL_50MHz'
-Slack : 8.583
+Slack : 8.584
 TNS   : 0.000
 
 Type  : Slow 1100mV 100C Model Minimum Pulse Width 'clk_ext_50m'
@@ -83,7 +83,11 @@ Slack : 9.730
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Setup 'PLL_200MHz'
-Slack : 0.710
+Slack : 0.644
+TNS   : 0.000
+
+Type  : Slow 1100mV -40C Model Setup 'PLL_50MHz'
+Slack : 1.785
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Setup 'PLL_100MHz'
@@ -94,28 +98,24 @@ Type  : Slow 1100mV -40C Model Setup 'hps_qsys_top:hps_qsys_top_inst|soc_system:
 Slack : 2.406
 TNS   : 0.000
 
-Type  : Slow 1100mV -40C Model Setup 'PLL_50MHz'
-Slack : 2.971
-TNS   : 0.000
-
 Type  : Slow 1100mV -40C Model Hold 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'
 Slack : 0.216
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Hold 'PLL_50MHz'
-Slack : 0.256
+Slack : 0.262
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Hold 'PLL_100MHz'
-Slack : 0.288
+Slack : 0.326
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Hold 'PLL_200MHz'
-Slack : 0.327
+Slack : 0.336
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Recovery 'PLL_200MHz'
-Slack : 0.858
+Slack : 0.981
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Recovery 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'
@@ -123,7 +123,7 @@ Slack : 4.901
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Recovery 'PLL_50MHz'
-Slack : 13.230
+Slack : 13.511
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Removal 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'
@@ -131,11 +131,11 @@ Slack : 0.370
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Removal 'PLL_50MHz'
-Slack : 0.687
+Slack : 0.684
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Removal 'PLL_200MHz'
-Slack : 0.899
+Slack : 0.884
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Minimum Pulse Width 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|pll_write_clk_dq_write_clk'
@@ -147,7 +147,7 @@ Slack : 0.962
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Minimum Pulse Width 'PLL_200MHz'
-Slack : 1.642
+Slack : 1.645
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Minimum Pulse Width 'PLL_100MHz'
@@ -155,7 +155,7 @@ Slack : 4.014
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Minimum Pulse Width 'PLL_50MHz'
-Slack : 8.532
+Slack : 8.529
 TNS   : 0.000
 
 Type  : Slow 1100mV -40C Model Minimum Pulse Width 'clk_ext_50m'
@@ -167,7 +167,7 @@ Slack : 1.202
 TNS   : 0.000
 
 Type  : Fast 1100mV 100C Model Setup 'PLL_200MHz'
-Slack : 2.624
+Slack : 2.654
 TNS   : 0.000
 
 Type  : Fast 1100mV 100C Model Setup 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'
@@ -175,7 +175,7 @@ Slack : 2.946
 TNS   : 0.000
 
 Type  : Fast 1100mV 100C Model Setup 'PLL_50MHz'
-Slack : 7.400
+Slack : 6.695
 TNS   : 0.000
 
 Type  : Fast 1100mV 100C Model Hold 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'
@@ -183,19 +183,19 @@ Slack : 0.083
 TNS   : 0.000
 
 Type  : Fast 1100mV 100C Model Hold 'PLL_50MHz'
-Slack : 0.145
+Slack : 0.147
 TNS   : 0.000
 
 Type  : Fast 1100mV 100C Model Hold 'PLL_200MHz'
-Slack : 0.176
+Slack : 0.177
 TNS   : 0.000
 
 Type  : Fast 1100mV 100C Model Hold 'PLL_100MHz'
-Slack : 0.185
+Slack : 0.187
 TNS   : 0.000
 
 Type  : Fast 1100mV 100C Model Recovery 'PLL_200MHz'
-Slack : 2.989
+Slack : 2.984
 TNS   : 0.000
 
 Type  : Fast 1100mV 100C Model Recovery 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'
@@ -203,19 +203,19 @@ Slack : 5.444
 TNS   : 0.000
 
 Type  : Fast 1100mV 100C Model Recovery 'PLL_50MHz'
-Slack : 15.092
+Slack : 15.760
 TNS   : 0.000
 
 Type  : Fast 1100mV 100C Model Removal 'PLL_50MHz'
-Slack : 0.339
+Slack : 0.324
+TNS   : 0.000
+
+Type  : Fast 1100mV 100C Model Removal 'PLL_200MHz'
+Slack : 0.369
 TNS   : 0.000
 
 Type  : Fast 1100mV 100C Model Removal 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'
 Slack : 0.397
-TNS   : 0.000
-
-Type  : Fast 1100mV 100C Model Removal 'PLL_200MHz'
-Slack : 0.424
 TNS   : 0.000
 
 Type  : Fast 1100mV 100C Model Minimum Pulse Width 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|pll_write_clk_dq_write_clk'
@@ -243,7 +243,7 @@ Slack : 9.347
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Setup 'PLL_100MHz'
-Slack : 1.246
+Slack : 1.244
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Setup 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'
@@ -251,11 +251,11 @@ Slack : 2.946
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Setup 'PLL_200MHz'
-Slack : 3.036
+Slack : 3.011
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Setup 'PLL_50MHz'
-Slack : 7.792
+Slack : 7.180
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Hold 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'
@@ -263,19 +263,19 @@ Slack : 0.076
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Hold 'PLL_50MHz'
-Slack : 0.128
+Slack : 0.129
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Hold 'PLL_100MHz'
-Slack : 0.150
+Slack : 0.162
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Hold 'PLL_200MHz'
-Slack : 0.165
+Slack : 0.164
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Recovery 'PLL_200MHz'
-Slack : 3.235
+Slack : 3.216
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Recovery 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'
@@ -283,15 +283,15 @@ Slack : 5.555
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Recovery 'PLL_50MHz'
-Slack : 16.139
+Slack : 16.547
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Removal 'PLL_50MHz'
-Slack : 0.292
+Slack : 0.275
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Removal 'PLL_200MHz'
-Slack : 0.329
+Slack : 0.291
 TNS   : 0.000
 
 Type  : Fast 1100mV -40C Model Removal 'hps_qsys_top:hps_qsys_top_inst|soc_system:u0|soc_system_hps_0:hps_0|soc_system_hps_0_hps_io:hps_io|soc_system_hps_0_hps_io_border:border|hps_sdram:hps_sdram_inst|hps_sdram_pll:pll|afi_clk_write_clk'

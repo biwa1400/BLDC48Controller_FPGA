@@ -54,6 +54,22 @@
          type = "String";
       }
    }
+   element mosfet_override_avalon_slave_0
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
+   element mosfet_override_avalon_slave_0.avalon_slave_0
+   {
+      datum baseAddress
+      {
+         value = "196608";
+         type = "String";
+      }
+   }
    element motor_lut_avalon_slave_0
    {
       datum _sortIndex
@@ -167,6 +183,11 @@
    dir="start" />
  <interface name="hps_0_hps_io" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
+ <interface
+   name="mosfet_override_avalon_slave_0_conduit_end"
+   internal="mosfet_override_avalon_slave_0.conduit_end"
+   type="conduit"
+   dir="end" />
  <interface
    name="motor_lut_avalon_slave_0_lut"
    internal="motor_lut_avalon_slave_0.lut"
@@ -724,6 +745,11 @@
   <parameter name="use_default_mpu_clk" value="false" />
  </module>
  <module
+   name="mosfet_override_avalon_slave_0"
+   kind="mosfet_override_avalon_slave"
+   version="1.0"
+   enabled="1" />
+ <module
    name="motor_lut_avalon_slave_0"
    kind="motor_lut_avalon_slave"
    version="1.0"
@@ -745,6 +771,15 @@
    end="register_file.as">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0010" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="mosfet_override_avalon_slave_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00030000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -784,6 +819,11 @@
    kind="clock"
    version="17.1"
    start="clk_0.clk"
+   end="mosfet_override_avalon_slave_0.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
    end="hps_0.f2h_axi_clock" />
  <connection
    kind="clock"
@@ -805,6 +845,11 @@
    version="17.1"
    start="clk_0.clk_reset"
    end="frame_sdram_dma_0.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk_0.clk_reset"
+   end="mosfet_override_avalon_slave_0.reset" />
  <connection
    kind="reset"
    version="17.1"

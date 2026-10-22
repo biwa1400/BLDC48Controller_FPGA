@@ -127,8 +127,12 @@ module AC501_SoC_GHRD (
     logic                  LM10_encoder_ref_ready;
 
     // PWM
-    logic [21:0] pwm_lo_internal; // Internal low-side PWM signals
-    logic [21:0] pwm_hi_internal; // Internal high-side PWM signals
+    logic [21:0] pwm_lo_internal; // Selected low-side MOSFET outputs
+    logic [21:0] pwm_hi_internal; // Selected high-side MOSFET outputs
+    logic [21:0] motor_pwm_hi;    // Normal PWM from motor_drive_core
+    logic [21:0] motor_pwm_lo;    // Normal PWM from motor_drive_core
+    logic        override_enable;
+    logic [43:0] override_outputs;
     logic        mos_power_en_internal;  // Internal MOS power enable
 
     // Frozen motor-control interface
@@ -282,6 +286,10 @@ module AC501_SoC_GHRD (
         .pwm_hi_internal       (pwm_hi_internal),
         .mos_power_en_internal (mos_power_en_internal),
 
+        // Avalon-MM MOSFET manual override conduit
+        .override_enable       (override_enable),
+        .override_outputs      (override_outputs),
+
         // External PWM IOs
         .pwm_lo        (pwm_lo_3_to_14),
         .pwm_hi        (pwm_hi_3_to_14),
@@ -373,6 +381,18 @@ module AC501_SoC_GHRD (
         .lut_verify_lock  (motor_lut_verify_lock),
         .lut_verify_data  (motor_lut_verify_data),
         .lut_verify_valid (motor_lut_verify_valid),
+        .pwm_hi          (motor_pwm_hi),
+        .pwm_lo          (motor_pwm_lo)
+    );
+
+    //----------------------------------------------------------
+    // Final MOSFET driver: normal PWM / manual override selection
+    //----------------------------------------------------------
+    mosfet_driver mosfet_driver_inst (
+        .normal_pwm_hi   (motor_pwm_hi),
+        .normal_pwm_lo   (motor_pwm_lo),
+        .override_enable (override_enable),
+        .override_outputs(override_outputs),
         .pwm_hi          (pwm_hi_internal),
         .pwm_lo          (pwm_lo_internal)
     );
@@ -412,7 +432,7 @@ module AC501_SoC_GHRD (
     //----------------------------------------------------------
     // MOS Power Enable
     //----------------------------------------------------------
-    assign mos_power_en_internal = motor_drive_enable;
+    assign mos_power_en_internal = 1'b1;
 
     //----------------------------------------------------------
     // PWM Top-level Mapping to External Ports

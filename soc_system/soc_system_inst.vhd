@@ -1,195 +1,199 @@
 	component soc_system is
 		port (
-			clk_clk                                        : in    std_logic                      := 'X';             -- clk
-			frame_sdram_dma_0_frame_input_input_array_flat : in    std_logic_vector(863 downto 0) := (others => 'X'); -- input_array_flat
-			hps_0_f2h_cold_reset_req_reset_n               : in    std_logic                      := 'X';             -- reset_n
-			hps_0_h2f_loan_io_in                           : out   std_logic_vector(66 downto 0);                     -- in
-			hps_0_h2f_loan_io_out                          : in    std_logic_vector(66 downto 0)  := (others => 'X'); -- out
-			hps_0_h2f_loan_io_oe                           : in    std_logic_vector(66 downto 0)  := (others => 'X'); -- oe
-			hps_0_h2f_reset_reset_n                        : out   std_logic;                                         -- reset_n
-			hps_0_hps_io_hps_io_sdio_inst_CMD              : inout std_logic                      := 'X';             -- hps_io_sdio_inst_CMD
-			hps_0_hps_io_hps_io_sdio_inst_D0               : inout std_logic                      := 'X';             -- hps_io_sdio_inst_D0
-			hps_0_hps_io_hps_io_sdio_inst_D1               : inout std_logic                      := 'X';             -- hps_io_sdio_inst_D1
-			hps_0_hps_io_hps_io_sdio_inst_CLK              : out   std_logic;                                         -- hps_io_sdio_inst_CLK
-			hps_0_hps_io_hps_io_sdio_inst_D2               : inout std_logic                      := 'X';             -- hps_io_sdio_inst_D2
-			hps_0_hps_io_hps_io_sdio_inst_D3               : inout std_logic                      := 'X';             -- hps_io_sdio_inst_D3
-			hps_0_hps_io_hps_io_usb1_inst_D0               : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D0
-			hps_0_hps_io_hps_io_usb1_inst_D1               : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D1
-			hps_0_hps_io_hps_io_usb1_inst_D2               : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D2
-			hps_0_hps_io_hps_io_usb1_inst_D3               : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D3
-			hps_0_hps_io_hps_io_usb1_inst_D4               : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D4
-			hps_0_hps_io_hps_io_usb1_inst_D5               : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D5
-			hps_0_hps_io_hps_io_usb1_inst_D6               : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D6
-			hps_0_hps_io_hps_io_usb1_inst_D7               : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D7
-			hps_0_hps_io_hps_io_usb1_inst_CLK              : in    std_logic                      := 'X';             -- hps_io_usb1_inst_CLK
-			hps_0_hps_io_hps_io_usb1_inst_STP              : out   std_logic;                                         -- hps_io_usb1_inst_STP
-			hps_0_hps_io_hps_io_usb1_inst_DIR              : in    std_logic                      := 'X';             -- hps_io_usb1_inst_DIR
-			hps_0_hps_io_hps_io_usb1_inst_NXT              : in    std_logic                      := 'X';             -- hps_io_usb1_inst_NXT
-			hps_0_hps_io_hps_io_uart0_inst_RX              : in    std_logic                      := 'X';             -- hps_io_uart0_inst_RX
-			hps_0_hps_io_hps_io_uart0_inst_TX              : out   std_logic;                                         -- hps_io_uart0_inst_TX
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO00         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO00
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO14         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO14
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO15         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO15
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO16         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO16
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO17         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO17
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO18         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO18
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO19         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO19
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO22         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO22
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO23         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO23
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO24         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO24
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO25         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO25
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO26         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO26
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO27         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO27
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO29         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO29
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO30         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO30
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO31         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO31
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO32         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO32
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO34         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO34
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO48         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO48
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO49         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO49
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO50         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO50
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO51         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO51
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO52         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO52
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO53         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO53
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO54         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO54
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO55         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO55
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO56         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO56
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO57         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO57
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO58         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO58
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO59         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO59
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO60         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO60
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO63         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO63
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO64         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO64
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO65         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO65
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO66         : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO66
-			memory_mem_a                                   : out   std_logic_vector(14 downto 0);                     -- mem_a
-			memory_mem_ba                                  : out   std_logic_vector(2 downto 0);                      -- mem_ba
-			memory_mem_ck                                  : out   std_logic;                                         -- mem_ck
-			memory_mem_ck_n                                : out   std_logic;                                         -- mem_ck_n
-			memory_mem_cke                                 : out   std_logic;                                         -- mem_cke
-			memory_mem_cs_n                                : out   std_logic;                                         -- mem_cs_n
-			memory_mem_ras_n                               : out   std_logic;                                         -- mem_ras_n
-			memory_mem_cas_n                               : out   std_logic;                                         -- mem_cas_n
-			memory_mem_we_n                                : out   std_logic;                                         -- mem_we_n
-			memory_mem_reset_n                             : out   std_logic;                                         -- mem_reset_n
-			memory_mem_dq                                  : inout std_logic_vector(31 downto 0)  := (others => 'X'); -- mem_dq
-			memory_mem_dqs                                 : inout std_logic_vector(3 downto 0)   := (others => 'X'); -- mem_dqs
-			memory_mem_dqs_n                               : inout std_logic_vector(3 downto 0)   := (others => 'X'); -- mem_dqs_n
-			memory_mem_odt                                 : out   std_logic;                                         -- mem_odt
-			memory_mem_dm                                  : out   std_logic_vector(3 downto 0);                      -- mem_dm
-			memory_oct_rzqin                               : in    std_logic                      := 'X';             -- oct_rzqin
-			motor_lut_avalon_slave_0_lut_active_bank       : in    std_logic                      := 'X';             -- active_bank
-			motor_lut_avalon_slave_0_lut_commit_ack        : in    std_logic                      := 'X';             -- commit_ack
-			motor_lut_avalon_slave_0_lut_commit_req        : out   std_logic;                                         -- commit_req
-			motor_lut_avalon_slave_0_lut_wr_addr           : out   std_logic_vector(11 downto 0);                     -- wr_addr
-			motor_lut_avalon_slave_0_lut_wr_bank           : out   std_logic;                                         -- wr_bank
-			motor_lut_avalon_slave_0_lut_wr_data           : out   std_logic_vector(12 downto 0);                     -- wr_data
-			motor_lut_avalon_slave_0_lut_wr_en             : out   std_logic;                                         -- wr_en
-			motor_lut_avalon_slave_0_lut_verify_addr       : out   std_logic_vector(11 downto 0);                     -- verify_addr
-			motor_lut_avalon_slave_0_lut_verify_bank       : out   std_logic;                                         -- verify_bank
-			motor_lut_avalon_slave_0_lut_verify_data       : in    std_logic_vector(12 downto 0)  := (others => 'X'); -- verify_data
-			motor_lut_avalon_slave_0_lut_verify_en         : out   std_logic;                                         -- verify_en
-			motor_lut_avalon_slave_0_lut_verify_lock       : out   std_logic;                                         -- verify_lock
-			motor_lut_avalon_slave_0_lut_verify_valid      : in    std_logic                      := 'X';             -- verify_valid
-			register_file_run_name                         : out   std_logic;                                         -- name
-			reset_reset_n                                  : in    std_logic                      := 'X'              -- reset_n
+			clk_clk                                                     : in    std_logic                      := 'X';             -- clk
+			frame_sdram_dma_0_frame_input_input_array_flat              : in    std_logic_vector(863 downto 0) := (others => 'X'); -- input_array_flat
+			hps_0_f2h_cold_reset_req_reset_n                            : in    std_logic                      := 'X';             -- reset_n
+			hps_0_h2f_loan_io_in                                        : out   std_logic_vector(66 downto 0);                     -- in
+			hps_0_h2f_loan_io_out                                       : in    std_logic_vector(66 downto 0)  := (others => 'X'); -- out
+			hps_0_h2f_loan_io_oe                                        : in    std_logic_vector(66 downto 0)  := (others => 'X'); -- oe
+			hps_0_h2f_reset_reset_n                                     : out   std_logic;                                         -- reset_n
+			hps_0_hps_io_hps_io_sdio_inst_CMD                           : inout std_logic                      := 'X';             -- hps_io_sdio_inst_CMD
+			hps_0_hps_io_hps_io_sdio_inst_D0                            : inout std_logic                      := 'X';             -- hps_io_sdio_inst_D0
+			hps_0_hps_io_hps_io_sdio_inst_D1                            : inout std_logic                      := 'X';             -- hps_io_sdio_inst_D1
+			hps_0_hps_io_hps_io_sdio_inst_CLK                           : out   std_logic;                                         -- hps_io_sdio_inst_CLK
+			hps_0_hps_io_hps_io_sdio_inst_D2                            : inout std_logic                      := 'X';             -- hps_io_sdio_inst_D2
+			hps_0_hps_io_hps_io_sdio_inst_D3                            : inout std_logic                      := 'X';             -- hps_io_sdio_inst_D3
+			hps_0_hps_io_hps_io_usb1_inst_D0                            : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D0
+			hps_0_hps_io_hps_io_usb1_inst_D1                            : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D1
+			hps_0_hps_io_hps_io_usb1_inst_D2                            : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D2
+			hps_0_hps_io_hps_io_usb1_inst_D3                            : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D3
+			hps_0_hps_io_hps_io_usb1_inst_D4                            : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D4
+			hps_0_hps_io_hps_io_usb1_inst_D5                            : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D5
+			hps_0_hps_io_hps_io_usb1_inst_D6                            : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D6
+			hps_0_hps_io_hps_io_usb1_inst_D7                            : inout std_logic                      := 'X';             -- hps_io_usb1_inst_D7
+			hps_0_hps_io_hps_io_usb1_inst_CLK                           : in    std_logic                      := 'X';             -- hps_io_usb1_inst_CLK
+			hps_0_hps_io_hps_io_usb1_inst_STP                           : out   std_logic;                                         -- hps_io_usb1_inst_STP
+			hps_0_hps_io_hps_io_usb1_inst_DIR                           : in    std_logic                      := 'X';             -- hps_io_usb1_inst_DIR
+			hps_0_hps_io_hps_io_usb1_inst_NXT                           : in    std_logic                      := 'X';             -- hps_io_usb1_inst_NXT
+			hps_0_hps_io_hps_io_uart0_inst_RX                           : in    std_logic                      := 'X';             -- hps_io_uart0_inst_RX
+			hps_0_hps_io_hps_io_uart0_inst_TX                           : out   std_logic;                                         -- hps_io_uart0_inst_TX
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO00                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO00
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO14                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO14
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO15                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO15
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO16                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO16
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO17                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO17
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO18                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO18
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO19                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO19
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO22                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO22
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO23                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO23
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO24                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO24
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO25                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO25
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO26                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO26
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO27                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO27
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO29                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO29
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO30                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO30
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO31                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO31
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO32                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO32
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO34                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO34
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO48                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO48
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO49                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO49
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO50                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO50
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO51                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO51
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO52                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO52
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO53                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO53
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO54                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO54
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO55                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO55
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO56                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO56
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO57                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO57
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO58                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO58
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO59                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO59
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO60                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO60
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO63                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO63
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO64                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO64
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO65                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO65
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO66                      : inout std_logic                      := 'X';             -- hps_io_gpio_inst_LOANIO66
+			memory_mem_a                                                : out   std_logic_vector(14 downto 0);                     -- mem_a
+			memory_mem_ba                                               : out   std_logic_vector(2 downto 0);                      -- mem_ba
+			memory_mem_ck                                               : out   std_logic;                                         -- mem_ck
+			memory_mem_ck_n                                             : out   std_logic;                                         -- mem_ck_n
+			memory_mem_cke                                              : out   std_logic;                                         -- mem_cke
+			memory_mem_cs_n                                             : out   std_logic;                                         -- mem_cs_n
+			memory_mem_ras_n                                            : out   std_logic;                                         -- mem_ras_n
+			memory_mem_cas_n                                            : out   std_logic;                                         -- mem_cas_n
+			memory_mem_we_n                                             : out   std_logic;                                         -- mem_we_n
+			memory_mem_reset_n                                          : out   std_logic;                                         -- mem_reset_n
+			memory_mem_dq                                               : inout std_logic_vector(31 downto 0)  := (others => 'X'); -- mem_dq
+			memory_mem_dqs                                              : inout std_logic_vector(3 downto 0)   := (others => 'X'); -- mem_dqs
+			memory_mem_dqs_n                                            : inout std_logic_vector(3 downto 0)   := (others => 'X'); -- mem_dqs_n
+			memory_mem_odt                                              : out   std_logic;                                         -- mem_odt
+			memory_mem_dm                                               : out   std_logic_vector(3 downto 0);                      -- mem_dm
+			memory_oct_rzqin                                            : in    std_logic                      := 'X';             -- oct_rzqin
+			motor_lut_avalon_slave_0_lut_active_bank                    : in    std_logic                      := 'X';             -- active_bank
+			motor_lut_avalon_slave_0_lut_commit_ack                     : in    std_logic                      := 'X';             -- commit_ack
+			motor_lut_avalon_slave_0_lut_commit_req                     : out   std_logic;                                         -- commit_req
+			motor_lut_avalon_slave_0_lut_wr_addr                        : out   std_logic_vector(11 downto 0);                     -- wr_addr
+			motor_lut_avalon_slave_0_lut_wr_bank                        : out   std_logic;                                         -- wr_bank
+			motor_lut_avalon_slave_0_lut_wr_data                        : out   std_logic_vector(12 downto 0);                     -- wr_data
+			motor_lut_avalon_slave_0_lut_wr_en                          : out   std_logic;                                         -- wr_en
+			motor_lut_avalon_slave_0_lut_verify_addr                    : out   std_logic_vector(11 downto 0);                     -- verify_addr
+			motor_lut_avalon_slave_0_lut_verify_bank                    : out   std_logic;                                         -- verify_bank
+			motor_lut_avalon_slave_0_lut_verify_data                    : in    std_logic_vector(12 downto 0)  := (others => 'X'); -- verify_data
+			motor_lut_avalon_slave_0_lut_verify_en                      : out   std_logic;                                         -- verify_en
+			motor_lut_avalon_slave_0_lut_verify_lock                    : out   std_logic;                                         -- verify_lock
+			motor_lut_avalon_slave_0_lut_verify_valid                   : in    std_logic                      := 'X';             -- verify_valid
+			register_file_run_name                                      : out   std_logic;                                         -- name
+			reset_reset_n                                               : in    std_logic                      := 'X';             -- reset_n
+			mosfet_override_avalon_slave_0_conduit_end_override_enable  : out   std_logic;                                         -- override_enable
+			mosfet_override_avalon_slave_0_conduit_end_override_outputs : out   std_logic_vector(43 downto 0)                      -- override_outputs
 		);
 	end component soc_system;
 
 	u0 : component soc_system
 		port map (
-			clk_clk                                        => CONNECTED_TO_clk_clk,                                        --                           clk.clk
-			frame_sdram_dma_0_frame_input_input_array_flat => CONNECTED_TO_frame_sdram_dma_0_frame_input_input_array_flat, -- frame_sdram_dma_0_frame_input.input_array_flat
-			hps_0_f2h_cold_reset_req_reset_n               => CONNECTED_TO_hps_0_f2h_cold_reset_req_reset_n,               --      hps_0_f2h_cold_reset_req.reset_n
-			hps_0_h2f_loan_io_in                           => CONNECTED_TO_hps_0_h2f_loan_io_in,                           --             hps_0_h2f_loan_io.in
-			hps_0_h2f_loan_io_out                          => CONNECTED_TO_hps_0_h2f_loan_io_out,                          --                              .out
-			hps_0_h2f_loan_io_oe                           => CONNECTED_TO_hps_0_h2f_loan_io_oe,                           --                              .oe
-			hps_0_h2f_reset_reset_n                        => CONNECTED_TO_hps_0_h2f_reset_reset_n,                        --               hps_0_h2f_reset.reset_n
-			hps_0_hps_io_hps_io_sdio_inst_CMD              => CONNECTED_TO_hps_0_hps_io_hps_io_sdio_inst_CMD,              --                  hps_0_hps_io.hps_io_sdio_inst_CMD
-			hps_0_hps_io_hps_io_sdio_inst_D0               => CONNECTED_TO_hps_0_hps_io_hps_io_sdio_inst_D0,               --                              .hps_io_sdio_inst_D0
-			hps_0_hps_io_hps_io_sdio_inst_D1               => CONNECTED_TO_hps_0_hps_io_hps_io_sdio_inst_D1,               --                              .hps_io_sdio_inst_D1
-			hps_0_hps_io_hps_io_sdio_inst_CLK              => CONNECTED_TO_hps_0_hps_io_hps_io_sdio_inst_CLK,              --                              .hps_io_sdio_inst_CLK
-			hps_0_hps_io_hps_io_sdio_inst_D2               => CONNECTED_TO_hps_0_hps_io_hps_io_sdio_inst_D2,               --                              .hps_io_sdio_inst_D2
-			hps_0_hps_io_hps_io_sdio_inst_D3               => CONNECTED_TO_hps_0_hps_io_hps_io_sdio_inst_D3,               --                              .hps_io_sdio_inst_D3
-			hps_0_hps_io_hps_io_usb1_inst_D0               => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D0,               --                              .hps_io_usb1_inst_D0
-			hps_0_hps_io_hps_io_usb1_inst_D1               => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D1,               --                              .hps_io_usb1_inst_D1
-			hps_0_hps_io_hps_io_usb1_inst_D2               => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D2,               --                              .hps_io_usb1_inst_D2
-			hps_0_hps_io_hps_io_usb1_inst_D3               => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D3,               --                              .hps_io_usb1_inst_D3
-			hps_0_hps_io_hps_io_usb1_inst_D4               => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D4,               --                              .hps_io_usb1_inst_D4
-			hps_0_hps_io_hps_io_usb1_inst_D5               => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D5,               --                              .hps_io_usb1_inst_D5
-			hps_0_hps_io_hps_io_usb1_inst_D6               => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D6,               --                              .hps_io_usb1_inst_D6
-			hps_0_hps_io_hps_io_usb1_inst_D7               => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D7,               --                              .hps_io_usb1_inst_D7
-			hps_0_hps_io_hps_io_usb1_inst_CLK              => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_CLK,              --                              .hps_io_usb1_inst_CLK
-			hps_0_hps_io_hps_io_usb1_inst_STP              => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_STP,              --                              .hps_io_usb1_inst_STP
-			hps_0_hps_io_hps_io_usb1_inst_DIR              => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_DIR,              --                              .hps_io_usb1_inst_DIR
-			hps_0_hps_io_hps_io_usb1_inst_NXT              => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_NXT,              --                              .hps_io_usb1_inst_NXT
-			hps_0_hps_io_hps_io_uart0_inst_RX              => CONNECTED_TO_hps_0_hps_io_hps_io_uart0_inst_RX,              --                              .hps_io_uart0_inst_RX
-			hps_0_hps_io_hps_io_uart0_inst_TX              => CONNECTED_TO_hps_0_hps_io_hps_io_uart0_inst_TX,              --                              .hps_io_uart0_inst_TX
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO00         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO00,         --                              .hps_io_gpio_inst_LOANIO00
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO14         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO14,         --                              .hps_io_gpio_inst_LOANIO14
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO15         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO15,         --                              .hps_io_gpio_inst_LOANIO15
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO16         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO16,         --                              .hps_io_gpio_inst_LOANIO16
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO17         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO17,         --                              .hps_io_gpio_inst_LOANIO17
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO18         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO18,         --                              .hps_io_gpio_inst_LOANIO18
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO19         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO19,         --                              .hps_io_gpio_inst_LOANIO19
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO22         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO22,         --                              .hps_io_gpio_inst_LOANIO22
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO23         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO23,         --                              .hps_io_gpio_inst_LOANIO23
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO24         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO24,         --                              .hps_io_gpio_inst_LOANIO24
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO25         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO25,         --                              .hps_io_gpio_inst_LOANIO25
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO26         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO26,         --                              .hps_io_gpio_inst_LOANIO26
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO27         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO27,         --                              .hps_io_gpio_inst_LOANIO27
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO29         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO29,         --                              .hps_io_gpio_inst_LOANIO29
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO30         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO30,         --                              .hps_io_gpio_inst_LOANIO30
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO31         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO31,         --                              .hps_io_gpio_inst_LOANIO31
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO32         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO32,         --                              .hps_io_gpio_inst_LOANIO32
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO34         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO34,         --                              .hps_io_gpio_inst_LOANIO34
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO48         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO48,         --                              .hps_io_gpio_inst_LOANIO48
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO49         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO49,         --                              .hps_io_gpio_inst_LOANIO49
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO50         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO50,         --                              .hps_io_gpio_inst_LOANIO50
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO51         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO51,         --                              .hps_io_gpio_inst_LOANIO51
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO52         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO52,         --                              .hps_io_gpio_inst_LOANIO52
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO53         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO53,         --                              .hps_io_gpio_inst_LOANIO53
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO54         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO54,         --                              .hps_io_gpio_inst_LOANIO54
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO55         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO55,         --                              .hps_io_gpio_inst_LOANIO55
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO56         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO56,         --                              .hps_io_gpio_inst_LOANIO56
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO57         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO57,         --                              .hps_io_gpio_inst_LOANIO57
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO58         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO58,         --                              .hps_io_gpio_inst_LOANIO58
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO59         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO59,         --                              .hps_io_gpio_inst_LOANIO59
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO60         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO60,         --                              .hps_io_gpio_inst_LOANIO60
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO63         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO63,         --                              .hps_io_gpio_inst_LOANIO63
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO64         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO64,         --                              .hps_io_gpio_inst_LOANIO64
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO65         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO65,         --                              .hps_io_gpio_inst_LOANIO65
-			hps_0_hps_io_hps_io_gpio_inst_LOANIO66         => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO66,         --                              .hps_io_gpio_inst_LOANIO66
-			memory_mem_a                                   => CONNECTED_TO_memory_mem_a,                                   --                        memory.mem_a
-			memory_mem_ba                                  => CONNECTED_TO_memory_mem_ba,                                  --                              .mem_ba
-			memory_mem_ck                                  => CONNECTED_TO_memory_mem_ck,                                  --                              .mem_ck
-			memory_mem_ck_n                                => CONNECTED_TO_memory_mem_ck_n,                                --                              .mem_ck_n
-			memory_mem_cke                                 => CONNECTED_TO_memory_mem_cke,                                 --                              .mem_cke
-			memory_mem_cs_n                                => CONNECTED_TO_memory_mem_cs_n,                                --                              .mem_cs_n
-			memory_mem_ras_n                               => CONNECTED_TO_memory_mem_ras_n,                               --                              .mem_ras_n
-			memory_mem_cas_n                               => CONNECTED_TO_memory_mem_cas_n,                               --                              .mem_cas_n
-			memory_mem_we_n                                => CONNECTED_TO_memory_mem_we_n,                                --                              .mem_we_n
-			memory_mem_reset_n                             => CONNECTED_TO_memory_mem_reset_n,                             --                              .mem_reset_n
-			memory_mem_dq                                  => CONNECTED_TO_memory_mem_dq,                                  --                              .mem_dq
-			memory_mem_dqs                                 => CONNECTED_TO_memory_mem_dqs,                                 --                              .mem_dqs
-			memory_mem_dqs_n                               => CONNECTED_TO_memory_mem_dqs_n,                               --                              .mem_dqs_n
-			memory_mem_odt                                 => CONNECTED_TO_memory_mem_odt,                                 --                              .mem_odt
-			memory_mem_dm                                  => CONNECTED_TO_memory_mem_dm,                                  --                              .mem_dm
-			memory_oct_rzqin                               => CONNECTED_TO_memory_oct_rzqin,                               --                              .oct_rzqin
-			motor_lut_avalon_slave_0_lut_active_bank       => CONNECTED_TO_motor_lut_avalon_slave_0_lut_active_bank,       --  motor_lut_avalon_slave_0_lut.active_bank
-			motor_lut_avalon_slave_0_lut_commit_ack        => CONNECTED_TO_motor_lut_avalon_slave_0_lut_commit_ack,        --                              .commit_ack
-			motor_lut_avalon_slave_0_lut_commit_req        => CONNECTED_TO_motor_lut_avalon_slave_0_lut_commit_req,        --                              .commit_req
-			motor_lut_avalon_slave_0_lut_wr_addr           => CONNECTED_TO_motor_lut_avalon_slave_0_lut_wr_addr,           --                              .wr_addr
-			motor_lut_avalon_slave_0_lut_wr_bank           => CONNECTED_TO_motor_lut_avalon_slave_0_lut_wr_bank,           --                              .wr_bank
-			motor_lut_avalon_slave_0_lut_wr_data           => CONNECTED_TO_motor_lut_avalon_slave_0_lut_wr_data,           --                              .wr_data
-			motor_lut_avalon_slave_0_lut_wr_en             => CONNECTED_TO_motor_lut_avalon_slave_0_lut_wr_en,             --                              .wr_en
-			motor_lut_avalon_slave_0_lut_verify_addr       => CONNECTED_TO_motor_lut_avalon_slave_0_lut_verify_addr,       --                              .verify_addr
-			motor_lut_avalon_slave_0_lut_verify_bank       => CONNECTED_TO_motor_lut_avalon_slave_0_lut_verify_bank,       --                              .verify_bank
-			motor_lut_avalon_slave_0_lut_verify_data       => CONNECTED_TO_motor_lut_avalon_slave_0_lut_verify_data,       --                              .verify_data
-			motor_lut_avalon_slave_0_lut_verify_en         => CONNECTED_TO_motor_lut_avalon_slave_0_lut_verify_en,         --                              .verify_en
-			motor_lut_avalon_slave_0_lut_verify_lock       => CONNECTED_TO_motor_lut_avalon_slave_0_lut_verify_lock,       --                              .verify_lock
-			motor_lut_avalon_slave_0_lut_verify_valid      => CONNECTED_TO_motor_lut_avalon_slave_0_lut_verify_valid,      --                              .verify_valid
-			register_file_run_name                         => CONNECTED_TO_register_file_run_name,                         --             register_file_run.name
-			reset_reset_n                                  => CONNECTED_TO_reset_reset_n                                   --                         reset.reset_n
+			clk_clk                                                     => CONNECTED_TO_clk_clk,                                                     --                                        clk.clk
+			frame_sdram_dma_0_frame_input_input_array_flat              => CONNECTED_TO_frame_sdram_dma_0_frame_input_input_array_flat,              --              frame_sdram_dma_0_frame_input.input_array_flat
+			hps_0_f2h_cold_reset_req_reset_n                            => CONNECTED_TO_hps_0_f2h_cold_reset_req_reset_n,                            --                   hps_0_f2h_cold_reset_req.reset_n
+			hps_0_h2f_loan_io_in                                        => CONNECTED_TO_hps_0_h2f_loan_io_in,                                        --                          hps_0_h2f_loan_io.in
+			hps_0_h2f_loan_io_out                                       => CONNECTED_TO_hps_0_h2f_loan_io_out,                                       --                                           .out
+			hps_0_h2f_loan_io_oe                                        => CONNECTED_TO_hps_0_h2f_loan_io_oe,                                        --                                           .oe
+			hps_0_h2f_reset_reset_n                                     => CONNECTED_TO_hps_0_h2f_reset_reset_n,                                     --                            hps_0_h2f_reset.reset_n
+			hps_0_hps_io_hps_io_sdio_inst_CMD                           => CONNECTED_TO_hps_0_hps_io_hps_io_sdio_inst_CMD,                           --                               hps_0_hps_io.hps_io_sdio_inst_CMD
+			hps_0_hps_io_hps_io_sdio_inst_D0                            => CONNECTED_TO_hps_0_hps_io_hps_io_sdio_inst_D0,                            --                                           .hps_io_sdio_inst_D0
+			hps_0_hps_io_hps_io_sdio_inst_D1                            => CONNECTED_TO_hps_0_hps_io_hps_io_sdio_inst_D1,                            --                                           .hps_io_sdio_inst_D1
+			hps_0_hps_io_hps_io_sdio_inst_CLK                           => CONNECTED_TO_hps_0_hps_io_hps_io_sdio_inst_CLK,                           --                                           .hps_io_sdio_inst_CLK
+			hps_0_hps_io_hps_io_sdio_inst_D2                            => CONNECTED_TO_hps_0_hps_io_hps_io_sdio_inst_D2,                            --                                           .hps_io_sdio_inst_D2
+			hps_0_hps_io_hps_io_sdio_inst_D3                            => CONNECTED_TO_hps_0_hps_io_hps_io_sdio_inst_D3,                            --                                           .hps_io_sdio_inst_D3
+			hps_0_hps_io_hps_io_usb1_inst_D0                            => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D0,                            --                                           .hps_io_usb1_inst_D0
+			hps_0_hps_io_hps_io_usb1_inst_D1                            => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D1,                            --                                           .hps_io_usb1_inst_D1
+			hps_0_hps_io_hps_io_usb1_inst_D2                            => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D2,                            --                                           .hps_io_usb1_inst_D2
+			hps_0_hps_io_hps_io_usb1_inst_D3                            => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D3,                            --                                           .hps_io_usb1_inst_D3
+			hps_0_hps_io_hps_io_usb1_inst_D4                            => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D4,                            --                                           .hps_io_usb1_inst_D4
+			hps_0_hps_io_hps_io_usb1_inst_D5                            => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D5,                            --                                           .hps_io_usb1_inst_D5
+			hps_0_hps_io_hps_io_usb1_inst_D6                            => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D6,                            --                                           .hps_io_usb1_inst_D6
+			hps_0_hps_io_hps_io_usb1_inst_D7                            => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_D7,                            --                                           .hps_io_usb1_inst_D7
+			hps_0_hps_io_hps_io_usb1_inst_CLK                           => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_CLK,                           --                                           .hps_io_usb1_inst_CLK
+			hps_0_hps_io_hps_io_usb1_inst_STP                           => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_STP,                           --                                           .hps_io_usb1_inst_STP
+			hps_0_hps_io_hps_io_usb1_inst_DIR                           => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_DIR,                           --                                           .hps_io_usb1_inst_DIR
+			hps_0_hps_io_hps_io_usb1_inst_NXT                           => CONNECTED_TO_hps_0_hps_io_hps_io_usb1_inst_NXT,                           --                                           .hps_io_usb1_inst_NXT
+			hps_0_hps_io_hps_io_uart0_inst_RX                           => CONNECTED_TO_hps_0_hps_io_hps_io_uart0_inst_RX,                           --                                           .hps_io_uart0_inst_RX
+			hps_0_hps_io_hps_io_uart0_inst_TX                           => CONNECTED_TO_hps_0_hps_io_hps_io_uart0_inst_TX,                           --                                           .hps_io_uart0_inst_TX
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO00                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO00,                      --                                           .hps_io_gpio_inst_LOANIO00
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO14                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO14,                      --                                           .hps_io_gpio_inst_LOANIO14
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO15                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO15,                      --                                           .hps_io_gpio_inst_LOANIO15
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO16                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO16,                      --                                           .hps_io_gpio_inst_LOANIO16
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO17                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO17,                      --                                           .hps_io_gpio_inst_LOANIO17
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO18                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO18,                      --                                           .hps_io_gpio_inst_LOANIO18
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO19                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO19,                      --                                           .hps_io_gpio_inst_LOANIO19
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO22                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO22,                      --                                           .hps_io_gpio_inst_LOANIO22
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO23                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO23,                      --                                           .hps_io_gpio_inst_LOANIO23
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO24                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO24,                      --                                           .hps_io_gpio_inst_LOANIO24
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO25                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO25,                      --                                           .hps_io_gpio_inst_LOANIO25
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO26                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO26,                      --                                           .hps_io_gpio_inst_LOANIO26
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO27                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO27,                      --                                           .hps_io_gpio_inst_LOANIO27
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO29                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO29,                      --                                           .hps_io_gpio_inst_LOANIO29
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO30                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO30,                      --                                           .hps_io_gpio_inst_LOANIO30
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO31                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO31,                      --                                           .hps_io_gpio_inst_LOANIO31
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO32                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO32,                      --                                           .hps_io_gpio_inst_LOANIO32
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO34                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO34,                      --                                           .hps_io_gpio_inst_LOANIO34
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO48                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO48,                      --                                           .hps_io_gpio_inst_LOANIO48
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO49                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO49,                      --                                           .hps_io_gpio_inst_LOANIO49
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO50                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO50,                      --                                           .hps_io_gpio_inst_LOANIO50
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO51                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO51,                      --                                           .hps_io_gpio_inst_LOANIO51
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO52                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO52,                      --                                           .hps_io_gpio_inst_LOANIO52
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO53                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO53,                      --                                           .hps_io_gpio_inst_LOANIO53
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO54                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO54,                      --                                           .hps_io_gpio_inst_LOANIO54
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO55                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO55,                      --                                           .hps_io_gpio_inst_LOANIO55
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO56                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO56,                      --                                           .hps_io_gpio_inst_LOANIO56
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO57                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO57,                      --                                           .hps_io_gpio_inst_LOANIO57
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO58                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO58,                      --                                           .hps_io_gpio_inst_LOANIO58
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO59                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO59,                      --                                           .hps_io_gpio_inst_LOANIO59
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO60                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO60,                      --                                           .hps_io_gpio_inst_LOANIO60
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO63                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO63,                      --                                           .hps_io_gpio_inst_LOANIO63
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO64                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO64,                      --                                           .hps_io_gpio_inst_LOANIO64
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO65                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO65,                      --                                           .hps_io_gpio_inst_LOANIO65
+			hps_0_hps_io_hps_io_gpio_inst_LOANIO66                      => CONNECTED_TO_hps_0_hps_io_hps_io_gpio_inst_LOANIO66,                      --                                           .hps_io_gpio_inst_LOANIO66
+			memory_mem_a                                                => CONNECTED_TO_memory_mem_a,                                                --                                     memory.mem_a
+			memory_mem_ba                                               => CONNECTED_TO_memory_mem_ba,                                               --                                           .mem_ba
+			memory_mem_ck                                               => CONNECTED_TO_memory_mem_ck,                                               --                                           .mem_ck
+			memory_mem_ck_n                                             => CONNECTED_TO_memory_mem_ck_n,                                             --                                           .mem_ck_n
+			memory_mem_cke                                              => CONNECTED_TO_memory_mem_cke,                                              --                                           .mem_cke
+			memory_mem_cs_n                                             => CONNECTED_TO_memory_mem_cs_n,                                             --                                           .mem_cs_n
+			memory_mem_ras_n                                            => CONNECTED_TO_memory_mem_ras_n,                                            --                                           .mem_ras_n
+			memory_mem_cas_n                                            => CONNECTED_TO_memory_mem_cas_n,                                            --                                           .mem_cas_n
+			memory_mem_we_n                                             => CONNECTED_TO_memory_mem_we_n,                                             --                                           .mem_we_n
+			memory_mem_reset_n                                          => CONNECTED_TO_memory_mem_reset_n,                                          --                                           .mem_reset_n
+			memory_mem_dq                                               => CONNECTED_TO_memory_mem_dq,                                               --                                           .mem_dq
+			memory_mem_dqs                                              => CONNECTED_TO_memory_mem_dqs,                                              --                                           .mem_dqs
+			memory_mem_dqs_n                                            => CONNECTED_TO_memory_mem_dqs_n,                                            --                                           .mem_dqs_n
+			memory_mem_odt                                              => CONNECTED_TO_memory_mem_odt,                                              --                                           .mem_odt
+			memory_mem_dm                                               => CONNECTED_TO_memory_mem_dm,                                               --                                           .mem_dm
+			memory_oct_rzqin                                            => CONNECTED_TO_memory_oct_rzqin,                                            --                                           .oct_rzqin
+			motor_lut_avalon_slave_0_lut_active_bank                    => CONNECTED_TO_motor_lut_avalon_slave_0_lut_active_bank,                    --               motor_lut_avalon_slave_0_lut.active_bank
+			motor_lut_avalon_slave_0_lut_commit_ack                     => CONNECTED_TO_motor_lut_avalon_slave_0_lut_commit_ack,                     --                                           .commit_ack
+			motor_lut_avalon_slave_0_lut_commit_req                     => CONNECTED_TO_motor_lut_avalon_slave_0_lut_commit_req,                     --                                           .commit_req
+			motor_lut_avalon_slave_0_lut_wr_addr                        => CONNECTED_TO_motor_lut_avalon_slave_0_lut_wr_addr,                        --                                           .wr_addr
+			motor_lut_avalon_slave_0_lut_wr_bank                        => CONNECTED_TO_motor_lut_avalon_slave_0_lut_wr_bank,                        --                                           .wr_bank
+			motor_lut_avalon_slave_0_lut_wr_data                        => CONNECTED_TO_motor_lut_avalon_slave_0_lut_wr_data,                        --                                           .wr_data
+			motor_lut_avalon_slave_0_lut_wr_en                          => CONNECTED_TO_motor_lut_avalon_slave_0_lut_wr_en,                          --                                           .wr_en
+			motor_lut_avalon_slave_0_lut_verify_addr                    => CONNECTED_TO_motor_lut_avalon_slave_0_lut_verify_addr,                    --                                           .verify_addr
+			motor_lut_avalon_slave_0_lut_verify_bank                    => CONNECTED_TO_motor_lut_avalon_slave_0_lut_verify_bank,                    --                                           .verify_bank
+			motor_lut_avalon_slave_0_lut_verify_data                    => CONNECTED_TO_motor_lut_avalon_slave_0_lut_verify_data,                    --                                           .verify_data
+			motor_lut_avalon_slave_0_lut_verify_en                      => CONNECTED_TO_motor_lut_avalon_slave_0_lut_verify_en,                      --                                           .verify_en
+			motor_lut_avalon_slave_0_lut_verify_lock                    => CONNECTED_TO_motor_lut_avalon_slave_0_lut_verify_lock,                    --                                           .verify_lock
+			motor_lut_avalon_slave_0_lut_verify_valid                   => CONNECTED_TO_motor_lut_avalon_slave_0_lut_verify_valid,                   --                                           .verify_valid
+			register_file_run_name                                      => CONNECTED_TO_register_file_run_name,                                      --                          register_file_run.name
+			reset_reset_n                                               => CONNECTED_TO_reset_reset_n,                                               --                                      reset.reset_n
+			mosfet_override_avalon_slave_0_conduit_end_override_enable  => CONNECTED_TO_mosfet_override_avalon_slave_0_conduit_end_override_enable,  -- mosfet_override_avalon_slave_0_conduit_end.override_enable
+			mosfet_override_avalon_slave_0_conduit_end_override_outputs => CONNECTED_TO_mosfet_override_avalon_slave_0_conduit_end_override_outputs  --                                           .override_outputs
 		);
 

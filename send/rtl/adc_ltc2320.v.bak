@@ -1,0 +1,150 @@
+// Module: adc_ltc2320
+// Type    : SystemVerilog synthesizable
+// Standard: IEEE 1800-2012
+// Function: Read ADC values from LTC2320 via LVDS interface and output 4 differential ADC channels.
+
+module adc_ltc2320 #(
+    parameter int ADC_BITS   = 12,   // ADC resolution
+    parameter int ADC_CLK_NS = 20    // ADC clock period in ns
+) (
+    input  logic                          clk,           // system clock
+    input  logic                          ddr_clk,       // DDR clock for LVDS sampling
+    input  logic                          lvds_data_in,  // LVDS data input from ADC
+    output logic                          lvds_clk_out,  // LVDS clock output
+    output logic                          cnv,           // ADC conversion start signal
+    input  logic                          i_sn_adc,      // External ADC trigger pulse
+    output logic                          o_en_adc,      // ADC conversion done pulse
+    output logic signed [ADC_BITS+1:0]    o_adc_value1,  // ADC channel 1
+    output logic signed [ADC_BITS+1:0]    o_adc_value2,  // ADC channel 2
+    output logic signed [ADC_BITS+1:0]    o_adc_value3,  // ADC channel 3
+    output logic signed [ADC_BITS+1:0]    o_adc_value4   // ADC channel 4
+);
+
+    // ---------------------------------------------------------
+    // Local parameters
+    // ---------------------------------------------------------
+    localparam int COUNTER_WIDTH     = 8;
+    localparam int SAMPLE_BITS       = 128;
+    localparam int DATA_BITS         = 16;
+    localparam int DATA_CHNS         = SAMPLE_BITS / DATA_BITS; // 8 channels
+    localparam int CONVERT_WAIT_NS   = 460;                      // LTC2320 conversion time
+    localparam int CONVERT_DONE_TIME = (CONVERT_WAIT_NS - 1) / ADC_CLK_NS + 1;
+    localparam int ACQUIRE_DONE_TIME = CONVERT_DONE_TIME + SAMPLE_BITS/2;
+    localparam int ACQUIRE_START_TIME= SAMPLE_BITS/2;
+
+    // ---------------------------------------------------------
+    // Internal signals
+    // ---------------------------------------------------------
+    logic cnv_prior;
+    logic acquire_finish;
+    logic sck_output;
+
+    // counter output
+    logic [COUNTER_WIDTH-1:0] adc_cnt_q;
+
+    // LVDS data buffer
+    logic [SAMPLE_BITS-1:0] read_data;
+
+    // ADC values array (8 channels of 16-bit each)
+    logic [DATA_BITS-1:0] adc_value [0:DATA_CHNS-1];
+
+    // ---------------------------------------------------------
+    // Counter instantiation
+    // Using LPM_COUNTER for counting acquisition cycles
+    // ---------------------------------------------------------
+    lpm_counter adc_cnt (
+        .clock(clk),
+        .cnt_en(!cnv_prior),
+        .sclr(1'b0),
+        .q(adc_cnt_q),
+        .aclr(1'b0),
+        .aload(1'b0),
+        .aset(1'b0),
+        .cin(1'b1),
+        .clk_en(1'b1),
+        .cout(cnv_prior),
+        .data(ACQUIRE_DONE_TIME[COUNTER_WIDTH-1:0]),
+        .eq(),
+        .sload(i_sn_adc),
+        .sset(1'b0)
+    );
+    defparam
+        adc_cnt.lpm_direction = "DOWN",
+        adc_cnt.lpm_type      = "LPM_COUNTER",
+        adc_cnt.lpm_width     = COUNTER_WIDTH;
+
+    // ---------------------------------------------------------
+    // Generate SCK output
+    // ---------------------------------------------------------
+    always_ff @(posedge clk) begin
+        if (adc_cnt_q == ACQUIRE_START_TIME[COUNTER_WIDTH-1:0])
+            sck_output <= 1'b1;
+        else if (cnv_prior)
+            sck_output <= 1'b0;
+    end
+
+    // ---------------------------------------------------------
+    // Track acquisition finish
+    // ---------------------------------------------------------
+    always_ff @(posedge clk) begin
+        if (cnv_prior & !cnv)
+            acquire_finish <= 1'b1;
+        else
+            acquire_finish <= 1'b0;
+    end
+
+    // ---------------------------------------------------------
+    // Shift LVDS data into read_data buffer
+    // ---------------------------------------------------------
+    always_ff @(posedge ddr_clk) begin
+        if (sck_output)
+            read_data <= {read_data[SAMPLE_BITS-2:0], lvds_data_in};
+    end
+
+    // ---------------------------------------------------------
+    // Generate LVDS clock output
+    // ---------------------------------------------------------
+    always_ff @(posedge ddr_clk) begin
+        if (sck_output)
+            lvds_clk_out <= ~lvds_clk_out;
+        else
+            lvds_clk_out <= 1'b0;
+    end
+
+    // ---------------------------------------------------------
+    // Assign CNV signal
+    // ---------------------------------------------------------
+    always_ff @(posedge clk) begin
+        cnv <= cnv_prior;
+    end
+
+    // ---------------------------------------------------------
+    // Extract differential ADC values and generate enable pulse
+    // ---------------------------------------------------------
+    always_ff @(posedge clk) begin
+        if (acquire_finish) begin
+            o_adc_value1 <= $signed(adc_value[6][DATA_BITS-1:DATA_BITS-ADC_BITS]) 
+                          - $signed(adc_value[7][DATA_BITS-1:DATA_BITS-ADC_BITS]);
+            o_adc_value2 <= $signed(adc_value[4][DATA_BITS-1:DATA_BITS-ADC_BITS]) 
+                          - $signed(adc_value[5][DATA_BITS-1:DATA_BITS-ADC_BITS]);
+            o_adc_value3 <= $signed(adc_value[2][DATA_BITS-1:DATA_BITS-ADC_BITS]) 
+                          - $signed(adc_value[3][DATA_BITS-1:DATA_BITS-ADC_BITS]);
+            o_adc_value4 <= $signed(adc_value[0][DATA_BITS-1:DATA_BITS-ADC_BITS]) 
+                          - $signed(adc_value[1][DATA_BITS-1:DATA_BITS-ADC_BITS]);
+            o_en_adc     <= 1'b1;
+        end else begin
+            o_en_adc     <= 1'b0;
+        end
+    end
+
+    // ---------------------------------------------------------
+    // Map read_data buffer to adc_value array for easy indexing
+    // ---------------------------------------------------------
+    genvar i;
+    generate
+        for (i = 0; i < DATA_CHNS; i++) begin : ADC_MAP
+            assign adc_value[i] = read_data[(SAMPLE_BITS-1-i*DATA_BITS) -: DATA_BITS];
+        end
+    endgenerate
+
+endmodule

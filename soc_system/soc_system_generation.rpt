@@ -8,6 +8,8 @@ Progress: Adding frame_sdram_dma_0 [frame_sdram_dma 1.0]
 Progress: Parameterizing module frame_sdram_dma_0
 Progress: Adding hps_0 [altera_hps 17.1]
 Progress: Parameterizing module hps_0
+Progress: Adding mosfet_override_avalon_slave_0 [mosfet_override_avalon_slave 1.0]
+Progress: Parameterizing module mosfet_override_avalon_slave_0
 Progress: Adding motor_lut_avalon_slave_0 [motor_lut_avalon_slave 1.0]
 Progress: Parameterizing module motor_lut_avalon_slave_0
 Progress: Adding register_file [new_component 1.0]
@@ -32,6 +34,8 @@ Progress: Adding frame_sdram_dma_0 [frame_sdram_dma 1.0]
 Progress: Parameterizing module frame_sdram_dma_0
 Progress: Adding hps_0 [altera_hps 17.1]
 Progress: Parameterizing module hps_0
+Progress: Adding mosfet_override_avalon_slave_0 [mosfet_override_avalon_slave 1.0]
+Progress: Parameterizing module mosfet_override_avalon_slave_0
 Progress: Adding motor_lut_avalon_slave_0 [motor_lut_avalon_slave 1.0]
 Progress: Parameterizing module motor_lut_avalon_slave_0
 Progress: Adding register_file [new_component 1.0]
@@ -55,12 +59,14 @@ Info: hps_0: HLGPI is not available for Device 5CSEBA2U19I7 (484 pins)
 Info: hps_0: HPS Main PLL counter settings: n = 0  m = 47
 Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
 Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
+Info: mosfet_override_avalon_slave_0: "soc_system" instantiated mosfet_override_avalon_slave "mosfet_override_avalon_slave_0"
 Info: motor_lut_avalon_slave_0: "soc_system" instantiated motor_lut_avalon_slave "motor_lut_avalon_slave_0"
 Info: register_file: "soc_system" instantiated new_component "register_file"
 Info: mm_interconnect_0: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_0"
 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
 Info: mm_interconnect_1: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_1"
 Info: irq_mapper: "soc_system" instantiated altera_irq_mapper "irq_mapper"
 Info: rst_controller: "soc_system" instantiated altera_reset_controller "rst_controller"
@@ -102,6 +108,6 @@ Info: Reusing file C:/project/motor_main/soc_system/synthesis/submodules/altera_
 Info: avalon_st_adapter: "mm_interconnect_1" instantiated altera_avalon_st_adapter "avalon_st_adapter"
 Info: border: "hps_io" instantiated altera_interface_generator "border"
 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
-Info: soc_system: Done "soc_system" with 36 modules, 96 files
+Info: soc_system: Done "soc_system" with 37 modules, 97 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

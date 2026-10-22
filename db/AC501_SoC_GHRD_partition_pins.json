@@ -112,15 +112,15 @@
 					"strict" : false
 				},
 				{
-					"name" : "LM10_encoder_a",
-					"strict" : false
-				},
-				{
 					"name" : "LM10_encoder_z",
 					"strict" : false
 				},
 				{
 					"name" : "LM10_encoder_b",
+					"strict" : false
+				},
+				{
+					"name" : "LM10_encoder_a",
 					"strict" : false
 				},
 				{

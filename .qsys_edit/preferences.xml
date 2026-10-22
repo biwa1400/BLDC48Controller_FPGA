@@ -9,7 +9,7 @@
    <export preferredWidth="501" />
   </columns>
  </systemtable>
- <library expandedCategories="Project/BLDC48Controller,Project,Library" />
- <window width="2418" height="1318" x="2" y="-1359" />
+ <library expandedCategories="Library,Project/Motor Control,Project" />
+ <window width="4318" height="1768" x="-955" y="-1809" />
  <hdlexample language="VERILOG" />
 </preferences>

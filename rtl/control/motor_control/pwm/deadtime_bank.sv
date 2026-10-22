@@ -5,29 +5,28 @@
 //
 // 22-channel complementary gate deadtime bank.
 //
-// Each raw PWM channel is processed by one independent deadtime_channel:
+// Each raw PWM channel is processed independently.
 //
-//     raw_pwm[0]  -> deadtime_channel -> pwm_hi[0],  pwm_lo[0]
-//     raw_pwm[1]  -> deadtime_channel -> pwm_hi[1],  pwm_lo[1]
-//     ...
-//     raw_pwm[21] -> deadtime_channel -> pwm_hi[21], pwm_lo[21]
+// ============================================================================
 //
-// All channels share:
+// DEADTIME CONFIGURATION
 //
-//     clk_200MHz
-//     rst_n
+// To change the deadtime for ALL 22 PWM channels:
 //
-// Each channel independently guarantees:
+//     File: rtl/constants_pkg.sv
 //
-//     pwm_hi[n] && pwm_lo[n] == 0
-//
-// Physical deadtime is defined in motor_control_pkg.sv:
-//
-//     DEADTIME_CLOCKS = 8
+//     Parameter: DEADTIME_CLOCKS
 //
 // At 200 MHz:
 //
-//     8 * 5 ns = 40 ns
+//     Deadtime (ns) = DEADTIME_CLOCKS * 5
+//
+// Current configuration:
+//
+//     DEADTIME_CLOCKS = 36
+//     Deadtime = 180 ns
+//
+// DO NOT configure deadtime separately in this file.
 //
 // ============================================================================
 
@@ -43,7 +42,7 @@ module deadtime_bank (
 
 );
 
-    import motor_control_pkg::*;
+    import motor_control_pkg::NUM_PHASES;
 
 
     // ========================================================================
@@ -60,33 +59,22 @@ module deadtime_bank (
             phase_index = phase_index + 1
         ) begin : gen_deadtime_channel
 
-            deadtime_channel u_deadtime_channel (
+            deadtime_channel #(
+                .DEADTIME_CLOCKS(constants_pkg::DEADTIME_CLOCKS)
+            ) u_deadtime_channel (
 
-                .clk_200MHz (
-                    clk_200MHz
-                ),
+                .clk_200MHz (clk_200MHz),
+                .rst_n      (rst_n),
 
-                .rst_n (
-                    rst_n
-                ),
+                .raw_pwm    (raw_pwm[phase_index]),
 
-                .raw_pwm (
-                    raw_pwm[phase_index]
-                ),
-
-                .pwm_hi (
-                    pwm_hi[phase_index]
-                ),
-
-                .pwm_lo (
-                    pwm_lo[phase_index]
-                )
+                .pwm_hi     (pwm_hi[phase_index]),
+                .pwm_lo     (pwm_lo[phase_index])
 
             );
 
         end
 
     endgenerate
-
 
 endmodule

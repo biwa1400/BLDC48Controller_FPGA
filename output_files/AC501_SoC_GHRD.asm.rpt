@@ -1,5 +1,5 @@
 Assembler report for AC501_SoC_GHRD
-Thu Oct 08 22:37:41 2026
+Wed Oct 21 09:38:53 2026
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -38,7 +38,7 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Thu Oct 08 22:37:41 2026 ;
+; Assembler Status      ; Successful - Wed Oct 21 09:38:53 2026 ;
 ; Revision Name         ; AC501_SoC_GHRD                        ;
 ; Top-level Entity Name ; AC501_SoC_GHRD                        ;
 ; Family                ; Cyclone V                             ;
@@ -68,8 +68,8 @@ refer to the applicable agreement for further details.
 +----------------+----------------------------------------------------------------+
 ; Option         ; Setting                                                        ;
 +----------------+----------------------------------------------------------------+
-; JTAG usercode  ; 0x014D3598                                                     ;
-; Checksum       ; 0x014D3598                                                     ;
+; JTAG usercode  ; 0x0171D046                                                     ;
+; Checksum       ; 0x0171D046                                                     ;
 +----------------+----------------------------------------------------------------+
 
 
@@ -79,7 +79,7 @@ refer to the applicable agreement for further details.
 ; Option              ; Setting                                                   ;
 +---------------------+-----------------------------------------------------------+
 ; Raw Binary File     ;                                                           ;
-;  Compression Ratio  ; 3                                                         ;
+;  Compression Ratio  ; 2                                                         ;
 +---------------------+-----------------------------------------------------------+
 
 
@@ -89,7 +89,7 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Assembler
     Info: Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
-    Info: Processing started: Thu Oct 08 22:37:29 2026
+    Info: Processing started: Wed Oct 21 09:38:38 2026
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off AC501_SoC_GHRD -c AC501_SoC_GHRD
 Warning (125092): Tcl Script File vga_pll.qip not found
     Info (125063): set_global_assignment -name QIP_FILE vga_pll.qip
@@ -98,9 +98,9 @@ Warning (125092): Tcl Script File vga_pll.sip not found
 Info (115030): Assembler is generating device programming files
 Info (11878): Hard Processor Subsystem configuration has not changed and a Preloader software update is not required
 Info: Quartus Prime Assembler was successful. 0 errors, 2 warnings
-    Info: Peak virtual memory: 4933 megabytes
-    Info: Processing ended: Thu Oct 08 22:37:41 2026
-    Info: Elapsed time: 00:00:12
+    Info: Peak virtual memory: 4949 megabytes
+    Info: Processing ended: Wed Oct 21 09:38:53 2026
+    Info: Elapsed time: 00:00:15
     Info: Total CPU time (on all processors): 00:00:11
 
 

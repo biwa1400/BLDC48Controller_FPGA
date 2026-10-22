@@ -6,67 +6,45 @@
 // Single-phase complementary MOSFET gate generator with deadtime.
 //
 // Input:
+//     raw_pwm = 1 : Request HIGH-side ON
+//     raw_pwm = 0 : Request LOW-side  ON
 //
-//     raw_pwm = 1
-//         Request HIGH-side ON
-//         Request LOW-side  OFF
-//
-//     raw_pwm = 0
-//         Request HIGH-side OFF
-//         Request LOW-side  ON
-//
-// Outputs:
-//
-//     pwm_hi
-//     pwm_lo
-//
-// Safety rule:
-//
+// Safety:
 //     pwm_hi && pwm_lo must NEVER be true.
 //
 // Deadtime:
-//
-//     DEADTIME_CLOCKS = 8
+//     DEADTIME_CLOCKS = 36
 //
 // At 200 MHz:
+//     Clock period = 5 ns
+//     Deadtime     = 36 * 5 ns = 180 ns
 //
-//     clock period = 5 ns
+// Switching:
+//     LOW -> HIGH:
+//         LOW turns OFF.
+//         Wait 36 clock periods.
+//         HIGH turns ON if request remains HIGH.
 //
-// therefore:
+//     HIGH -> LOW:
+//         HIGH turns OFF.
+//         Wait 36 clock periods.
+//         LOW turns ON if request remains LOW.
 //
-//     deadtime = 8 * 5 ns = 40 ns
-//
-// Switching rule:
-//
-//     LOW -> HIGH request:
-//
-//         LOW turns OFF immediately.
-//         HIGH remains OFF.
-//         Wait 8 complete clk_200MHz periods.
-//         HIGH turns ON only if raw_pwm is still HIGH.
-//
-//     HIGH -> LOW request:
-//
-//         HIGH turns OFF immediately.
-//         LOW remains OFF.
-//         Wait 8 complete clk_200MHz periods.
-//         LOW turns ON only if raw_pwm is still LOW.
-//
-// If raw_pwm changes again while deadtime is active:
-//
-//     - the previous pending turn-on is cancelled
-//     - both outputs remain OFF
-//     - the deadtime counter restarts for the newly requested side
+// If raw_pwm changes during deadtime:
+//     - Cancel previous pending turn-on.
+//     - Keep both outputs OFF.
+//     - Restart deadtime for the new target.
 //
 // Reset:
-//
 //     Both outputs OFF.
-//
-// Architectural constants come exclusively from motor_control_pkg.sv.
 //
 // ============================================================================
 
-module deadtime_channel (
+module deadtime_channel #(
+
+    parameter int DEADTIME_CLOCKS = 36
+
+)(
 
     input  logic clk_200MHz,
     input  logic rst_n,
@@ -78,31 +56,25 @@ module deadtime_channel (
 
 );
 
-    import motor_control_pkg::*;
+    // ========================================================================
+    // Counter width
+    // ========================================================================
+
+    localparam int COUNTER_WIDTH =
+        (DEADTIME_CLOCKS <= 1)
+        ? 1
+        : $clog2(DEADTIME_CLOCKS);
 
 
     // ========================================================================
     // Internal state
     // ========================================================================
 
-    // Requested side currently being delayed.
-    //
-    // 1 = HIGH-side is pending
-    // 0 = LOW-side is pending
-
     logic pending_target;
-
-
-    // Indicates that a deadtime interval is currently active.
 
     logic deadtime_active;
 
-
-    // DEADTIME_CLOCKS = 8.
-    //
-    // Four bits are sufficient and keep the implementation simple.
-
-    logic [3:0] deadtime_counter;
+    logic [COUNTER_WIDTH-1:0] deadtime_counter;
 
 
     // ========================================================================
@@ -113,108 +85,61 @@ module deadtime_channel (
 
         if (!rst_n) begin
 
-            pwm_hi <=
-                1'b0;
+            pwm_hi <= 1'b0;
+            pwm_lo <= 1'b0;
 
-            pwm_lo <=
-                1'b0;
+            pending_target <= 1'b0;
 
-            pending_target <=
-                1'b0;
+            deadtime_active <= 1'b0;
 
-            deadtime_active <=
-                1'b0;
-
-            deadtime_counter <=
-                4'd0;
+            deadtime_counter <= '0;
 
         end
         else begin
 
-
-            // =================================================================
-            // Deadtime currently active
-            // =================================================================
+            // ================================================================
+            // Deadtime active
+            // ================================================================
 
             if (deadtime_active) begin
 
-                // During the entire deadtime interval both MOSFETs remain OFF.
-
-                pwm_hi <=
-                    1'b0;
-
-                pwm_lo <=
-                    1'b0;
+                pwm_hi <= 1'b0;
+                pwm_lo <= 1'b0;
 
 
-                // -------------------------------------------------------------
-                // Input changed again during deadtime
-                // -------------------------------------------------------------
-                //
-                // Cancel the previous pending turn-on and restart the full
-                // deadtime interval for the newly requested side.
-                //
-                // -------------------------------------------------------------
+                // Input changed during deadtime.
+                // Restart full deadtime interval.
 
                 if (raw_pwm != pending_target) begin
 
-                    pending_target <=
-                        raw_pwm;
+                    pending_target <= raw_pwm;
 
-                    deadtime_counter <=
-                        4'd0;
+                    deadtime_counter <= '0;
 
                 end
 
-
-                // -------------------------------------------------------------
-                // Requested state remained stable
-                // -------------------------------------------------------------
-
                 else begin
 
-                    // Counter interpretation:
-                    //
-                    // counter = 0
-                    //     first complete deadtime clock
-                    //
-                    // ...
-                    //
-                    // counter = DEADTIME_CLOCKS - 1
-                    //     final deadtime clock
-                    //
-                    // The requested transistor is enabled on the following
-                    // clock edge.
-                    //
-                    // This gives exactly DEADTIME_CLOCKS complete 200 MHz
-                    // periods with both outputs OFF.
+                    // Final deadtime clock reached.
 
                     if (deadtime_counter ==
                         (DEADTIME_CLOCKS - 1)) begin
 
-                        deadtime_active <=
-                            1'b0;
+                        deadtime_active <= 1'b0;
 
-                        deadtime_counter <=
-                            4'd0;
+                        deadtime_counter <= '0;
 
 
                         if (pending_target) begin
 
-                            pwm_hi <=
-                                1'b1;
-
-                            pwm_lo <=
-                                1'b0;
+                            pwm_hi <= 1'b1;
+                            pwm_lo <= 1'b0;
 
                         end
                         else begin
 
-                            pwm_hi <=
-                                1'b0;
-
-                            pwm_lo <=
-                                1'b1;
+                            pwm_hi <= 1'b0;
+                            pwm_lo <= 1'b1;
 
                         end
 
@@ -222,7 +147,7 @@ module deadtime_channel (
                     else begin
 
                         deadtime_counter <=
-                            deadtime_counter + 4'd1;
+                            deadtime_counter + 1'b1;
 
                     end
 
@@ -231,113 +156,70 @@ module deadtime_channel (
             end
 
 
-            // =================================================================
-            // No deadtime currently active
-            // =================================================================
+            // ================================================================
+            // No active deadtime
+            // ================================================================
 
             else begin
 
-
-                // -------------------------------------------------------------
+                // ------------------------------------------------------------
                 // HIGH-side currently ON
-                // -------------------------------------------------------------
+                // ------------------------------------------------------------
 
                 if (pwm_hi) begin
 
                     if (!raw_pwm) begin
 
-                        // HIGH -> LOW transition requested.
-                        //
-                        // HIGH must turn OFF immediately.
-                        // LOW must remain OFF.
-                        // Begin deadtime before LOW may turn ON.
+                        pwm_hi <= 1'b0;
+                        pwm_lo <= 1'b0;
 
-                        pwm_hi <=
-                            1'b0;
+                        pending_target <= 1'b0;
 
-                        pwm_lo <=
-                            1'b0;
+                        deadtime_active <= 1'b1;
 
-                        pending_target <=
-                            1'b0;
-
-                        deadtime_active <=
-                            1'b1;
-
-                        deadtime_counter <=
-                            4'd0;
+                        deadtime_counter <= '0;
 
                     end
 
                 end
 
 
-                // -------------------------------------------------------------
+                // ------------------------------------------------------------
                 // LOW-side currently ON
-                // -------------------------------------------------------------
+                // ------------------------------------------------------------
 
                 else if (pwm_lo) begin
 
                     if (raw_pwm) begin
 
-                        // LOW -> HIGH transition requested.
-                        //
-                        // LOW must turn OFF immediately.
-                        // HIGH must remain OFF.
-                        // Begin deadtime before HIGH may turn ON.
+                        pwm_hi <= 1'b0;
+                        pwm_lo <= 1'b0;
 
-                        pwm_hi <=
-                            1'b0;
+                        pending_target <= 1'b1;
 
-                        pwm_lo <=
-                            1'b0;
+                        deadtime_active <= 1'b1;
 
-                        pending_target <=
-                            1'b1;
-
-                        deadtime_active <=
-                            1'b1;
-
-                        deadtime_counter <=
-                            4'd0;
+                        deadtime_counter <= '0;
 
                     end
 
                 end
 
 
-                // -------------------------------------------------------------
-                // Both outputs currently OFF
-                // -------------------------------------------------------------
-                //
-                // This occurs after reset and may also occur after external
-                // control has held the channel inactive.
-                //
-                // We do NOT immediately enable either transistor.
-                //
-                // Instead, the requested side must first pass through the full
-                // deadtime interval.
-                //
-                // This gives deterministic and safe startup behavior.
-                //
-                // -------------------------------------------------------------
+                // ------------------------------------------------------------
+                // Both outputs OFF
+                // ------------------------------------------------------------
 
                 else begin
 
-                    pwm_hi <=
-                        1'b0;
+                    pwm_hi <= 1'b0;
+                    pwm_lo <= 1'b0;
 
-                    pwm_lo <=
-                        1'b0;
+                    pending_target <= raw_pwm;
 
-                    pending_target <=
-                        raw_pwm;
+                    deadtime_active <= 1'b1;
 
-                    deadtime_active <=
-                        1'b1;
-
-                    deadtime_counter <=
-                        4'd0;
+                    deadtime_counter <= '0;
 
                 end
 
@@ -346,6 +228,5 @@ module deadtime_channel (
         end
 
     end
-
 
 endmodule

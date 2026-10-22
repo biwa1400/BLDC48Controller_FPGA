@@ -1,0 +1,93 @@
+module FIR_22_drive 
+
+#(
+  parameter int unsigned TDM_FACTOR = 100,      // 时钟/采样率
+  parameter int unsigned CHANNELS   = 22      // 有效通道数
+)
+
+(
+	input           clk_i,
+	input           rst_ni,
+	input logic    [15:0] val_in [0:CHANNELS-1],
+	output logic   [40:0] val_out [0:CHANNELS-1]
+);
+	localparam int unsigned INVALIDS   = TDM_FACTOR - CHANNELS; 
+	
+	logic [6:0]ast_sink_data_index_nxt;
+	logic [6:0]ast_sink_data_index_r;
+	
+	always_comb begin
+        if (ast_sink_data_index_r == TDM_FACTOR)
+            ast_sink_data_index_nxt = '0;
+        else
+            ast_sink_data_index_nxt = ast_sink_data_index_r + 1'b1;
+    end
+	
+	gnrl_dff #(7) ast_sink_data_index_ff (clk_i, rst_ni,ast_sink_data_index_nxt, ast_sink_data_index_r);
+	
+	logic ast_sink_valid_nxt,ast_sink_valid;
+	logic [1:0]ast_sink_error;
+    logic ast_sink_sop_nxt,ast_sink_sop;
+    logic ast_sink_eop_nxt,ast_sink_eop;
+	logic [15:0] ast_sink_data_nxt,ast_sink_data;
+	
+	assign ast_sink_error = '0;
+	
+	always_comb begin
+		if (ast_sink_data_index_r < CHANNELS) begin
+			ast_sink_valid_nxt = '1;   // 如果要表示有效，可以用 '1
+			ast_sink_sop_nxt   = (ast_sink_data_index_r == 0);
+			ast_sink_eop_nxt   = (ast_sink_data_index_r == CHANNELS-1);
+			ast_sink_data_nxt = val_in[ast_sink_data_index_r];
+		end else begin
+			ast_sink_valid_nxt = '0;
+			ast_sink_sop_nxt   = '0;
+			ast_sink_eop_nxt   = '0;
+			ast_sink_data_nxt = '0;
+		end
+	end
+
+	
+	gnrl_dff #(1) ast_sink_valid_ff (clk_i, rst_ni,ast_sink_valid_nxt, ast_sink_valid);
+	gnrl_dff #(1) ast_sink_sop_ff (clk_i, rst_ni,ast_sink_sop_nxt, ast_sink_sop);
+	gnrl_dff #(1) ast_sink_eop_ff (clk_i, rst_ni,ast_sink_eop_nxt, ast_sink_eop);
+	gnrl_dff #(16) ast_sink_data_ff (clk_i, rst_ni,ast_sink_data_nxt, ast_sink_data);
+	
+	
+	logic [4:0] ast_source_channel;
+	logic [40:0] ast_source_data;
+	logic ast_source_valid;
+	
+  firii u_firii (
+    .clk                (clk_i),
+    .reset_n            (rst_ni),
+    .ast_sink_data      (ast_sink_data),
+    .ast_sink_valid     (ast_sink_valid),
+    .ast_sink_error     (ast_sink_error),
+    .ast_sink_sop       (ast_sink_sop),
+    .ast_sink_eop       (ast_sink_eop),
+    .ast_source_data    (ast_source_data),
+    .ast_source_valid   (ast_source_valid),
+    .ast_source_channel (ast_source_channel)
+  );
+  
+
+
+	integer i;
+	always_ff @(posedge clk_i or negedge rst_ni) begin
+		if (!rst_ni) begin
+			for (i = 0; i < CHANNELS; i = i + 1)
+				val_out[i] <= 'b0;
+		end else if (ast_source_valid) begin
+			val_out[ast_source_channel] <= ast_source_data;
+		end
+	end
+
+
+	
+	
+	
+	
+	
+
+endmodule

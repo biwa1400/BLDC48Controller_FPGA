@@ -1,12 +1,12 @@
-Fitter Status : Successful - Thu Oct 08 22:37:21 2026
+Fitter Status : Successful - Wed Oct 21 09:38:28 2026
 Quartus Prime Version : 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 Revision Name : AC501_SoC_GHRD
 Top-level Entity Name : AC501_SoC_GHRD
 Family : Cyclone V
 Device : 5CSEBA2U19I7
 Timing Models : Final
-Logic utilization (in ALMs) : 4,295 / 9,430 ( 46 % )
-Total registers : 8196
+Logic utilization (in ALMs) : 5,479 / 9,430 ( 58 % )
+Total registers : 9650
 Total pins : 179 / 205 ( 87 % )
 Total virtual pins : 0
 Total block memory bits : 148,736 / 1,433,600 ( 10 % )

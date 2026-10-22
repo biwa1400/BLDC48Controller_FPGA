@@ -111,6 +111,12 @@ module hps_qsys_top (
     // ------------------------ Internal DMA Buffer -----------------
     input  logic [8*108-1:0] frame_sdram_dma_input_array_flat,
 
+    // ------------------------ MOSFET Manual Override --------------
+    // Exported from the Avalon-MM override slave in soc_system.
+    // These signals are consumed by mosfet_driver at the parent level.
+    output logic        override_enable,
+    output logic [43:0] override_outputs,
+
     // ------------------------ Motor LUT Interface -----------------
     // HPS / Avalon -> frozen motor-control core
     output logic        motor_lut_wr_en,
@@ -235,6 +241,13 @@ module hps_qsys_top (
 
         .motor_lut_avalon_slave_0_lut_verify_valid
             (motor_lut_verify_valid),
+
+        // MOSFET manual override conduit from Platform Designer
+        .mosfet_override_avalon_slave_0_conduit_end_override_enable
+            (override_enable),
+
+        .mosfet_override_avalon_slave_0_conduit_end_override_outputs
+            (override_outputs),
 
         // Loan IO Connection
         .hps_0_h2f_loan_io_in

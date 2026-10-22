@@ -92,7 +92,9 @@ module soc_system (
 	motor_lut_avalon_slave_0_lut_verify_lock,
 	motor_lut_avalon_slave_0_lut_verify_valid,
 	register_file_run_name,
-	reset_reset_n);	
+	reset_reset_n,
+	mosfet_override_avalon_slave_0_conduit_end_override_enable,
+	mosfet_override_avalon_slave_0_conduit_end_override_outputs);	
 
 	input		clk_clk;
 	input	[863:0]	frame_sdram_dma_0_frame_input_input_array_flat;
@@ -187,4 +189,6 @@ module soc_system (
 	input		motor_lut_avalon_slave_0_lut_verify_valid;
 	output		register_file_run_name;
 	input		reset_reset_n;
+	output		mosfet_override_avalon_slave_0_conduit_end_override_enable;
+	output	[43:0]	mosfet_override_avalon_slave_0_conduit_end_override_outputs;
 endmodule
